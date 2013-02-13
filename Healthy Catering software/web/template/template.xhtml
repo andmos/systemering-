@@ -1,11 +1,44 @@
-<!DOCTYPE html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Healthy Catering ltd.</title>
+        <h:outputStylesheet library="css" name="style.css"/>
+        <!--import jQuery-->
+        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
     </h:head>
     <h:body>
-        Hello from Facelets
+
+        <div id="page">
+            <div id="wrapper">
+                <div id="header">
+                    <ui:insert name="header" >
+                        <ui:include src="/template/common/commonHeader.xhtml" />
+                    </ui:insert>
+                </div>
+                <div id="navigation">
+                    <ui:insert name="navigation" >
+                        <ui:include src="/template/common/commonNavigation.xhtml" />
+                    </ui:insert>
+                </div>
+
+
+                <div id="content">
+                    <ui:insert name="content" >
+                        <ui:include src="/template/common/commonContent.xhtml" />
+                    </ui:insert>
+                </div>
+
+                <div id="footer">
+                    <ui:insert name="footer" >
+                        <ui:include src="/template/common/commonFooter.xhtml" />
+                    </ui:insert>
+                </div>
+            </div>
+        </div>
+
     </h:body>
 </html>
 
