@@ -5,6 +5,11 @@
     Description:
         Purpose of the stylesheet follows.
 */
+
+
+/*************************
+Template
+**************************/
 #page{
     position: relative;
     font-family: sans-serif;
@@ -16,7 +21,7 @@
 #header img{
     display: block;
     margin:0 auto;
-    width: 200px;
+    width: 100px;
 }
 #header #customerLogin{
     font-size: 14px;
@@ -27,6 +32,22 @@
     top:2px;
     right:100px;
     font-size: 14px;
+}
+#header #logoName{
+    color:#8d3701;
+      text-decoration: overline;
+    text-align: center;
+}
+#header #logoName h1{
+    text-decoration: underline;
+    color:#bdb4ab ;
+}
+#header #logoName span{
+  
+    color:#8d3701;
+}
+#header #orderNow span{
+    font-size: 25px;
 }
 
 #navigation{
@@ -39,6 +60,9 @@
     text-decoration:none;
     color:#A0A0A0;
     font-size:1.1em;
+}
+#navigation a:hover{
+    text-decoration: underline;
 }
 
 #content{
