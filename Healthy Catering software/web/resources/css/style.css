@@ -7,24 +7,22 @@
 */
 
 #page{
+    font-family: 'Racing Sans One', cursive;
+
+    background:#eee;
     position: relative;
-    font-family: sans-serif;
     margin:0 auto;
 }
 /*************************
 Header
 **************************/
 #header{
-    margin: 0 auto;
+    background-color: white;
 }
 #header img{
     display: block;
     margin:0 auto;
     width: 100px;
-}
-#header #customerLogin{
-    font-size: 14px;
-
 }
 #header #orderNow{
     font-family: 'Emblema One', cursive;
@@ -38,12 +36,14 @@ Header
     color:#8d3701;
     text-align: center;
 }
-#header #logoName h1{
+#header #logoName #first{
+    font-size: 25px;
     text-decoration: underline;
     color:#bdb4ab ;
 }
-#header #logoName span{
-
+#header #logoName #second{
+    font-size:20px;
+    text-decoration: underline;
     color:#8d3701;
 }
 #header #orderNow span{
@@ -53,18 +53,32 @@ Header
 Navigation
 ********************/
 #navigation{
+    width: 100%;
+    background-color: white;
     text-align: center;
+
     margin: 0 auto;
-    width: 400px;
 }
 
+#navigation > a{
+    margin-left:10px;
+}
 #navigation a{
     text-decoration:none;
     color:#A0A0A0;
     font-size:1.1em;
 }
+#navigation #first{
+    position:absolute;
+    right:100px;
+}
+#navigation #second{
+    position:absolute;
+    right:0px;
+}
 #navigation a:hover{
     text-decoration: underline;
+    color:#8d3701
 }
 /*********************
 Content
@@ -72,14 +86,24 @@ Content
 #content{
     margin: 0 auto;
     min-height: 500px;
-    background-color: pink;
     width: 600px;
 }
 /*********************
 Footer
 ********************/
 #footer{
+    font-family: 'Syncopate', sans-serif;
+    text-align: center;
     margin: 0 auto;
-    background-color: blue;
-    width: 600px;
+    min-height: 200px;
+    background-color: white;
 }
+#footer #powered{
+    position: relative;
+    top:200px;   
+}#
+footer #address{
+    position: relative;
+    bottom:0px;   
+}
+
