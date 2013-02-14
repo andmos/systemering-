@@ -1,12 +1,16 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
+      xmlns:h="http://java.sun.com/jsf/html"
+       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
-        Hello from Facelets
+        <ui:composition>
+            <ul id="gallery" >
+                <li><a href="#"><img src="resources/img/food/Burger.jpg"/></a><span>Våre burgere er GENIALE</span></li>
+                <li><a href="#"><img src="resources/img/food/IceCream.jpg"/></a><span>Isen også!</span></li>
+                <li><a href="#"><img src="resources/img/food/RisNStuff.jpg"/></a><span>Ris er godt!</span></li>
+            </ul>
+        </ui:composition>
     </h:body>
 </html>
 

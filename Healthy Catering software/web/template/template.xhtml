@@ -4,10 +4,16 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
+
         <title>Healthy Catering ltd.</title>
+        <!--CSS-->
         <h:outputStylesheet library="css" name="style.css"/>
+        <!--Fonts-->
+        <link href='http://fonts.googleapis.com/css?family=Emblema+One' rel='stylesheet' type='text/css'/>
+        <link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'/>
         <!--import jQuery-->
-        <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.js"></script>
+        <script language="text/javascript" src="js/init.js"></script>
     </h:head>
     <h:body>
 
@@ -23,6 +29,10 @@
                         <ui:include src="/template/common/commonNavigation.xhtml" />
                     </ui:insert>
                 </div>
+
+                <!--<ui:insert name="gallery">
+                    <ui:include src="/template/common/commonGallery.xhtml"/>
+                </ui:insert>-->
 
 
                 <div id="content">
