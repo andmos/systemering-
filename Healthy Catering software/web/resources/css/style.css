@@ -88,6 +88,15 @@ Content
     min-height: 500px;
     width: 600px;
 }
+#loginDropdown{
+    position: absolute;
+    top:115px;
+    right:0px;
+    margin: 0 auto;
+    width: 400px;
+    height: 70px;
+    background-color:blue;
+}
 /*********************
 Footer
 ********************/
