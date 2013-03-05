@@ -5,10 +5,15 @@
     Description:
         Purpose of the stylesheet follows.
 */
+.hidden{
+    visibility:hidden;
+}
 
+.unhidden{
+    visibility: visible;
+}
 #page{
     font-family: 'Racing Sans One', cursive;
-
     background:#eee;
     position: relative;
     margin:0 auto;
@@ -88,14 +93,18 @@ Content
     min-height: 500px;
     width: 600px;
 }
+
 #loginDropdown{
+    border:1px solid;
     position: absolute;
     top:115px;
     right:0px;
     margin: 0 auto;
-    width: 400px;
-    height: 70px;
-    background-color:blue;
+    width: 185px;
+    height: 130px;
+}
+#loginDropdown>#username:active #loginDropdown{
+    background-color: blue;
 }
 /*********************
 Footer

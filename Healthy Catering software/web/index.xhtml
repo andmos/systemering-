@@ -8,8 +8,12 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <div id="loginDropdown">
-                    
+                <div id="loginDropdown" class="hidden">
+                    <table>
+                        <tr><td>Username:</td></tr><tr><td><h:inputText id="username"/></td></tr>
+                        <tr><td> Password:</td></tr><tr><td><h:inputSecret id="password"/></td></tr>
+                    </table>
+                    <h:commandButton value="Log in" action="mordi"/>
                 </div>
             </ui:define>
         </ui:composition> 
