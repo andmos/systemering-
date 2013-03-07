@@ -3,7 +3,7 @@ package ProblemDomain;
  *
  * @author havardb
  */
-public class ingridient {
+public class Ingredient {
 public int ingridient_id;
 public double price;
 public int inventory_id;

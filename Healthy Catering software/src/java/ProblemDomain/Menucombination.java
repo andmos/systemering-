@@ -3,7 +3,7 @@ package ProblemDomain;
  *
  * @author havardb
  */
-public class menucombination {
+public class Menucombination {
 public int menu_id;
 public int total_price;
 public String name_menu;

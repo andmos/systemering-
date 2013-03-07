@@ -3,24 +3,24 @@ package ProblemDomain;
  *
  * @author havardb
  */
-public class roles {
-public String role;
+public class Orders {
+public int order_id;
 public int id;
-
-    public String getRole() {
-        return role;
-    }
 
     public int getId() {
         return id;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public int getOrder_id() {
+        return order_id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void setOrder_id(int order_id) {
+        this.order_id = order_id;
     }
 
 

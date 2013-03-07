@@ -103,9 +103,6 @@ Content
     width: 185px;
     height: 130px;
 }
-#loginDropdown>#username:active #loginDropdown{
-    background-color: blue;
-}
 /*********************
 Footer
 ********************/

@@ -3,7 +3,7 @@ package ProblemDomain;
  *
  * @author havardb
  */
-public class inventory {
+public class Inventory {
 public int inventory_id;
 public String type;
 

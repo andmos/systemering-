@@ -3,7 +3,7 @@ package ProblemDomain;
  *
  * @author havardb
  */
-public class course {
+public class Course {
 public int course_id;
 public String name_course;
 public double price;

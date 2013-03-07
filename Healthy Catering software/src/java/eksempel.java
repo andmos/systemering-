@@ -1,4 +1,4 @@
-package Beans;
+
  
 import java.io.Serializable;
 import java.sql.Connection;
@@ -16,19 +16,19 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
  
-import ProblemDomain.users;
+import ProblemDomain.Users;
 import javax.inject.Named;
  
 @Named("customer")
 @SessionScoped
-public class CustomerBean implements Serializable{
+public class eksempel implements Serializable{
  
 	//resource injection
 	@Resource(name="jdbc/mysql")
 	private DataSource ds;
  
 	//connect to DB and get customer list
-	public List<users> getCustomerList() throws SQLException{
+	public List<Users> getCustomerList() throws SQLException{
  
 		if(ds==null)
 			throw new SQLException("Can't get data source");
@@ -46,10 +46,10 @@ public class CustomerBean implements Serializable{
 		//get customer data from database
 		ResultSet result =  ps.executeQuery();
  
-		List<users> list = new ArrayList<users>();
+		List<Users> list = new ArrayList<Users>();
  
 		while(result.next()){
-			users users = new users(); 
+			Users users = new Users(); 
                         users.setId(result.getInt("id"));
 			users.setName(result.getString("name"));
                         users.setAddress(result.getString("address"));
