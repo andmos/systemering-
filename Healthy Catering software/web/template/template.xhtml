@@ -14,8 +14,7 @@
         <link href='http://fonts.googleapis.com/css?family=Racing+Sans+One' rel='stylesheet' type='text/css'/>
         <link href='http://fonts.googleapis.com/css?family=Syncopate' rel='stylesheet' type='text/css'/>
         <!--import jQuery-->
-        <script type="text/javascript" src=" https://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.js"></script>
-        <script language="text/javascript" src="js/init.js"></script>
+        <h:outputScript library="js" name="hideUnhide.js" />
     </h:head>
     <h:body>
 
@@ -33,9 +32,6 @@
                     </ui:insert>
                 </div>
                 </div>
-                <!--<ui:insert name="gallery">
-                    <ui:include src="/template/common/commonGallery.xhtml"/>
-                </ui:insert>-->
                 <div id="content">
                     <ui:insert name="content" >
                         <ui:include src="/template/common/commonContent.xhtml" />
