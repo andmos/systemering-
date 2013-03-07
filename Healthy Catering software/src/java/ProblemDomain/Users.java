@@ -4,7 +4,7 @@ package ProblemDomain;
  *
  * @author havardb
  */
-public class users {
+public class Users {
 public int id;
 public String name;
 public String address;
