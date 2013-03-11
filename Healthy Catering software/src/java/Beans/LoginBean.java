@@ -1,3 +1,4 @@
+package Beans;
 
 import java.io.Serializable;
 import java.sql.Connection;
