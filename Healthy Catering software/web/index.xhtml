@@ -15,7 +15,7 @@
                         <tr><td>Username:</td></tr><tr><td><h:inputText id="username" value="#{login.username}"/></td></tr>
                         <tr><td> Password:</td></tr><tr><td><h:inputSecret id="password" value="#{login.password}"/></td></tr>
                     </table>
-                        <h:commandButton value="Log in"/>
+                        <h:commandButton value="Log in" action="#{login.checkLogin()}"/>
                     </h:form>
                 </div>
             </ui:define>
