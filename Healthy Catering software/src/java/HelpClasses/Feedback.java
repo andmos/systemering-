@@ -2,7 +2,11 @@ package HelpClasses;
 /**
  *
  * @author havardb
+ * Feedback class
  */
-public class Feedback {
+    public enum Feedback{
+        UserLoginOK,
+        UserLoginNotOK,
+        UserLogoutOK
+    }
 
-}
