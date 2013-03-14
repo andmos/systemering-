@@ -10,9 +10,11 @@
             <a href="#">Menu</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
-            <span id="first"><a href="faces/protected/">Log in</a></span>
+            <ui:insert name="userMenu" >
+            <span id="first"><a href="protected/index.xhtml">Log in</a></span>
             <span id="second"><a href="#">Register</a></span>
             <hr></hr>
+            </ui:insert>
         </ui:composition>
     </h:body>
 </html>

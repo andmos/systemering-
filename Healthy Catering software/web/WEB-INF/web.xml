@@ -11,6 +11,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
+         <url-pattern>*.xhtml</url-pattern>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
     <session-config>
@@ -31,16 +32,17 @@
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Protected Pages</web-resource-name>
+            <description/>
             <url-pattern>/faces/protected/*</url-pattern>
             <url-pattern>/protected/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>user</role-name>
             <role-name>admin</role-name>
+            <role-name>user</role-name>
         </auth-constraint>
     </security-constraint>
     <login-config>
-        <auth-method>BASIC</auth-method>
+        <auth-method>GET</auth-method>
         <realm-name>loginRealm</realm-name>
     </login-config>
     <security-role>
