@@ -11,7 +11,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-         <url-pattern>*.xhtml</url-pattern>
+        <url-pattern>*.xhtml</url-pattern>
         <url-pattern>/faces/*</url-pattern>
     </servlet-mapping>
     <session-config>
@@ -29,6 +29,9 @@
         <param-name>org.apache.myfaces.PRETTY_HTML</param-name>
         <param-value>true</param-value>
     </context-param>
+    <!--This constraint works as following:
+        Protected pages are only accessable if you are a user
+    -->
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Protected Pages</web-resource-name>
@@ -37,13 +40,28 @@
             <url-pattern>/protected/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>admin</role-name>
             <role-name>user</role-name>
         </auth-constraint>
     </security-constraint>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Restricted Pages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/restricted/*</url-pattern>
+            <url-pattern>/restricted/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>admin</role-name>
+        </auth-constraint>
+    </security-constraint>
     <login-config>
-        <auth-method>GET</auth-method>
+        <auth-method>FORM</auth-method>
         <realm-name>loginRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/Login.xhtml</form-login-page>
+            <form-error-page>/Error.xhtml</form-error-page>
+        </form-login-config>
     </login-config>
     <security-role>
         <role-name>user</role-name>

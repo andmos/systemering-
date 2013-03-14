@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="content">
+                <div style="text-align: center">
+                <form method="post" action="j_security_check">
+                    <p>You need to log in to access protected information.</p>
+                    <table align="center">
+                        <tr>
+                            <td>Username:</td>
+                            <td><input type="text" name="j_username" /></td>
+                        </tr>
+                        <tr>
+                            <td>Password:</td>
+                            <td><input type="password" name="j_password" /></td>
+                        </tr>
+                    </table>
+                    If you are not a user yet, please register <h:link value="here" outcome="Register"/>
+                    <p><input type="submit" value="Login" /></p>
+                </form>
+                </div>
+            </ui:define>
+        </ui:composition> 
+    </h:body>
+</html>
+
+

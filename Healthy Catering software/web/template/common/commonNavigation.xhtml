@@ -5,15 +5,15 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
         <ui:composition>
-            
+
             <a href="#">Home</a>
             <a href="#">Menu</a>
             <a href="#">About</a>
             <a href="#">Contact</a>
             <ui:insert name="userMenu" >
-            <span id="first"><a href="protected/index.xhtml">Log in</a></span>
-            <span id="second"><a href="#">Register</a></span>
-            <hr></hr>
+                <span id="first"><h:link value="Log in" outcome="protected/index.xhtml"/></span>
+                <span id="second"><h:link value="Register" outcome="Register"/></span>
+                <hr></hr>
             </ui:insert>
         </ui:composition>
     </h:body>

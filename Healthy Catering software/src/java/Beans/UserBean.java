@@ -1,8 +1,9 @@
 package Beans;
+
 /**
  *
- * @author havardb
+ * @author
+ * havardb
  */
 public class UserBean {
-
 }
