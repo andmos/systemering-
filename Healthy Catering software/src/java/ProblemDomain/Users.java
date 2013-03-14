@@ -1,39 +1,47 @@
 package ProblemDomain;
 
+import HelpClasses.DatabaseCon;
+
 import javax.faces.context.FacesContext;
 
 /**
  *
- * @author havardb
+ * @author
+ * havardb
  */
 public class Users {
-public String username;  
-public String name;
-public String address;
-public String password;
 
-private String bruker = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-
-public Users(){
-   if(bruker != null){
-       this.username = bruker; 
-   }
-}
-
-
+    public String username;
+    public String name;
+    public String address;
+    public String password;
+    public DatabaseCon con = new DatabaseCon();
+    private String bruker = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     
+    public Users() {
+        if (bruker != null) {
+            this.username = bruker;
+        }
+    }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getAddress() {
-        return address;
+        return this.address;
     }
 
     public void setName(String name) {
@@ -48,6 +56,7 @@ public Users(){
         this.password = password;
     }
     
-
-    
+    public void newUser(){
+        System.out.println(name);
+    }
 }

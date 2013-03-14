@@ -10,7 +10,13 @@
             <ui:define name="content">
                 <div style="text-aligne:center">
                     <form method="post">
-                        
+                        <table align="center">
+                            <tr><td>Name</td><td><h:inputText id="newName" required="true" value="#{user.name}"></h:inputText></td></tr>
+                            <tr><td>Username</td><td><h:inputText id="newUsername" required="true" value="#{user.username}"></h:inputText></td></tr>
+                            <tr><td>Password</td><td><h:inputText id="newPassword" required="true" value="#{user.password}"></h:inputText></td></tr>
+                            <tr><td>Address</td><td><h:inputText id="newAddress" required="true" value="#{user.address}"></h:inputText></td></tr>
+                            <tr><td><h:commandButton value="Register new user" action="#{user.newUser()}"/></td></tr>
+                        </table>
                     </form>
                 </div>
             </ui:define>
