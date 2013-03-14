@@ -1,13 +1,28 @@
 package ProblemDomain;
 
+import javax.faces.context.FacesContext;
+
 /**
  *
  * @author havardb
  */
 public class Users {
+public String username;  
 public String name;
 public String address;
 public String password;
+
+private String bruker = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+
+public Users(){
+   if(bruker != null){
+       this.username = bruker; 
+   }
+}
+
+
+    
+
 
     public String getPassword() {
         return password;
