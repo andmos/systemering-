@@ -11,11 +11,10 @@
                 <div id="loginDropdown" class="hidden">
                     <h:form>
                     <table>
-                        <tr><td>UsernameLOL:<h:outputText value="#{login.username}"/></td></tr>
                         <tr><td>Username:</td></tr><tr><td><h:inputText id="username" value="#{login.username}"/></td></tr>
                         <tr><td> Password:</td></tr><tr><td><h:inputSecret id="password" value="#{login.password}"/></td></tr>
                     </table>
-                        <h:commandButton value="Log in" action="#{login.checkLogin()}"/>
+                        <h:commandButton value="Log in" action="protected/velkommen.xhtml"/>
                     </h:form>
                 </div>
             </ui:define>

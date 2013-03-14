@@ -28,15 +28,10 @@ public class LoginBean implements Serializable {
 
     public String username;
     public String password;
-
-    //Saving the username in a session
-    public void setSessionUsername(String current) {
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.getExternalContext().getSessionMap().put("Username", current);
-    }
+    Users user = new Users();
 
     public String getUsername() {
-        return this.username;
+        return user.getName();
     }
 
     public void setUsername(String username) {
@@ -51,13 +46,6 @@ public class LoginBean implements Serializable {
         this.password = password;
     }
 
-    public Feedback checkLogin() {
+    
 
-        return Feedback.UserLoginOK;
-    }
-
-    public Feedback logout() {
-        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return Feedback.UserLogoutOK;
-    }
 }
