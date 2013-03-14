@@ -5,7 +5,6 @@ package ProblemDomain;
  * @author havardb
  */
 public class Users {
-public int id;
 public String name;
 public String address;
 public String password;
@@ -14,22 +13,12 @@ public String password;
         return password;
     }
 
-    
-
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
 
     public String getAddress() {
         return address;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public void setName(String name) {
