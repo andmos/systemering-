@@ -67,7 +67,4 @@ public class DatabaseCon {
     public Connection getConnection() {
         return this.con;
     }
-    
-
-
 }

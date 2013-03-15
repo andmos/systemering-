@@ -46,8 +46,6 @@ public class Users {
                 db.closeStatement(line);
                 db.closeConnection();
             }
-
-
         }
     }
 
