@@ -7,6 +7,7 @@ package Beans;
  */
 
 import ProblemDomain.Users;
+
 import java.io.Serializable;
 import java.sql.*;
 import java.util.ArrayList;

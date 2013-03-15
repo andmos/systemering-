@@ -7,6 +7,7 @@ import java.sql.Statement;
 import javax.annotation.Resource;
 import javax.servlet.jsp.jstl.sql.Result;
 import javax.sql.DataSource;
+import javax.naming.InitialContext;
 
 /**
  *
@@ -20,48 +21,53 @@ public class DatabaseCon {
     private DataSource ds;
     public Connection con;
 
-    public void openConnection() throws SQLException {
-        if (ds == null) {
-            throw new SQLException("Can't get data source");
-        }
+    public void openConnection()  {
+   try {
+            ds = (DataSource) new InitialContext().lookup("jdbc/mysql");
+            if (ds == null) {
+                throw new SQLException("No datasource found");
+            }
+            con = ds.getConnection();
+            System.out.println("Connected to datasource!");
 
-        //get database connection
-        this.con = ds.getConnection();
 
-        if (con == null) {
-            throw new SQLException("Can't get database connection");
+        } catch (Exception e) {
+            System.out.println("Error with databaseconnection " + e);
         }
     }
     
-    public void closeConnection() throws SQLException{
+    public void closeConnection() {
         try {
             if (this.con != null) {
                 this.con.close();
             }
         } catch (SQLException e) {
-            throw new SQLException("Can't clse connection");
+            System.out.println("Can't clse connection");
         }
     }
-     public void closeStatement(Statement stm) throws SQLException {
+     public void closeStatement(Statement stm) {
         try {
             if (stm != null) {
                 stm.close();
             }
         } catch (SQLException e) {
-            throw new SQLException("Can't close statement");
+            System.out.println("Can't close statement " + e.getMessage());
         }
     }
-      public static void closeResSet(ResultSet res) throws SQLException {
+      public void closeResSet(ResultSet res) {
         try {
             if (res != null) {
                 res.close();
             }
         } catch (SQLException e) {
-            throw new SQLException("Cant close result");
+            System.out.println("Cant close result " + e.getMessage());
         }
     }
 
     public Connection getConnection() {
         return this.con;
     }
+    
+
+
 }
