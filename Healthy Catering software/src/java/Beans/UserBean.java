@@ -64,7 +64,7 @@ public class UserBean implements Serializable {
     }
     
     public void newUser(){
-        System.out.println("lawl");
+        System.out.println("TEST");
     }
     
     
