@@ -50,7 +50,7 @@ public class eksempel implements Serializable{
  
 		while(result.next()){
 			Users users = new Users(); 
-                        users.setId(result.getInt("id"));
+         
 			users.setName(result.getString("name"));
                         users.setAddress(result.getString("address"));
  

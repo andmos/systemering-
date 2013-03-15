@@ -1,11 +1,5 @@
 package Beans;
 
-/**
- *
- * @author
- * havardb
- */
-
 import ProblemDomain.Users;
 
 import java.io.Serializable;
