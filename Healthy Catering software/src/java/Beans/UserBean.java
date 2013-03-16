@@ -50,7 +50,9 @@ public class UserBean implements Serializable {
     }
     
     public void newUser(){
-        System.out.println("TEST");
+        System.out.println("VI KOMMER SÅ LANGT");
+        user.newUser();
+        
     }
     
     
