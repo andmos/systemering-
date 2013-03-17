@@ -113,4 +113,14 @@ public class Users {
                 db.closeConnection();
             }
     }
+    public static void main(String [] args){
+        Users user = new Users();
+        user.setAddress("Kakeveien 10");
+        user.setName("Daim Stratos");
+        user.setUsername("Damim");
+        user.setPassword("JegLikerStratos");
+        user.newUser(); 
+    }
+
+
 }
