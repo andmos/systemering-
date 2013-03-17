@@ -91,6 +91,7 @@ public class Users {
     }
     
     public void newUser() {
+        System.out.println("Kallet funker?");    
         try {
                 db.openConnection();
                 line = db.getConnection().prepareStatement(sqlInsert);

@@ -23,6 +23,7 @@ public class UserBean implements Serializable {
         return this.username; 
     }
     public void setUsername(String newName){
+        this.username = newName; 
         user.setUsername(newName);
     }
     public String getPassword(){
@@ -30,6 +31,7 @@ public class UserBean implements Serializable {
         return this.password; 
     }
     public void setPassword(String newPassword){
+        this.password = newPassword; 
         user.setPassword(newPassword);
     }
     
@@ -38,6 +40,8 @@ public class UserBean implements Serializable {
         return this.address; 
     }
     public void setAddress(String newAddress){
+        System.out.println("VI KOMMER OSS INN I SETMETODEN ");
+        this.address = newAddress; 
         user.setAddress(newAddress);
     }
 
@@ -52,8 +56,5 @@ public class UserBean implements Serializable {
     public void newUser(){
         System.out.println("VI KOMMER SÅ LANGT");
         user.newUser();
-        
-    }
-    
-    
+    }   
 }
