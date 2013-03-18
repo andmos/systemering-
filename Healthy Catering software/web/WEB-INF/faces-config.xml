@@ -26,7 +26,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>Logout</from-outcome>
-            <to-view-id>Logout.jsp</to-view-id>
+            <to-view-id>index.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

@@ -17,6 +17,7 @@ public class UserBean implements Serializable {
     private String password;
     private String address;
     private boolean error;
+    private boolean errorPanelGroup;
     private Users user = new Users();
 
     public String getUsername() {
@@ -61,15 +62,26 @@ public class UserBean implements Serializable {
     public boolean getError() {
         return error;
     }
-
+    
+    public boolean getErrorPanelGroup(){
+        return errorPanelGroup;
+    }
+/*
+ *Register a new user and set error = true/false dephendin on outcome,
+ * Also setts the the errorPanelGroup = true so we can view errors
+ */
     public void newUser() {
+        errorPanelGroup = true;
         error = user.newUser();
     }
 
+    /*
+     *Log out method, returns navigation case
+     */
     public String doLogout() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
         httpSession.invalidate();
-        return "Log out";
+        return "Logout";
     }
 }
