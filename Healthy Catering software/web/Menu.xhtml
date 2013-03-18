@@ -7,20 +7,12 @@
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
-            <ui:define name="userMenu">
-                <span id="first"><h:link value="Log out" outcome="Logout"/> </span>
-            <hr></hr>
-            </ui:define>
             <ui:define name="content">
-                 Username:#{user.username} 
-                 <br></br>
-                 <br></br>
-                 Name:#{user.name}
-                 <br></br>
-                 <br></br>
-                 Address:#{user.address}
+                <!--Write content of webpage-->
             </ui:define>
         </ui:composition> 
     </h:body>
 </html>
+
+
 
