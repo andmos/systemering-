@@ -4,44 +4,48 @@ import ProblemDomain.Users;
 
 import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
-
-
-@SessionScoped 
+@SessionScoped
 @Named("user")
 public class UserBean implements Serializable {
+
     private String name;
-    private String username; 
-    private String password; 
-    private String address; 
+    private String username;
+    private String password;
+    private String address;
     private boolean error;
     private Users user = new Users();
-   
-    
-    public String getUsername(){
+
+    public String getUsername() {
         this.username = user.getUsername();
-        return this.username; 
+        return this.username;
     }
-    public void setUsername(String newName){
-        this.username = newName; 
+
+    public void setUsername(String newName) {
+        this.username = newName;
         user.setUsername(newName);
     }
-    public String getPassword(){
+
+    public String getPassword() {
         this.password = user.getPassword();
-        return this.password; 
+        return this.password;
     }
-    public void setPassword(String newPassword){
-        this.password = newPassword; 
+
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
         user.setPassword(newPassword);
     }
-    
-    public String getAddress(){
+
+    public String getAddress() {
         this.address = user.getAddress();
-        return this.address; 
+        return this.address;
     }
-    public void setAddress(String newAddress){
-        this.address = newAddress; 
+
+    public void setAddress(String newAddress) {
+        this.address = newAddress;
         user.setAddress(newAddress);
     }
 
@@ -53,11 +57,19 @@ public class UserBean implements Serializable {
         this.name = name;
         user.setName(name);
     }
-    public boolean getError(){
+
+    public boolean getError() {
         return error;
     }
-    
-    public void newUser(){
-         error = user.newUser();
-    }   
+
+    public void newUser() {
+        error = user.newUser();
+    }
+
+    public String doLogout() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
+        httpSession.invalidate();
+        return "Log out";
+    }
 }
