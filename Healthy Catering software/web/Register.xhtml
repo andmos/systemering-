@@ -18,8 +18,10 @@
                             <tr><td><h:commandButton value="Register new user" action="#{user.newUser()}"/></td></tr>
                         </table>
                     </h:form>
+                    <h:panelGroup rendered="#{user.errorPanelGroup}">
                     <h:outputText style="color:green" value="Du er nå registrert" rendered="#{user.error}"></h:outputText>
                     <h:outputText style="color:red" value="Brukernavnet finnes fra før" rendered="#{!user.error}"></h:outputText>
+                    </h:panelGroup>
                 </div>
             </ui:define>
         </ui:composition> 

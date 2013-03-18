@@ -8,17 +8,17 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="userMenu">
-                <span id="first"><h:link value="Log out" outcome="Logout"/> </span>
-            <hr></hr>
-            </ui:define>
+                <span id="first" style="font-size: 20px">
+                    #{user.name}
+                </span>
+                <span id="second">
+                    <h:form>
+                        <h:commandLink value="Log out" action="#{user.doLogout()}"/> 
+                    </h:form>
+                </span>
+                <hr></hr>
+            </ui:define>    
             <ui:define name="content">
-                 Username:#{user.username} 
-                 <br></br>
-                 <br></br>
-                 Name:#{user.name}
-                 <br></br>
-                 <br></br>
-                 Address:#{user.address}
             </ui:define>
         </ui:composition> 
     </h:body>
