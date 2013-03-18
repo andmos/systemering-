@@ -21,8 +21,8 @@ public class DatabaseCon {
     private DataSource ds;
     public Connection con;
 
-    public void openConnection()  {
-   try {
+    public void openConnection() {
+        try {
             ds = (DataSource) new InitialContext().lookup("jdbc/mysql");
             if (ds == null) {
                 throw new SQLException("No datasource found");
@@ -35,7 +35,7 @@ public class DatabaseCon {
             System.out.println("Error with databaseconnection " + e);
         }
     }
-    
+
     public void closeConnection() {
         try {
             if (this.con != null) {
@@ -45,7 +45,8 @@ public class DatabaseCon {
             System.out.println("Can't clse connection");
         }
     }
-     public void closeStatement(Statement stm) {
+
+    public void closeStatement(Statement stm) {
         try {
             if (stm != null) {
                 stm.close();
@@ -54,7 +55,8 @@ public class DatabaseCon {
             System.out.println("Can't close statement " + e.getMessage());
         }
     }
-      public void closeResSet(ResultSet res) {
+
+    public void closeResSet(ResultSet res) {
         try {
             if (res != null) {
                 res.close();
@@ -66,5 +68,15 @@ public class DatabaseCon {
 
     public Connection getConnection() {
         return this.con;
+    }
+
+public void setAutoCommit() {
+        try {
+            if (this.con != null && !this.con.getAutoCommit()) {
+                this.con.setAutoCommit(true);
+            }
+        } catch (SQLException e) {
+            System.out.println("Cat set AutoCommit "+ e.getMessage());
+        }
     }
 }

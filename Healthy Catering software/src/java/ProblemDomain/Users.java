@@ -23,8 +23,9 @@ public class Users {
     /*
      * SQL - querys
      */
-    public String sqlConstructor = "Select * from users where username =?";
-    public String sqlInsert = "INSERT INTO users (`id`, `name`, `address`, `password`, `username`) VALUES (?, ?, ?, ?, ?)";
+    public String sqlConstructor = "SELECT * FROM users WHERE username =?";
+    public String sqlnewUser = "INSERT INTO users VALUES (?, ?, ?, ?)";
+    public String sqlnewUserRole = "INSERT INTO roles values('user',?)";
     
     public Users() {
         if (user != null) {
@@ -89,38 +90,33 @@ public class Users {
     public void setId(int newId){
         this.id = newId; 
     }
-    
-    public void newUser() {
-        System.out.println("Kallet funker?");    
+    /*
+     *Creates a new user with a role user, autocommit = false
+     */
+    public boolean newUser() { 
         try {
                 db.openConnection();
-                line = db.getConnection().prepareStatement(sqlInsert);
-                line.setInt(1, 7); //hardcoded for TESTING 
-                line.setString(2, this.name);
-                line.setString(3, this.address);
-                line.setString(4, this.password);
-                line.setString(5, this.username);
-                
-                
-                line.executeUpdate(); 
-                
+                db.getConnection().setAutoCommit(false);
+                line = db.getConnection().prepareStatement(sqlnewUser);
+                line.setString(1, this.name);
+                line.setString(2, this.address);
+                line.setString(3, this.password);
+                line.setString(4, this.username);
+                line.executeUpdate();
+                db.closeStatement(line);
+                line = db.getConnection().prepareStatement(sqlnewUserRole);
+                line.setString(1, this.username);
+                line.executeUpdate();
+                return true;
             } catch (SQLException e) {
                 System.out.println("Could not create user in DB" + e.getMessage());
+                return false;
 
             } finally {
                 db.closeResSet(res);
                 db.closeStatement(line);
+                db.setAutoCommit();
                 db.closeConnection();
             }
     }
-    public static void main(String [] args){
-        Users user = new Users();
-        user.setAddress("Kakeveien 10");
-        user.setName("Daim Stratos");
-        user.setUsername("Damim");
-        user.setPassword("JegLikerStratos");
-        user.newUser(); 
-    }
-
-
 }

@@ -8,16 +8,18 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <div style="text-aligne:center">
-                    <form method="post">
+                <div style="text-align:center">
+                    <h:form>
                         <table align="center">
                             <tr><td>Name</td><td><h:inputText id="newName" required="true" value="#{user.name}"></h:inputText></td></tr>
                             <tr><td>Username</td><td><h:inputText id="newUsername" required="true" value="#{user.username}"></h:inputText></td></tr>
-                            <tr><td>Password</td><td><h:inputText id="newPassword" required="true" value="#{user.password}"></h:inputText></td></tr>
+                            <tr><td>Password</td><td><h:inputSecret id="newPassword" required="true" value="#{user.password}"></h:inputSecret></td></tr>
                             <tr><td>Address</td><td><h:inputText id="newAddress" required="true" value="#{user.address}"></h:inputText></td></tr>
-                            <tr><td><h:commandButton value="Register new user" type="submit" action="#{user.newUser()}"/></td></tr>
+                            <tr><td><h:commandButton value="Register new user" action="#{user.newUser()}"/></td></tr>
                         </table>
-                    </form>
+                    </h:form>
+                    <h:outputText style="color:green" value="Du er nå registrert" rendered="#{user.error}"></h:outputText>
+                    <h:outputText style="color:red" value="Brukernavnet finnes fra før" rendered="#{!user.error}"></h:outputText>
                 </div>
             </ui:define>
         </ui:composition> 

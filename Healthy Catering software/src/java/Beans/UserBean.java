@@ -15,6 +15,7 @@ public class UserBean implements Serializable {
     private String username; 
     private String password; 
     private String address; 
+    private boolean error;
     private Users user = new Users();
    
     
@@ -40,7 +41,6 @@ public class UserBean implements Serializable {
         return this.address; 
     }
     public void setAddress(String newAddress){
-        System.out.println("VI KOMMER OSS INN I SETMETODEN ");
         this.address = newAddress; 
         user.setAddress(newAddress);
     }
@@ -50,11 +50,14 @@ public class UserBean implements Serializable {
     }
 
     public void setName(String name) {
+        this.name = name;
         user.setName(name);
+    }
+    public boolean getError(){
+        return error;
     }
     
     public void newUser(){
-        System.out.println("VI KOMMER SÅ LANGT");
-        user.newUser();
+         error = user.newUser();
     }   
 }
