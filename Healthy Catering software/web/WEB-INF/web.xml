@@ -13,6 +13,7 @@
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.xhtml</url-pattern>
         <url-pattern>/faces/*</url-pattern>
+        <url-pattern>/protected/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

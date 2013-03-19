@@ -8,7 +8,41 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <!--Write content of webpage-->
+                <h:dataTable  value="arraylist" var="c"
+                             styleClass="menu-table"
+                             headerClass="menu-table-header"
+                             rowClasses="menu-table-odd-row,menu-table-even-row"
+                             >
+
+                    <h:column>
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            Type
+                        </f:facet>
+                        
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            Description
+                        </f:facet>
+                        
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            Price
+                        </f:facet>
+                        
+                    </h:column>
+
+                </h:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>

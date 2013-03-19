@@ -15,6 +15,7 @@ public class Menucombination {
     public int menu_id;
     public int total_price;
     public String name_menu;
+    public String type;
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     private PreparedStatement line = null;
@@ -30,6 +31,7 @@ public class Menucombination {
                 this.menu_id = res.getInt("menu_id");
                 this.total_price = res.getInt("total_price");
                 this.name_menu = res.getString("name_menu");
+                this.type = res.getString("type");
 
             }
         } catch (SQLException e) {
@@ -54,6 +56,10 @@ public class Menucombination {
         return total_price;
     }
 
+    public String getType() {
+        return type;
+    }
+
     public void setMenu_id(int menu_id) {
         this.menu_id = menu_id;
     }
@@ -65,5 +71,8 @@ public class Menucombination {
     public void setTotal_price(int total_price) {
         this.total_price = total_price;
     }
-}
 
+    public void setType(String type) {
+        this.type = type;
+    }
+}

@@ -3,9 +3,12 @@ package Beans;
 import ProblemDomain.Users;
 
 import java.io.Serializable;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @SessionScoped
@@ -62,14 +65,15 @@ public class UserBean implements Serializable {
     public boolean getError() {
         return error;
     }
-    
-    public boolean getErrorPanelGroup(){
+
+    public boolean getErrorPanelGroup() {
         return errorPanelGroup;
     }
-/*
- *Register a new user and set error = true/false dephendin on outcome,
- * Also setts the the errorPanelGroup = true so we can view errors
- */
+    /*
+     *Register a new user and set error = true/false dephendin on outcome,
+     * Also setts the the errorPanelGroup = true so we can view errors
+     */
+
     public void newUser() {
         errorPanelGroup = true;
         error = user.newUser();
@@ -79,9 +83,10 @@ public class UserBean implements Serializable {
      *Log out method, returns navigation case
      */
     public String doLogout() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession httpSession = (HttpSession) facesContext.getExternalContext().getSession(false);
-        httpSession.invalidate();
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext ec = context.getExternalContext();
+        HttpServletRequest request = (HttpServletRequest) ec.getRequest();
+        request.getSession(false).invalidate();
         return "Logout";
     }
 }
