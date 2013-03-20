@@ -55,7 +55,9 @@ public class Users {
     public String getUsername() {
         return username;
     }
-
+    /*
+     * @param Takes inn new username, and sets it
+     */
     public void setUsername(String newUsername) {
         this.username = newUsername;
     }
@@ -71,15 +73,21 @@ public class Users {
     public String getAddress() {
         return this.address;
     }
-
+    /*
+     * @param Takes inn and sets new name 
+     */
     public void setName(String name) {
         this.name = name;
     }
-
+    /*
+     * @param Takes inn and sets new address  
+     */
     public void setAddress(String newAddress) {
         this.address = newAddress;
     }
-
+    /*
+     * @param Takes inn and sets new password
+     */
     public void setPassword(String newPassword) {
         this.password = newPassword;
     }
@@ -87,6 +95,10 @@ public class Users {
     public int getId(){
         return this.id;
     }
+    
+    /*
+     * @param Takes inn new id
+     */
     public void setId(int newId){
         this.id = newId; 
     }
