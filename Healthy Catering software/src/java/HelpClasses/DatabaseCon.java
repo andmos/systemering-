@@ -20,7 +20,9 @@ public class DatabaseCon {
     @Resource(name = "jdbc/mysql")
     private DataSource ds;
     public Connection con;
-
+    /**
+     * Method opens connection to our database, throws exception and console message if failed. 
+     */
     public void openConnection() {
         try {
             ds = (DataSource) new InitialContext().lookup("jdbc/mysql");
@@ -35,7 +37,9 @@ public class DatabaseCon {
             System.out.println("Error with databaseconnection " + e);
         }
     }
-
+    /**
+     * Method closes database connection, throws exception and console message if failed. 
+     */
     public void closeConnection() {
         try {
             if (this.con != null) {
@@ -45,7 +49,10 @@ public class DatabaseCon {
             System.out.println("Can't clse connection");
         }
     }
-
+    /**
+     * 
+     * @param stm takes inn and closes a SQL - statement. 
+     */
     public void closeStatement(Statement stm) {
         try {
             if (stm != null) {
@@ -55,7 +62,11 @@ public class DatabaseCon {
             System.out.println("Can't close statement " + e.getMessage());
         }
     }
-
+    
+    /**
+     * 
+     * @param res Takes inn and closes a resultset - object. 
+     */
     public void closeResSet(ResultSet res) {
         try {
             if (res != null) {
@@ -65,12 +76,17 @@ public class DatabaseCon {
             System.out.println("Cant close result " + e.getMessage());
         }
     }
-
+    /**
+     * 
+     * @return returns the connection itself. 
+     */
     public Connection getConnection() {
         return this.con;
     }
-
-public void setAutoCommit() {
+    /**
+     * method sets autocommit to true.  
+     */
+    public void setAutoCommit() {
         try {
             if (this.con != null && !this.con.getAutoCommit()) {
                 this.con.setAutoCommit(true);
