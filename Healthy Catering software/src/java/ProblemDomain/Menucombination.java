@@ -23,6 +23,7 @@ public class Menucombination {
     private String sqlConstructor = "SELECT * FROM menucombination";
 
     public Menucombination() {
+        /*
         try {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlConstructor);
@@ -41,7 +42,7 @@ public class Menucombination {
             db.closeResSet(res);
             db.closeStatement(line);
             db.closeConnection();
-        }
+        }*/
     }
 
     public int getMenu_id() {
