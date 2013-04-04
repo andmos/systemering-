@@ -7,7 +7,8 @@ import java.sql.*;
 
 /**
  *
- * @author havardb
+ * @author andreas
+ * Users - class with variables for User object and database connection. 
  */
 public class Users {
 
@@ -20,13 +21,13 @@ public class Users {
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     private PreparedStatement line = null;
     private ResultSet res = null;
-    /*
-     * SQL - querys
-     */
+    // SQL - statements: 
     public String sqlConstructor = "SELECT * FROM users WHERE username =?";
     public String sqlnewUser = "INSERT INTO users VALUES (?, ?, ?, ?)";
-    public String sqlnewUserRole = "INSERT INTO roles values('user',?)";
-    
+    public String sqlnewUserRole = "INSERT INTO roles values('user',?)"; //user - role is hardcoded inn becouse a user registration from the site should be a normal user. 
+    /**
+     * Constructor checks if a user is logged inn on the website, and creates an object from data in the database. 
+     */
     public Users() {
         if (user != null) {
             this.username = user;
@@ -51,47 +52,73 @@ public class Users {
             }
         }
     }
-
+    /**
+     * @return returns username
+     */
     public String getUsername() {
         return username;
     }
-
+    /**
+     * @param newUsername Takes inn new username, and sets it
+     */
     public void setUsername(String newUsername) {
         this.username = newUsername;
     }
-
+    /**
+     * 
+     * @return password for user object 
+     */
     public String getPassword() {
         return this.password;
     }
-
+    /**
+     * 
+     * @return name of user object
+     */
     public String getName() {
         return this.name;
     }
-
+    /**
+     * 
+     * @return address of user object 
+     */
     public String getAddress() {
         return this.address;
     }
-
+    /**
+     * @param name sets new name 
+     */
     public void setName(String name) {
         this.name = name;
     }
-
+    /**
+     * @param newAddress sets new address  
+     */
     public void setAddress(String newAddress) {
         this.address = newAddress;
     }
-
+    /**
+     * @param newPassword inn and sets new password
+     */
     public void setPassword(String newPassword) {
         this.password = newPassword;
     }
     
+    /**
+     * @return id of user object 
+     */
     public int getId(){
         return this.id;
     }
+    
+    /**
+     * @param newId sets new id
+     */
     public void setId(int newId){
         this.id = newId; 
     }
-    /*
-     *Creates a new user with a role user, autocommit = false
+    /**
+     * Makes a new user input in the database, both in the users and role table.
      */
     public boolean newUser() { 
         try {
