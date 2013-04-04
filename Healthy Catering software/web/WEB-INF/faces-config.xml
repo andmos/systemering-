@@ -17,7 +17,7 @@
             <from-outcome>choosenMenu</from-outcome>
             <to-view-id>Menu.xhtml</to-view-id>
         </navigation-case>
-         <navigation-case>
+        <navigation-case>
             <from-outcome>MenuChoose</from-outcome>
             <to-view-id>MenuChoose.xhtml</to-view-id>
         </navigation-case>
@@ -29,11 +29,19 @@
             <from-outcome>Contact</from-outcome>
             <to-view-id>Contact.xhtml</to-view-id>
         </navigation-case>
+    </navigation-rule>
         
+    <navigation-rule>
         <!-- After you are logged in -->
+        <from-view-id>/protected/*</from-view-id>
         <navigation-case>
+            
             <from-outcome>MakeOrder</from-outcome>
             <to-view-id>protected/MakeOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>OrderHistoryChoose</from-outcome>
+            <to-view-id>protected/OrderHistoryChoose.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>OrderHistory</from-outcome>

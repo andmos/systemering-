@@ -16,15 +16,13 @@ public class Menus {
     public int total_price;
     public String name;
     public String type;
-    public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
-    private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-
+    public Double sum;
 
     public int getMenu_id() {
         return menu_id;
     }
 
-    public String getName_menu() {
+    public String getName() {
         return name;
     }
 
@@ -40,7 +38,7 @@ public class Menus {
         this.menu_id = menu_id;
     }
 
-    public void setName_menu(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -51,4 +49,14 @@ public class Menus {
     public void setType(String type) {
         this.type = type;
     }
+
+    public Double getSum() {
+        return sum;
+    }
+
+    public void setSum(Double sum) {
+        this.sum = sum;
+    }
+    
+    
 }

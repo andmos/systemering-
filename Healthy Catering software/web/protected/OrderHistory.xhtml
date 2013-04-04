@@ -7,10 +7,31 @@
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
-           
             <ui:define name="content">
+                <h:dataTable  value="#{order.order}" var="c">
+
+                    <h:column>
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        #{c.name}
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            Price:
+                        </f:facet>
+                        #{c.total_price} kr
+                        
+                        <f:facet name="footer">
+                            Total price: #{order.sum} kr
+                        </f:facet>
+                    </h:column>
+
+
+
+                </h:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>
 </html>
-

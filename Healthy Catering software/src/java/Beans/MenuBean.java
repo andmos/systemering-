@@ -34,7 +34,7 @@ public class MenuBean implements Serializable {
     }
 
     public String getName() {
-        return menu.getName_menu();
+        return menu.getName();
     }
 
     public int getTotal_price() {
@@ -46,11 +46,15 @@ public class MenuBean implements Serializable {
     }
 
     public String choosenMenu() {
-        String value = FacesContext.getCurrentInstance().
-                getExternalContext().getRequestParameterMap().get("menu_id");
+        String value = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("menu_id");
         System.out.println(value);
         menu_id = Integer.parseInt(value);
+        String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+        if(user == null){
         return "choosenMenu";
+        }else{
+            return "chooseMenuUser";
+        }
     }
 
     public void setMenu_id(int menu_id) {
@@ -60,7 +64,7 @@ public class MenuBean implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-        menu.setName_menu(name);
+        menu.setName(name);
     }
 
     public void setTotal_price(int total_price) {

@@ -8,35 +8,34 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-
-
-                <h:dataTable value="#{menu.getMenu()}" var="c" >
+                <h:dataTable  value="#{order.orders}" var="c">
+                    <h:column>
+                        <f:facet name="header">
+                            Order nr:
+                        </f:facet>
+                        <h:form>
+                            <input type="hidden"  name="order_nr" value="#{c.order_nr}"/>
+                            <h:commandButton  value="#{c.order_nr}"  action="#{order.choosenOrder()}"/> 
+                        </h:form>
+                    </h:column>
 
                     <h:column>
-                        <div id="special">
-                        <h:form>
-                            <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
-                            <h:commandButton  value="#{c.name}"  action="#{menu.choosenMenu()}"/> 
-                        </h:form>
-                            </div>
+                        <f:facet name="header">
+                            Delivered:
+                        </f:facet>
+                        <h:outputText value="Yes" style="color:green" rendered="#{c.delivered!=0}"/>
+                        <h:outputText value="No" style="color:red" rendered="#{c.delivered==0}"/>
                     </h:column>
 
-                    <h:column  > 
+                    <h:column>
                         <f:facet name="header">
-                            Price
+                            Date:
                         </f:facet>
-                        #{c.sum}
-                    </h:column>
-
-                    <h:column  > 
-                        <f:facet name="header">
-                            Type
-                        </f:facet>
-
-                        #{c.type}
+                        <font color="red">Konvertering av dato feiler. Fix!</font>
                     </h:column>
                 </h:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>
 </html>
+
