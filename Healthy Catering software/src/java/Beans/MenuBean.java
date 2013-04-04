@@ -1,5 +1,6 @@
 package Beans;
 
+import ProblemDomain.Course_List;
 import ProblemDomain.Menucombination;
 import ProblemDomain.Menucombination_List;
 /**
@@ -25,8 +26,8 @@ public class MenuBean implements Serializable {
     private String type;
     private int choosenMenu;
     private Menucombination menu = new Menucombination();
-    Menucombination_List list = new Menucombination_List();
-    
+    private Menucombination_List menulist;
+    private Course_List courselist;
 
     public int getMenu_id() {
         return menu.getMenu_id();
@@ -43,23 +44,15 @@ public class MenuBean implements Serializable {
     public String getType() {
         return type;
     }
-    
-    public int getChoosenMenu(){
-        return choosenMenu;
-    }
-    public void action(){
-	   String value = FacesContext.getCurrentInstance().
-		getExternalContext().getRequestParameterMap().get("hidden1");
-           System.out.println(value);
-	}
-    
-    public String choosenMenu(){
+
+    public String choosenMenu() {
         String value = FacesContext.getCurrentInstance().
-               getExternalContext().getRequestParameterMap().get("menu_id"); 
+                getExternalContext().getRequestParameterMap().get("menu_id");
         System.out.println(value);
-        //choosenMenu = Integer.parseInt(value);
+        menu_id = Integer.parseInt(value);
         return "choosenMenu";
     }
+
     public void setMenu_id(int menu_id) {
         this.menu_id = menu_id;
         menu.setMenu_id(menu_id);
@@ -74,16 +67,19 @@ public class MenuBean implements Serializable {
         this.total_price = total_price;
         menu.setTotal_price(total_price);
     }
-    
+
     public void setType(String type) {
         this.type = type;
         menu.setType(type);
     }
-     
-    public List getMenu(){    
-        return list.getMenu();
+
+    public List getMenu() {
+        menulist = new Menucombination_List();
+        return menulist.getMenu();
     }
-      //public List getMenu(){//
-    //return menu.getMenu();
-    //}
+
+    public List getCourses() {
+        courselist = new Course_List(menu_id);
+        return courselist.getCourses();
+    }
 }
