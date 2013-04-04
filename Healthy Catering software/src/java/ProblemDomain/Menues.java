@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
  * @author
  * havardb
  */
-public class Menucombination {
+public class Menues {
 
     public int menu_id;
     public int total_price;
@@ -22,7 +22,7 @@ public class Menucombination {
     private ResultSet res = null;
     private String sqlConstructor = "SELECT * FROM menucombination";
 
-    public Menucombination() {
+    public Menues() {
         /*
         try {
             db.openConnection();

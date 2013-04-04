@@ -14,7 +14,7 @@ import java.util.*;
  *
  * @author espen
  */
-public class Menucombination_List {
+public class Menues_List {
 
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
@@ -24,13 +24,13 @@ public class Menucombination_List {
     
 
     public List buildMenuList() {
-        List<Menucombination> list = new ArrayList<Menucombination>();
+        List<Menues> list = new ArrayList<Menues>();
         try {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlConstructor);
             res = line.executeQuery();
             while (res.next()) {
-                Menucombination menu = new Menucombination();
+                Menues menu = new Menues();
                 menu.menu_id = res.getInt("menu_id");
                 menu.total_price = res.getInt("total_price");
                 menu.name_menu = res.getString("name_menu");
@@ -48,7 +48,7 @@ public class Menucombination_List {
     }
 
     public List getMenu() {
-        List<Menucombination> list = buildMenuList();
+        List<Menues> list = buildMenuList();
         return list; //.size()>0 ? list : null;
     }
 

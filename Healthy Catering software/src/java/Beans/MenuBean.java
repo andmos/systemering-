@@ -1,8 +1,8 @@
 package Beans;
 
 import ProblemDomain.Course_List;
-import ProblemDomain.Menucombination;
-import ProblemDomain.Menucombination_List;
+import ProblemDomain.Menues;
+import ProblemDomain.Menues_List;
 /**
  *
  * @author
@@ -25,8 +25,8 @@ public class MenuBean implements Serializable {
     private String name;
     private String type;
     private int choosenMenu;
-    private Menucombination menu = new Menucombination();
-    private Menucombination_List menulist;
+    private Menues menu = new Menues();
+    private Menues_List menulist;
     private Course_List courselist;
 
     public int getMenu_id() {
@@ -74,7 +74,7 @@ public class MenuBean implements Serializable {
     }
 
     public List getMenu() {
-        menulist = new Menucombination_List();
+        menulist = new Menues_List();
         return menulist.getMenu();
     }
 

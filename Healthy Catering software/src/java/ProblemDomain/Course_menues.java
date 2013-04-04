@@ -3,7 +3,7 @@ package ProblemDomain;
  *
  * @author havardb
  */
-public class Course_menucombination {
+public class Course_menues {
 public int course_id;
 public int menu_id;
 
