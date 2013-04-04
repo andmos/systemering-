@@ -13,7 +13,7 @@
             <to-view-id>index.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>Menu</from-outcome>
+            <from-outcome>choosenMenu</from-outcome>
             <to-view-id>Menu.xhtml</to-view-id>
         </navigation-case>
          <navigation-case>

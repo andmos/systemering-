@@ -17,6 +17,8 @@ public class UserBean implements Serializable {
     private String name;
     private String username;
     private String password;
+    private String newPassword;
+    private String newPasswordConfirmed;
     private String address;
     private boolean error;
     private boolean errorPanelGroup;
@@ -45,6 +47,24 @@ public class UserBean implements Serializable {
         this.password = user.getPassword();
         return this.password;
     }
+
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public String getNewPasswordConfirmed() {
+        return newPasswordConfirmed;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    public void setNewPasswordConfirmed(String newPasswordConfirmed) {
+        this.newPasswordConfirmed = newPasswordConfirmed;
+    }
+    
+    
     /**
      * 
      * @param newPassword gets new password from the site and sends it to Users - class 
@@ -73,7 +93,7 @@ public class UserBean implements Serializable {
     /**
      * 
      * @return returns name from the Users - class 
-     */
+     */                    
     public String getName() {
         return user.getName();
     }
@@ -116,5 +136,9 @@ public class UserBean implements Serializable {
         HttpServletRequest request = (HttpServletRequest) ec.getRequest();
         request.getSession(false).invalidate();
         return "Logout";
+    }
+    
+    public void changePassword(){
+        user.setPassword(newPassword, newPasswordConfirmed);
     }
 }

@@ -31,12 +31,10 @@ public class Menucombination_List {
             res = line.executeQuery();
             while (res.next()) {
                 Menucombination menu = new Menucombination();
-                
                 menu.menu_id = res.getInt("menu_id");
                 menu.total_price = res.getInt("total_price");
                 menu.name_menu = res.getString("name_menu");
                 menu.type = res.getString("type");
-                
                 list.add(menu);
             }
         } catch (SQLException e) {

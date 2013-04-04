@@ -8,38 +8,35 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:form id="myForm">
-                    <input type="hidden" name="hidden1" value="this is hidden2" />
-                    <h:commandButton value="lol" action="#{menu.action}" />
-                </h:form>
+                <div id="picture">
+                    <h:graphicImage value="/resources/img/food/food.jpg"/>
+                </div>
                 
-                <h:form id="menuchooser"> 
-                    <h:dataTable value="#{menu.getMenu()}" var="c" >
-                        <input type="hidden"  name="menu_id" value="1" />
-                        <h:column>
-                            <h:commandButton  value="#{c.name_menu}"  action="#{menu.choosenMenu}"/> 
-                        </h:column>
 
-                        <h:column  > 
-                            <f:facet name="header" >
-                                Price
-                            </f:facet>
-                            #{c.total_price}
-                        </h:column>
+                <h:dataTable value="#{menu.getMenu()}" var="c" >
 
-                        <h:column  > 
-                            <f:facet name="header" >
-                                Type
-                            </f:facet>
+                    <h:column>
+                        <h:form>
+                            <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
+                            <h:commandButton  value="#{c.name_menu}"  action="#{menu.choosenMenu()}"/> 
+                        </h:form>
+                    </h:column>
 
-                            #{c.type}
-                        </h:column>
+                    <h:column  > 
+                        <f:facet name="header">
+                            Price
+                        </f:facet>
+                        #{c.total_price}
+                    </h:column>
 
+                    <h:column  > 
+                        <f:facet name="header">
+                            Type
+                        </f:facet>
 
-                    </h:dataTable>
-                </h:form>  
-
-
+                        #{c.type}
+                    </h:column>
+                </h:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>

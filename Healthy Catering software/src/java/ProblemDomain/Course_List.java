@@ -35,18 +35,17 @@ public class Course_List {
         List<Course> list = new ArrayList<Course>();
         try {
             db.openConnection();
-            
             line = db.getConnection().prepareStatement(sqlConstructor);
             line.setInt(1, menu_id);
             res = line.executeQuery();
+            System.out.println("her: "+menu_id);
             while (res.next()) {
-                Course menu = new Course();
-                
-                menu.course_id = res.getInt("course_id");
-                menu.name_course = res.getString("name_course");
-                menu.price = res.getInt("price");
-  
-                list.add(menu);
+                Course course = new Course();
+                course.course_id = res.getInt("course_id");
+                course.name_course = res.getString("name_course");
+                course.price = res.getInt("price");
+                course.description = res.getString("description");
+                list.add(course);
             }
         } catch (SQLException e) {
             System.out.println("Could not get name from DB " + e.getMessage());    
@@ -58,7 +57,7 @@ public class Course_List {
         return list;
     }
 
-    public List getMenu() {
+    public List getCourses() {
         List<Menucombination> list = buildCourseList();
         return list; //.size()>0 ? list : null;
     }
