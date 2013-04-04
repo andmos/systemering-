@@ -142,10 +142,14 @@ table td:hover {
 
 
 #content input[type="submit"]{
-    color: #900;
+    color: #8d3701;
   font-weight: bold;
-  font-size: 100%;
   text-transform: uppercase;
+}
+ #special input[type="submit"]:hover{
+     
+    cursor: pointer;
+    color: #e23636;
 }
 #content > #picture{
     margin-left: 175px;
