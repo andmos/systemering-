@@ -28,13 +28,11 @@ import javax.mail.internet.MimeMessage;
 public class Mail {
 
     private String SMTP_HOST = "smtp.gmail.com";
-    private String FROM_ADDRESS; //= "GYLDIG FRA ADRESSE";  
-    private String PASSWORD; //= "GYLDIG PASSORD";  
-    private String FROM_NAME = "Healthy Catering";
+    private String FROM_NAME = "Healthy Catering Ltd.";
+    private String FROM_ADDRESS = "healthycateringltd@gmail.com";
+    private String PASSWORD = "Passord1";
 
-    public boolean sendMail(String[] recipients, String[] bccRecipients, String subject, String message, String FROM_ADDRESS, String PASSWORD) {
-        this.FROM_ADDRESS = FROM_ADDRESS;
-        this.PASSWORD = PASSWORD;
+    public boolean sendMail(String[] recipients, String[] bccRecipients, String subject, String message) {
         try {
             Properties props = new Properties();
             props.put("mail.smtp.host", SMTP_HOST);
