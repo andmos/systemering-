@@ -94,9 +94,15 @@ Content
     width: 600px;
 }
 #content table{
-    
     margin: 50px auto;
+    font-size: 130%;
     
+}
+#content input[type="submit"]{
+    color: #900;
+  font-weight: bold;
+  font-size: 100%;
+  text-transform: uppercase;
 }
 #content > #picture{
     margin-left: 175px;
