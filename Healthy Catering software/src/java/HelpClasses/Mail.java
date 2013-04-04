@@ -30,7 +30,7 @@ public class Mail {
     private String SMTP_HOST = "smtp.gmail.com";
     private String FROM_NAME = "Healthy Catering Ltd.";
     private String FROM_ADDRESS = "healthycateringltd@gmail.com";
-    private String PASSWORD = "Passord1";
+    private  String PASSWORD = "Passord1";
 
     public boolean sendMail(String[] recipients, String[] bccRecipients, String subject, String message) {
         try {
