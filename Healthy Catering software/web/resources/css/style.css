@@ -68,6 +68,18 @@ Navigation
 #navigation > a{
     margin-left:10px;
 }
+#choose a{
+    text-decoration: none;
+   font-weight: bold;
+   font-size: 120%;
+    color: #8d3701;
+    
+}
+#choose a:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 #navigation a{
     text-decoration:none;
     color:#A0A0A0;
