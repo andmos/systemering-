@@ -153,12 +153,12 @@ table td:hover {
 }
 
 
-#content input[type="submit"]{
+input[type="submit"]{
     color: #8d3701;
   font-weight: bold;
   text-transform: uppercase;
 }
- #special input[type="submit"]:hover{
+input[type="submit"]:hover{
      
     cursor: pointer;
     color: #e23636;

@@ -14,23 +14,23 @@ import java.util.*;
  *
  * @author espen
  */
-public class Menues_List {
+public class Menus_List {
 
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     private PreparedStatement line = null;
     private ResultSet res = null;
-    private String sqlConstructor = "SELECT * FROM menucombination order by type_id";
+    private String sqlConstructor = "SELECT * FROM menus order by type_id";
     
 
     public List buildMenuList() {
-        List<Menues> list = new ArrayList<Menues>();
+        List<Menus> list = new ArrayList<Menus>();
         try {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlConstructor);
             res = line.executeQuery();
             while (res.next()) {
-                Menues menu = new Menues();
+                Menus menu = new Menus();
                 menu.menu_id = res.getInt("menu_id");
                 menu.total_price = res.getInt("total_price");
                 menu.name = res.getString("name");
@@ -48,7 +48,7 @@ public class Menues_List {
     }
 
     public List getMenu() {
-        List<Menues> list = buildMenuList();
+        List<Menus> list = buildMenuList();
         return list; //.size()>0 ? list : null;
     }
 

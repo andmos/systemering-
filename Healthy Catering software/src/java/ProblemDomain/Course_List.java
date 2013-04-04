@@ -58,7 +58,7 @@ public class Course_List {
     }
 
     public List getCourses() {
-        List<Menues> list = buildCourseList();
+        List<Menus> list = buildCourseList();
         return list; //.size()>0 ? list : null;
     }
 

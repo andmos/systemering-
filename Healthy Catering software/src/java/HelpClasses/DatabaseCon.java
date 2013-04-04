@@ -31,8 +31,6 @@ public class DatabaseCon {
             }
             con = ds.getConnection();
             System.out.println("Connected to datasource!");
-
-
         } catch (Exception e) {
             System.out.println("Error with databaseconnection " + e);
         }
@@ -43,6 +41,7 @@ public class DatabaseCon {
     public void closeConnection() {
         try {
             if (this.con != null) {
+                System.out.println("Disconnected from datasource!");
                 this.con.close();
             }
         } catch (SQLException e) {

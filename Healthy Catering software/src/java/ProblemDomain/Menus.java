@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
  * @author
  * havardb
  */
-public class Menues {
+public class Menus {
 
     public int menu_id;
     public int total_price;
@@ -18,32 +18,7 @@ public class Menues {
     public String type;
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-    private PreparedStatement line = null;
-    private ResultSet res = null;
-    private String sqlConstructor = "SELECT * FROM menucombination";
 
-    public Menues() {
-        /*
-        try {
-            db.openConnection();
-            line = db.getConnection().prepareStatement(sqlConstructor);
-            res = line.executeQuery();
-            while (res.next()) {
-                this.menu_id = res.getInt("menu_id");
-                this.total_price = res.getInt("total_price");
-                this.name = res.getString("name");
-                this.type = res.getString("type");
-
-            }
-        } catch (SQLException e) {
-            System.out.println("Could not get name from DB " + e.getMessage());
-
-        } finally {
-            db.closeResSet(res);
-            db.closeStatement(line);
-            db.closeConnection();
-        }*/
-    }
 
     public int getMenu_id() {
         return menu_id;
