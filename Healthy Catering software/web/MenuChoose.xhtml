@@ -13,10 +13,12 @@
                 <h:dataTable value="#{menu.getMenu()}" var="c" >
 
                     <h:column>
+                        <div id="special">
                         <h:form>
                             <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
                             <h:commandButton  value="#{c.name_menu}"  action="#{menu.choosenMenu()}"/> 
                         </h:form>
+                            </div>
                     </h:column>
 
                     <h:column  > 
