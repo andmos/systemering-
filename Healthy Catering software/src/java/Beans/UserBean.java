@@ -20,8 +20,12 @@ public class UserBean implements Serializable {
     private String newPassword;
     private String newPasswordConfirmed;
     private String address;
+    /*This variables is used to error management*/
     private boolean error;
     private boolean errorPanelGroup;
+    private boolean adminLogin = false;
+    private int passwordStatus;
+            
     private Users user = new Users();
     /**
      * 
@@ -37,7 +41,6 @@ public class UserBean implements Serializable {
      */
     public void setUsername(String newName) {
         this.username = newName;
-        user.setUsername(newName);
     }
     /**
      * 
@@ -71,7 +74,6 @@ public class UserBean implements Serializable {
      */
     public void setPassword(String newPassword) {
         this.password = newPassword;
-        user.setPassword(newPassword);
     }
     
     /**
@@ -88,7 +90,6 @@ public class UserBean implements Serializable {
      */
     public void setAddress(String newAddress) {
         this.address = newAddress;
-        user.setAddress(newAddress);
     }
     /**
      * 
@@ -103,7 +104,6 @@ public class UserBean implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
-        user.setName(name);
     }
     /**
      * 
@@ -117,6 +117,16 @@ public class UserBean implements Serializable {
     public boolean getErrorPanelGroup() {
         return errorPanelGroup;
     }
+    
+    public boolean getAdminLogin(){
+        return adminLogin;
+    }
+
+    public int getPasswordStatus() {
+        return passwordStatus;
+    }
+    
+    
     
     /** 
      * Register a new user and set error = true/false dephendin on outcome,
@@ -137,8 +147,33 @@ public class UserBean implements Serializable {
         request.getSession(false).invalidate();
         return "Logout";
     }
-    
+    /**
+     * Changes the password for a user
+     */
     public void changePassword(){
-        user.setPassword(newPassword, newPasswordConfirmed);
+        passwordStatus = user.setPassword(newPassword, newPasswordConfirmed);
     }
+    
+    /**
+     * Changes user information
+     */
+    public void changeUser(){
+        user.setName(name);
+        user.setAddress(address);
+    }
+    
+    /*
+     *Changes a variable if a user wants to log in as a admin.
+     * This is used to change the content on the login site so its more reliable for a admin
+     */
+    
+    public void loginAdmin(){
+        adminLogin = true;
+    }
+    
+    public void notLoginAdmin(){
+        adminLogin = false;
+    }
+    
+    
 }

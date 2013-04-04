@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+        <ui:composition template="/template/template.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <table>
+                        <tr><td><h2>User information</h2></td></tr>
+                        <tr><td>Name:</td> <td><h:inputText value="#{user.name}"/></td></tr>
+                        <tr><td>Adress:</td> <td><h:inputText value="#{user.address}"/></td></tr>
+                        <tr><td><h:commandButton action="#{user.changeUser()}" value="Change user"/></td></tr>
+                    </table>
+                </h:form>
+
+                <h:form>
+                    <table>
+                        <tr><td><h2>Change password</h2></td></tr>
+                        <tr><td>New password: </td><td><h:inputSecret value="#{user.newPassword}"/></td></tr>
+                        <tr><td>Confirm new password: </td><td><h:inputSecret value="#{user.newPasswordConfirmed}"/></td></tr>
+                        <tr><td><h:commandButton action="#{user.changePassword()}" value="Change password"/></td></tr>
+                    </table>
+                </h:form>
+            </ui:define>
+        </ui:composition> 
+    </h:body>
+</html>
+

@@ -177,7 +177,6 @@ public class Users {
      * 6 = SQL ERROR 
      */
     public int setPassword(String newPassword, String confirmPassword) {
-
         int passwordCheck = verifyPassword(newPassword, confirmPassword);
         if (passwordCheck != 0) {
             return passwordCheck;
@@ -190,9 +189,8 @@ public class Users {
                 line.setString(1, newPassword);
                 line.setString(2, user);
                 line.executeUpdate();
-
             } catch (SQLException e) {
-                System.out.println("Could not get name from DB " + e.getMessage());
+                System.out.println("Could not get name from DB her" + e.getMessage());
                 return 6;
 
             } finally {

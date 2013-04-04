@@ -5,15 +5,26 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:body>
         <ui:composition>
-            <h:link value="Home" outcome="index"/>
-            <h:link value="Menu" outcome="MenuChoose"/>
-            <h:link value="About" outcome="About"/>
-            <h:link value="Contact" outcome="Contact"/>
+
+            <h:panelGroup rendered="#{empty request.remoteUser}">
+                <h:link value="Home" outcome="index"/>
+                <h:link value="Menu" outcome="MenuChoose"/>
+                <h:link value="About" outcome="About"/>
+                <h:link value="Contact" outcome="Contact"/>
+            </h:panelGroup>
+            
+            <h:panelGroup rendered="#{empty request.remoteUser}">
+                <span id="first"><h:link value="Log in" outcome="LoginChoose.xhtml"/></span>
+                <span id="second"><h:link value="Register" outcome="Register"/></span>
+            </h:panelGroup>
+            
+            <h:panelGroup rendered="#{not empty request.remoteUser}">
+                <h:link value="Make an order" outcome="MakeOrder"/>
+                <h:link value="Order history" outcome="OrderHistory"/>
+                <h:link value="User profile" outcome="UserProfile"/>
+            </h:panelGroup>
             <ui:insert name="userMenu" >
-                <h:panelGroup rendered="#{empty request.remoteUser}">
-                    <span id="first"><h:link value="Log in" outcome="protected/index.xhtml"/></span>
-                    <span id="second"><h:link value="Register" outcome="Register"/></span>
-                </h:panelGroup>
+
                 <h:panelGroup rendered="#{not empty request.remoteUser}">
                     <span id="first" style="font-size: 20px">
                         #{user.name}
@@ -24,6 +35,7 @@
                         </h:form>
                     </span>
                 </h:panelGroup>
+                
                 <hr></hr>
             </ui:insert>
         </ui:composition>
