@@ -25,7 +25,9 @@ public class Users {
     public String sqlConstructor = "SELECT * FROM users WHERE username =?";
     public String sqlnewUser = "INSERT INTO users VALUES (?, ?, ?, ?)";
     public String sqlnewUserRole = "INSERT INTO roles values('user',?)"; //user - role is hardcoded inn becouse a user registration from the site should be a normal user. 
-
+    public String sqlStatementSetAdress = "UPDATE users SET address=? WHERE username =?";
+    public String sqlStatementSetName = "UPDATE users SET name=? WHERE username =?";
+    public String sqlStatementSetPassword = "update users set password=? where username =?";
     /**
      * Constructor checks if a user is logged inn on the website, and creates an
      * object from data in the database.
@@ -98,10 +100,9 @@ public class Users {
      */
     public void setName(String name) {
         this.name = name;
-        String sqlStatement = "UPDATE user SET name=? WHERE username =?";
         try {
             db.openConnection();
-            line = db.getConnection().prepareStatement(sqlStatement);
+            line = db.getConnection().prepareStatement(sqlStatementSetName);
             line.setString(1, name);
             line.setString(2, user);
             line.executeUpdate();
@@ -120,10 +121,9 @@ public class Users {
      */
     public void setAddress(String newAddress) {
         this.address = newAddress;
-        String sqlStatement = "UPDATE user SET address=? WHERE username =?";
         try {
             db.openConnection();
-            line = db.getConnection().prepareStatement(sqlStatement);
+            line = db.getConnection().prepareStatement(sqlStatementSetAdress);
             line.setString(1, newAddress);
             line.setString(2, user);
             line.executeUpdate();
@@ -182,15 +182,14 @@ public class Users {
             return passwordCheck;
         } else {
             this.password = newPassword;
-            String sqlStatement = "UPDATE user SET password=? WHERE username =?";
             try {
                 db.openConnection();
-                line = db.getConnection().prepareStatement(sqlStatement);
+                line = db.getConnection().prepareStatement(sqlStatementSetPassword);
                 line.setString(1, newPassword);
                 line.setString(2, user);
                 line.executeUpdate();
             } catch (SQLException e) {
-                System.out.println("Could not get name from DB her" + e.getMessage());
+                System.out.println("Could not get name from DB" + e.getMessage());
                 return 6;
 
             } finally {
