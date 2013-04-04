@@ -20,7 +20,7 @@ public class Menucombination_List {
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     private PreparedStatement line = null;
     private ResultSet res = null;
-    private String sqlConstructor = "SELECT * FROM menucombination";
+    private String sqlConstructor = "SELECT * FROM menucombination order by type_id";
     
 
     public List buildMenuList() {
