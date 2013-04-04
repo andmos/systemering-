@@ -14,7 +14,7 @@ public class Menues {
 
     public int menu_id;
     public int total_price;
-    public String name_menu;
+    public String name;
     public String type;
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
@@ -31,7 +31,7 @@ public class Menues {
             while (res.next()) {
                 this.menu_id = res.getInt("menu_id");
                 this.total_price = res.getInt("total_price");
-                this.name_menu = res.getString("name_menu");
+                this.name = res.getString("name");
                 this.type = res.getString("type");
 
             }
@@ -50,7 +50,7 @@ public class Menues {
     }
 
     public String getName_menu() {
-        return name_menu;
+        return name;
     }
 
     public int getTotal_price() {
@@ -65,8 +65,8 @@ public class Menues {
         this.menu_id = menu_id;
     }
 
-    public void setName_menu(String name_menu) {
-        this.name_menu = name_menu;
+    public void setName_menu(String name) {
+        this.name = name;
     }
 
     public void setTotal_price(int total_price) {

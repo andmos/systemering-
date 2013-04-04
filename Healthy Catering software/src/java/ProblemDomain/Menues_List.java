@@ -33,7 +33,7 @@ public class Menues_List {
                 Menues menu = new Menues();
                 menu.menu_id = res.getInt("menu_id");
                 menu.total_price = res.getInt("total_price");
-                menu.name_menu = res.getString("name_menu");
+                menu.name = res.getString("name");
                 menu.type = res.getString("type");
                 list.add(menu);
             }
