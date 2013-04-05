@@ -139,29 +139,28 @@ public class Users {
 
     private boolean checkPasswordCriteria(String newPassword) {
         // numbers, special characters, alphabet, length
-        String reg = "^(?=.*[0-9])(?=.*[`~!@#$%^&*()_+./{}|:\"<>?])[a-zA-Z0-9].{6,10}$";
+        String reg = "^.*(?=.{6,10})(?=.*[0-9])(?=.*[a-zA-Z]).*$";
         return (newPassword.matches(reg)) ? true : false;
     }
 
     private int verifyPassword(String newPassword, String confirmedPassword) {
-
-        if (!newPassword.equals(confirmedPassword)) {
+        
+        if (!(newPassword.equals(confirmedPassword))) {
             return 1;
         }
+        
         if (password.equals(newPassword)) {
             return 2;
         }
-        if (!checkPasswordCriteria(newPassword) && newPassword.matches("^(?=.*[`~!@#$%^&*()_+./{}|:\"<>?])[a-zA-Z0-9].{6,10}$")) {
+        else if (!checkPasswordCriteria(newPassword) && newPassword.matches("^.*(?=.{6,10})(?=.*[a-zA-Z]).*$")) {
             return 3;
         }
-        if (!checkPasswordCriteria(newPassword) && newPassword.matches("^(?=.*[0-9])[a-zA-Z0-9].{6,10}$")) {
+        else if (newPassword.length()>10 && newPassword.length()<10) {
             return 4;
+        }else if(checkPasswordCriteria(newPassword)){
+            return 0;
         }
-        if (!checkPasswordCriteria(newPassword) && newPassword.matches("^(?=.*[0-9])(?=.*[`~!@#$%^&*()_+./{}|:\"<>?])[a-zA-Z0-9]$")) {
-            return 5;
-        }
-
-        return 0;
+        return 5;
     }
 
     /**
@@ -171,16 +170,23 @@ public class Users {
      * 0 = password is changed 
      * 1 = newPassword and confirmPassword is  not equal 
      * 2 = newPassword is the same as registered in the database 
-     * 3 = newPassword does not contain numbers 
-     * 4 = newPassword does not contain special characters 
-     * 5 = newPassword is of wrong length
-     * 6 = SQL ERROR 
+     * 3 = newPassword does not contain numbers  
+     * 4 = newPassword is of wrong length
+     * 5 = UNDEFINED!!!
      */
     public int setPassword(String newPassword, String confirmPassword) {
         int passwordCheck = verifyPassword(newPassword, confirmPassword);
         if (passwordCheck != 0) {
+            System.out.println(passwordCheck);
+            System.out.println(passwordCheck);
+            System.out.println(passwordCheck);
+            System.out.println(passwordCheck);
             return passwordCheck;
         } else {
+            System.out.println(checkPasswordCriteria(newPassword));
+            System.out.println(checkPasswordCriteria(newPassword));
+            System.out.println(checkPasswordCriteria(newPassword));
+            System.out.println(checkPasswordCriteria(newPassword));
             this.password = newPassword;
             try {
                 db.openConnection();
