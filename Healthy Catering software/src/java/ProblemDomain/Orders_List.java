@@ -21,7 +21,7 @@ public class Orders_List {
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     private PreparedStatement line = null;
     private ResultSet res = null;
-    private String sqlConstructor = "SELECT distinct status,order_nr FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
+    private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
     private String sqlConstructor2 = "SELECT menu_id FROM orders where username=? and order_nr=?";
     private String sqlConstructor3 = "select menu_id,name,total_price  from menus where menu_id=?";
     private String sqlGetSum = "select menu_id from orders  where order_nr=?";
@@ -47,9 +47,9 @@ public class Orders_List {
                 while (res.next()) {
                     Orders orders = new Orders();
                     orders.status = res.getInt("status");
-                    System.out.println("null?: "+orders.status);
                     orders.order_nr = res.getString("order_nr");
-                    //orders.orderDate = res.getDate("orderDate");
+                    orders.orderDate = res.getDate("orderDate");
+                    System.out.println(orders.orderDate);
                     list.add(orders);
                 }
             } else {

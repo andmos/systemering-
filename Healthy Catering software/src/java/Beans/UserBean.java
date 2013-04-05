@@ -25,16 +25,18 @@ public class UserBean implements Serializable {
     private String newPassword;
     private String newPasswordConfirmed;
     private String address;
-    /*This variables is used to error management*/
-    private boolean error;
+    /*This variables is used to error management, 5 = Undifiend value*/
+    private int error = 5;
     private boolean errorPanelGroup;
     private boolean adminLogin = false;
     private int passwordStatus;
     private Users user = new Users();
+
     /**
      * 
      * @return username from the Users- class.
      */
+    
     public String getUsername() {
         this.username = user.getUsername();
         return user.getUsername();
@@ -65,7 +67,6 @@ public class UserBean implements Serializable {
     }
 
     public void setNewPassword(String newPassword) {
-        user.setPassword(newPassword, newPasswordConfirmed);
         this.newPassword = newPassword;
     }
 
@@ -79,7 +80,6 @@ public class UserBean implements Serializable {
      * @param newPassword gets new password from the site and sends it to Users - class 
      */
     public void setPassword(String newPassword) {
-        user.setPassword(newPassword, newPasswordConfirmed);
         this.password = newPassword;
     }
     
@@ -118,7 +118,7 @@ public class UserBean implements Serializable {
      * 
      * @return returns error message to the site if registration goes bad. 
      */
-    public boolean getError() {
+    public int getError() {
         return error;
     }
     
@@ -143,6 +143,8 @@ public class UserBean implements Serializable {
      */
     public void newUser() {
         errorPanelGroup = true;
+        System.out.println("passord: "+password+" ,confirm password: "+newPasswordConfirmed);
+        user.setPassword(password, newPasswordConfirmed);
         error = user.newUser();
     }
 
@@ -169,7 +171,7 @@ public class UserBean implements Serializable {
      * Changes the password for a user
      */
     public void changePassword(){
-        passwordStatus = user.setPassword(newPassword, newPasswordConfirmed);
+        error = passwordStatus = user.setnewPassword(newPassword, newPasswordConfirmed);
     }
     
     /**

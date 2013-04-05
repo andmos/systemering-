@@ -11,23 +11,39 @@
                 <div style="text-align:center">
                     <h:form>
                         <table align="center">
-                            <tr><td>Name</td><td><h:inputText id="newName" label="Name" required="true" value="#{user.name}"></h:inputText><h:message for="newName" style="color:red"/></td></tr>
-                            <tr><td>Username</td><td><h:inputText id="newUsername" label="Username" required="true" value="#{user.username}"></h:inputText><h:message for="newUsername" style="color:red" /></td></tr>
-                            <tr><td>Password</td><td><h:inputSecret id="newPassword" label="Password" required="true" value="#{user.password}"></h:inputSecret><h:message for="newPassword" style="color:red" /></td></tr>
-                            <tr><td>Confirm Password</td><td><h:inputSecret id="newPasswordConfirmed" label="Confirm Password" required="true" value="#{user.newPasswordConfirmed}"></h:inputSecret><h:message for="newPasswordConfirmed" style="color:red" /></td></tr>
-                            <tr><td>Address</td><td><h:inputText id="newAddress" label="Address" required="true" value="#{user.address}"></h:inputText><h:message for="newAddress" style="color:red" /></td></tr>
-                            
-                            <tr><td><h:commandButton value="Register new user" action="#{user.newUser()}"/></td></tr>
+
+                            <tr><td>Name</td><td><h:inputText id="newName" label="Name" required="true" value="#{user.name}"></h:inputText><td width="100%"><h:message for="newName" style="color:red"/></td></td></tr>
+                            <tr><td>Username</td><td><h:inputText id="newUsername" label="Username" required="true" value="#{user.username}"></h:inputText></td><td width="100%"><h:message for="newUsername" style="color:red" />
+                                        <h:panelGroup rendered="#{user.errorPanelGroup}">
+                                            <h:outputText style="color:red" value="Username already exists" rendered="#{user.error == -1}"></h:outputText>
+                                        </h:panelGroup>
+                                    </td></tr>
+                            <tr><td>Password</td><td><h:inputSecret id="newPassword" label="Password" required="true" value="#{user.password}"></h:inputSecret><td width="100%"><h:message for="newPassword" style="color:red" />
+                                        <h:panelGroup rendered="#{user.errorPanelGroup}">
+                                            <h:outputText style="color:red" value="The password does not match" rendered="#{user.error == 1}"></h:outputText>
+                                            <h:outputText style="color:red" value="The new password has the wrong length" rendered="#{user.error == 4}"></h:outputText>
+                                            <h:outputText style="color:red" value="The password does not contain numbers" rendered="#{user.error == 3}"></h:outputText>
+                                        </h:panelGroup>
+                                    </td></td></tr>
+                            <tr><td>Confirm Password</td><td><h:inputSecret id="newPasswordConfirmed" label="Confirm Password" required="true" value="#{user.newPasswordConfirmed}"></h:inputSecret><td width="100%"><h:message for="newPasswordConfirmed" style="color:red" /></td>
+                                    <h:panelGroup rendered="#{user.errorPanelGroup}">
+                                        <h:outputText style="color:red" value="The password does not match" rendered="#{user.error == 1}"></h:outputText>
+                                    </h:panelGroup>
+                                </td></tr>
+                            <tr><td>Address</td><td><h:inputText id="newAddress" label="Address" required="true" value="#{user.address}"></h:inputText><td width="100%"><h:message for="newAddress" style="color:red" /></td></td></tr>
+
+                            <tr><td><h:commandButton value="Register new user" action="#{user.newUser()}"/></td><td>
+                                    <h:panelGroup rendered="#{user.errorPanelGroup}">
+                                        <h:outputText style="color:green" value="You are now registered." rendered="#{user.error==0}"></h:outputText>
+                                    </h:panelGroup>
+                                </td></tr>
+
                         </table>
+                        #{user.error}
                     </h:form>
-                    <h:panelGroup rendered="#{user.errorPanelGroup}">
-                    <h:outputText style="color:green" value="Du er nå registrert" rendered="#{user.error}"></h:outputText>
-                    <h:outputText style="color:red" value="Brukernavnet finnes fra før" rendered="#{!user.error}"></h:outputText>
-                    </h:panelGroup>
+
                 </div>
             </ui:define>
         </ui:composition> 
     </h:body>
 </html>
-
-

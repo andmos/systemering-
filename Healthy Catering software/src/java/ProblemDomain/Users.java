@@ -17,6 +17,7 @@ public class Users {
     public String address;
     public String password;
     public int id;
+    public int error; //Error from the register method
     public DatabaseCon db = new DatabaseCon(); //makes object of DatabaseCon class
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     private PreparedStatement line = null;
@@ -154,11 +155,10 @@ public class Users {
      * @return an int depending on whats wrong / correct in password case. 
      */
     private int verifyPassword(String newPassword, String confirmedPassword) {
-        
+        if(user != null){
         if (!(newPassword.equals(confirmedPassword))) {
             return 1;
         }
-        
         if (password.equals(newPassword)) {
             return 2;
         }
@@ -170,7 +170,31 @@ public class Users {
         }else if(checkPasswordCriteria(newPassword)){
             return 0;
         }
+        
+        }else{
+            if (!(newPassword.equals(confirmedPassword))) {
+            return 1;
+        }
+        else if (!checkPasswordCriteria(newPassword) && newPassword.matches("^.*(?=.{6,10})(?=.*[a-zA-Z]).*$")) {
+            return 3;
+        }
+        else if (newPassword.length()>10 && newPassword.length()<10) {
+            return 4;
+        }else if(checkPasswordCriteria(newPassword)){
+            return 0;
+        }
+        }
         return 5;
+    }
+
+    public void setPassword(String password, String newPasswordConfirmed) {
+        int temp = verifyPassword(password, newPasswordConfirmed);
+        if(temp==0){
+            this.password = password;
+        }else{
+            this.password = null;
+            this.error = temp;
+        }
     }
 
     /**
@@ -184,7 +208,7 @@ public class Users {
      * 4 = newPassword is of wrong length
      * 5 = UNDEFINED!!!
      */
-    public int setPassword(String newPassword, String confirmPassword) {
+    public int setnewPassword(String newPassword, String confirmPassword) {
         int passwordCheck = verifyPassword(newPassword, confirmPassword);
         if (passwordCheck != 0) {
             System.out.println(passwordCheck);
@@ -232,8 +256,13 @@ public class Users {
 
     /**
      * Makes a new user input in the database, both in the users and role table.
+     * return 
+     * 1 = registrered
+     * 2 = name already exists
+     * 3 = password fault
      */
-    public boolean newUser() {
+    public int newUser() {
+        if(this.password != null){
         try {
             db.openConnection();
             db.getConnection().setAutoCommit(false);
@@ -247,10 +276,10 @@ public class Users {
             line = db.getConnection().prepareStatement(sqlnewUserRole);
             line.setString(1, this.username);
             line.executeUpdate();
-            return true;
+            return 0;
         } catch (SQLException e) {
             System.out.println("Could not create user in DB" + e.getMessage());
-            return false;
+            return -1;
 
         } finally {
             db.closeResSet(res);
@@ -258,5 +287,9 @@ public class Users {
             db.setAutoCommit();
             db.closeConnection();
         }
+    }else{
+            return error;
+        }
     }
+
 }
