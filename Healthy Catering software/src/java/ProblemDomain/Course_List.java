@@ -30,7 +30,10 @@ public class Course_List {
     public Course_List(int menu_id){
         this.menu_id = menu_id;
     }
-    
+     /** 
+     * Menu_id = 0 ,If you have not choosen a menu from your order history.
+     * Menu_id != 0 ,If you have choosen a menu from your order history. 
+     */
     public List buildCourseList() {
         List<Course> list = new ArrayList<Course>();
         try {

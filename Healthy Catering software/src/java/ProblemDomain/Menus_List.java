@@ -22,8 +22,8 @@ public class Menus_List {
 
 
     /** 
-     *Menu_id = 0 ,If you have not choosen a menu from your order history.
-     *Menu_id != 0 ,If you have choosen a menu from your order history. 
+     * Menu_id = 0 ,If you have not choosen a menu from your order history.
+     * Menu_id != 0 ,If you have choosen a menu from your order history. 
      */
     public List buildMenuList() {
         List<Menus> list = new ArrayList<Menus>();
