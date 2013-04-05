@@ -1,7 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ProblemDomain;
 
 import java.sql.PreparedStatement;
@@ -24,9 +21,9 @@ public class Menus_List {
     private String sqlConstructor = "SELECT * FROM menus order by type_id";
 
 
-    /*
-     *Menu_id = 0 ,If you have not choosen a menu from your order history
-     *Menu_id != 0 ,If you have choosen a menu from your order history
+    /** 
+     *Menu_id = 0 ,If you have not choosen a menu from your order history.
+     *Menu_id != 0 ,If you have choosen a menu from your order history. 
      */
     public List buildMenuList() {
         List<Menus> list = new ArrayList<Menus>();
@@ -59,7 +56,10 @@ public class Menus_List {
         }
         return list;
     }
-    
+    /**
+     * 
+     * @return returns the meny list. 
+     */
     public List getMenu() {
         List<Menus> list = buildMenuList();
         return list; //.size()>0 ? list : null;
