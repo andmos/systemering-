@@ -30,12 +30,12 @@
             <to-view-id>Contact.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
-        
+
+    
     <navigation-rule>
         <!-- After you are logged in -->
         <from-view-id>/protected/*</from-view-id>
         <navigation-case>
-            
             <from-outcome>MakeOrder</from-outcome>
             <to-view-id>protected/MakeOrder.xhtml</to-view-id>
         </navigation-case>
@@ -55,5 +55,6 @@
             <from-outcome>Logout</from-outcome>
             <to-view-id>index.xhtml</to-view-id>
         </navigation-case>
+    
     </navigation-rule>
 </faces-config>

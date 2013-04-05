@@ -8,6 +8,7 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
+                <f:event listener="#{user.doLogout()}" type="preRenderView"/>
                 <!--Write content of webpage-->
             </ui:define>
         </ui:composition> 

@@ -7,13 +7,14 @@ package Beans;
 import ProblemDomain.*;
 import java.io.Serializable;
 import java.util.*; //List and other important java.util classes
+import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@SessionScoped
+@ApplicationScoped
 @Named("order")
 public class OrderBean implements Serializable {
 

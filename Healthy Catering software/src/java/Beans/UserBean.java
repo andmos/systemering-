@@ -7,6 +7,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -129,8 +130,8 @@ public class UserBean implements Serializable {
     
     
     /** 
-     * Register a new user and set error = true/false dephendin on outcome,
-     * Also setts the the errorPanelGroup = true so we can view errors.
+     * Register a new user and set error = true/false dephending on outcome,
+     * Also sets the the errorPanelGroup = true so we can view errors.
      */
     public void newUser() {
         errorPanelGroup = true;
@@ -139,12 +140,20 @@ public class UserBean implements Serializable {
 
     /**
      *Log out method, returns navigation case for the JSF - site.
+     * We want to log you out when you first enter the site, this was mainly because of some navigation errors,
+     * if you left the site logged in.
+     
      */
     public String doLogout() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
+        
         HttpServletRequest request = (HttpServletRequest) ec.getRequest();
-        request.getSession(false).invalidate();
+        try {   
+        request.logout();
+        }catch(ServletException e){
+            System.out.println("feil i doLogout"+e.getMessage());
+        }
         return "Logout";
     }
     /**
@@ -174,6 +183,5 @@ public class UserBean implements Serializable {
     public void notLoginAdmin(){
         adminLogin = false;
     }
-    
-    
+
 }
