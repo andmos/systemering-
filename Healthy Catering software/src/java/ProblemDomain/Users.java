@@ -136,13 +136,23 @@ public class Users {
             db.closeConnection();
         }
     }
-
+    /**
+     * 
+     * @param newPassword takes inn new password.
+     * @return true / false if password meets the regex - criteria. 
+     */
     private boolean checkPasswordCriteria(String newPassword) {
         // numbers, special characters, alphabet, length
         String reg = "^.*(?=.{6,10})(?=.*[0-9])(?=.*[a-zA-Z]).*$";
         return (newPassword.matches(reg)) ? true : false;
     }
-
+    
+    /**
+     * 
+     * @param newPassword takes inn new password
+     * @param confirmedPassword takes inn the "confirm password" box
+     * @return an int depending on whats wrong / correct in password case. 
+     */
     private int verifyPassword(String newPassword, String confirmedPassword) {
         
         if (!(newPassword.equals(confirmedPassword))) {
@@ -166,7 +176,7 @@ public class Users {
     /**
      * @param newPassword inn and sets new password
      *
-     * return: 
+     * @return: 
      * 0 = password is changed 
      * 1 = newPassword and confirmPassword is  not equal 
      * 2 = newPassword is the same as registered in the database 
