@@ -7,6 +7,7 @@ package ProblemDomain;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import javax.faces.context.FacesContext;
 import java.util.*;
 
@@ -48,9 +49,10 @@ public class Orders_List {
                     Orders orders = new Orders();
                     orders.status = res.getInt("status");
                     orders.order_nr = res.getString("order_nr");
-                    orders.orderDate = res.getDate("orderDate");
+                    orders.orderDate = res.getTimestamp("orderDate");
+                    orders.orderDate = (java.sql.Timestamp ) orders.orderDate;
                     System.out.println(orders.orderDate);
-                    list.add(orders);
+                   list.add(orders);
                 }
             } else {
                 line = db.getConnection().prepareStatement(sqlConstructor2);
