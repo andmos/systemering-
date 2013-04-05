@@ -40,6 +40,12 @@ public class OrderBean implements Serializable {
         return order.getStatus();
     }
 
+    public String choosenMenu() {
+        String value = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("menu_id");
+        menu_id = Integer.parseInt(value);
+            return "chooseMenuUser";
+    }
+
     public String choosenOrder() {
         String value = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("order_nr");
@@ -58,18 +64,16 @@ public class OrderBean implements Serializable {
     /*
      *Get a order
      */
+
     public List getOrder() {
-       orderlist = new Orders_List(order_nr);
-       return orderlist.getOrders();
+        orderlist = new Orders_List(order_nr);
+        return orderlist.getOrders();
     }
-    
+
     /*
      *Get total bought
      */
-    
-    public double getSum(){
+    public double getSum() {
         return orderlist.getSum(order_nr);
     }
-
- 
 }

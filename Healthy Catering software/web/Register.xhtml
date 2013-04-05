@@ -11,10 +11,12 @@
                 <div style="text-align:center">
                     <h:form>
                         <table align="center">
-                            <tr><td>Name</td><td><h:inputText id="newName" required="true" value="#{user.name}"></h:inputText></td></tr>
-                            <tr><td>Username</td><td><h:inputText id="newUsername" required="true" value="#{user.username}"></h:inputText></td></tr>
-                            <tr><td>Password</td><td><h:inputSecret id="newPassword" required="true" value="#{user.password}"></h:inputSecret></td></tr>
-                            <tr><td>Address</td><td><h:inputText id="newAddress" required="true" value="#{user.address}"></h:inputText></td></tr>
+                            <tr><td>Name</td><td><h:inputText id="newName" label="Name" required="true" value="#{user.name}"></h:inputText><h:message for="newName" style="color:red"/></td></tr>
+                            <tr><td>Username</td><td><h:inputText id="newUsername" label="Username" required="true" value="#{user.username}"></h:inputText><h:message for="newUsername" style="color:red" /></td></tr>
+                            <tr><td>Password</td><td><h:inputSecret id="newPassword" label="Password" required="true" value="#{user.password}"></h:inputSecret><h:message for="newPassword" style="color:red" /></td></tr>
+                            <tr><td>Confirm Password</td><td><h:inputSecret id="newPasswordConfirmed" label="Confirm Password" required="true" value="#{user.newPasswordConfirmed}"></h:inputSecret><h:message for="newPasswordConfirmed" style="color:red" /></td></tr>
+                            <tr><td>Address</td><td><h:inputText id="newAddress" label="Address" required="true" value="#{user.address}"></h:inputText><h:message for="newAddress" style="color:red" /></td></tr>
+                            
                             <tr><td><h:commandButton value="Register new user" action="#{user.newUser()}"/></td></tr>
                         </table>
                     </h:form>

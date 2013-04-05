@@ -8,8 +8,11 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
+                <f:event listener="#{user.doLogout()}" type="preRenderView"/>
                 <!--Write content of webpage-->
+                Welcome to Healthy Caterings home page. Please make some orders!
             </ui:define>
+
         </ui:composition> 
     </h:body>
 </html>
