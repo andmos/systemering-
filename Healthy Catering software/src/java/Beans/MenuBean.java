@@ -47,7 +47,6 @@ public class MenuBean implements Serializable {
 
     public String choosenMenu() {
         String value = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("menu_id");
-        System.out.println(value);
         menu_id = Integer.parseInt(value);
         String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
         if(user == null){

@@ -8,33 +8,31 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:dataTable  value="#{order.orders}" var="c">
+                <h:dataTable  value="#{menu.getCourses()}" var="c">
                     <h:column>
                         <f:facet name="header">
-                            Order nr:
+                            Name
                         </f:facet>
-                        <h:form>
-                            <input type="hidden"  name="order_nr" value="#{c.order_nr}"/>
-                            <h:commandButton  value="#{c.order_nr}"  action="#{order.choosenOrder()}"/> 
-                        </h:form>
+                        #{c.name_course}
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">
-                            Status:
+                            Description
                         </f:facet>
-                        <h:outputText value="Cooking" style="color:red" rendered="#{c.status lt 0}"/>
-                        <h:outputText value="Ready for deliver" style="color:orange" rendered="#{c.status == 0}"/>
-                        <h:outputText value="Delivered" style="color:green" rendered="#{c.status gt 0 }"/>
+                        #{c.description}
                     </h:column>
 
                     <h:column>
                         <f:facet name="header">
-                            Date:
+                            Price
                         </f:facet>
-                        <font color="red">Konvertering av dato feiler. Fix!</font>
+                        #{c.price}
                     </h:column>
                 </h:dataTable>
+                <h:form>
+                    <h:commandButton value="Tilbake"/>
+                </h:form>
             </ui:define>
         </ui:composition> 
     </h:body>

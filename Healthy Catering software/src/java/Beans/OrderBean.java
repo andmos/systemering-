@@ -8,19 +8,20 @@ import ProblemDomain.*;
 import java.io.Serializable;
 import java.util.*; //List and other important java.util classes
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@ApplicationScoped
+@RequestScoped
 @Named("order")
 public class OrderBean implements Serializable {
 
     private int order_id;
     private int order_nr;
-    private int delivered;
+    private int status;
     private int menu_id;
     private double sum;
     private Orders order = new Orders();
@@ -36,7 +37,7 @@ public class OrderBean implements Serializable {
     }
 
     public int getDelivered() {
-        return order.getDelivered();
+        return order.getStatus();
     }
 
     public String choosenOrder() {

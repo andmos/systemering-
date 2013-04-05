@@ -3,15 +3,19 @@ package Beans;
 import ProblemDomain.Users;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@SessionScoped
+@RequestScoped
 @Named("user")
 public class UserBean implements Serializable {
 
@@ -26,7 +30,6 @@ public class UserBean implements Serializable {
     private boolean errorPanelGroup;
     private boolean adminLogin = false;
     private int passwordStatus;
-            
     private Users user = new Users();
     /**
      * 
@@ -34,13 +37,14 @@ public class UserBean implements Serializable {
      */
     public String getUsername() {
         this.username = user.getUsername();
-        return this.username;
+        return user.getUsername();
     }
     /**
      * 
      * @param newName gets new name from the site and sends it to Users - class
      */
     public void setUsername(String newName) {
+        user.setUsername(newName);
         this.username = newName;
     }
     /**
@@ -49,7 +53,7 @@ public class UserBean implements Serializable {
      */
     public String getPassword() {
         this.password = user.getPassword();
-        return this.password;
+        return user.getPassword();
     }
 
     public String getNewPassword() {
@@ -61,6 +65,7 @@ public class UserBean implements Serializable {
     }
 
     public void setNewPassword(String newPassword) {
+        user.setPassword(newPassword, newPasswordConfirmed);
         this.newPassword = newPassword;
     }
 
@@ -74,6 +79,7 @@ public class UserBean implements Serializable {
      * @param newPassword gets new password from the site and sends it to Users - class 
      */
     public void setPassword(String newPassword) {
+        user.setPassword(newPassword, newPasswordConfirmed);
         this.password = newPassword;
     }
     
@@ -83,13 +89,14 @@ public class UserBean implements Serializable {
      */ 
     public String getAddress() {
         this.address = user.getAddress();
-        return this.address;
+        return user.getAddress();
     }
     /** 
      * 
      * @param newAddress gets new address from the site and sends it to Users - class 
      */
     public void setAddress(String newAddress) {
+        user.setAddress(newAddress);
         this.address = newAddress;
     }
     /**
@@ -104,6 +111,7 @@ public class UserBean implements Serializable {
      * @param name gets new name from the site and sends it to Users - class 
      */
     public void setName(String name) {
+        user.setName(name);
         this.name = name;
     }
     /**
@@ -149,13 +157,14 @@ public class UserBean implements Serializable {
         ExternalContext ec = context.getExternalContext();
         
         HttpServletRequest request = (HttpServletRequest) ec.getRequest();
-        try {   
+        try {
         request.logout();
         }catch(ServletException e){
             System.out.println("feil i doLogout"+e.getMessage());
         }
         return "Logout";
     }
+    
     /**
      * Changes the password for a user
      */

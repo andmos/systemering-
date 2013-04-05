@@ -10,7 +10,7 @@ import java.util.Date;
 public class Orders {
 
     public int order_id;
-    public int delivered;
+    public int status;
     public int menu_id;
     public String order_nr;
     public Date orderDate;
@@ -24,16 +24,16 @@ public class Orders {
         this.order_id = order_id;
     }
 
-    public int getDelivered() {
-        return delivered;
+    public int getStatus() {
+        return status;
     }
 
     public int getMenu_id() {
         return menu_id;
     }
 
-    public void setDelivered(int delivered) {
-        this.delivered = delivered;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public void setMenu_id(int menu_id) {

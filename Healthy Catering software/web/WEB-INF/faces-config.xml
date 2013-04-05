@@ -8,6 +8,7 @@
               xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd">
     <!--Navigations -->
     <navigation-rule>
+        <redirect/>
         <!--Before you are logged in -->
         <navigation-case>
             <from-outcome>index</from-outcome>
@@ -33,11 +34,12 @@
 
     
     <navigation-rule>
+        <redirect/>
         <!-- After you are logged in -->
         <from-view-id>/protected/*</from-view-id>
         <navigation-case>
             <from-outcome>MakeOrder</from-outcome>
-            <to-view-id>protected/MakeOrder.xhtml</to-view-id>
+            <to-view-id>protected/MakeOrderChoose.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>OrderHistoryChoose</from-outcome>
@@ -54,6 +56,10 @@
         <navigation-case>
             <from-outcome>Logout</from-outcome>
             <to-view-id>index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>chooseMenuUser</from-outcome>
+            <to-view-id>protected/ViewMenuOrder.xhtml</to-view-id>
         </navigation-case>
     
     </navigation-rule>

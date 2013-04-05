@@ -29,7 +29,7 @@ public class Users {
     public String sqlStatementSetName = "UPDATE users SET name=? WHERE username =?";
     public String sqlStatementSetPassword = "update users set password=? where username =?";
     /**
-     * Constructor checks if a user is logged inn on the website, and creates an
+     * Constructor checks if a user is logged in on the website, and creates an
      * object from data in the database.
      */
     public Users() {

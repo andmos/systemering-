@@ -7,8 +7,34 @@
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
-           
+
             <ui:define name="content">
+                <h:dataTable value="#{menu.getMenu()}" var="c" >
+
+                    <h:column>
+                        <div id="special">
+                            <h:form>
+                                <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
+                                <h:commandButton  value="#{c.name}"  action="#{menu.choosenMenu()}"/> 
+                            </h:form>
+                        </div>
+                    </h:column>
+
+                    <h:column  > 
+                        <f:facet name="header">
+                            Price
+                        </f:facet>
+                        #{c.sum}
+                    </h:column>
+
+                    <h:column  > 
+                        <f:facet name="header">
+                            Type
+                        </f:facet>
+
+                        #{c.type}
+                    </h:column>
+                </h:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>
