@@ -30,7 +30,7 @@ public class MenuBean implements Serializable {
     private Course_List courselist;
 
     public int getMenu_id() {
-        return menu.getMenu_id();
+        return menu_id;
     }
 
     public String getName() {

@@ -8,7 +8,7 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:dataTable  value="#{menu.getCourses()}" var="c">
+                <h:dataTable  value="#{order.getCourses()}" var="c">
                     <h:column>
                         <f:facet name="header">
                             Name
@@ -31,13 +31,12 @@
                     </h:column>
                     <h:column>
                         <h:form>
-                            <input type="hidden" name="menu_id" value="#{menu.menu_id}"/>
-                         <h:commandLink  value="Add to cart"  action="#{menu.choosenMenu()}"/> 
+                            <input type="hidden" name="menu_id" value="#{order.menu_id}"/>
+                         <h:commandLink  value="Add to cart"  action="#{order.choosenMenu()}"/> 
                         </h:form>
-                        
                     </h:column>
                 </h:dataTable>
-                #{menu.courses.menu_id}
+                #{order.menu_id}
             </ui:define>
         </ui:composition> 
     </h:body>
