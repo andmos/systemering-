@@ -20,11 +20,18 @@ public class Orders_List {
 
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+    
+    private boolean isCheff = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("cheff");
+    private boolean isDriver = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("driver");         
+    private boolean isAdmin = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin");
+    private boolean isUser = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("user");
+
     private PreparedStatement line = null;
     private ResultSet res = null;
     private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
     private String sqlConstructor2 = "SELECT menu_id FROM orders where username=? and order_nr=?";
     private String sqlConstructor3 = "select menu_id,name,total_price  from menus where menu_id=?";
+    private String sqlConstructorCheff = "SELECT distinct status,order_nr,orderDate FROM orders where status < 0"; //
     private String sqlGetSum = "select menu_id from orders  where order_nr=?";
     private String sqlGetSum2 = "select total_price from menus where menu_id=?";
     private int order_nr = 0;
@@ -39,11 +46,17 @@ public class Orders_List {
     public List buildOrdersList() {
         List<Orders> list = new ArrayList<Orders>();
         List<Menus> list2 = new ArrayList<>();
+        
         try {
             db.openConnection();
             if (order_nr == 0) {
+                
+                if(isCheff){
+                    line = db.getConnection().prepareStatement(sqlConstructorCheff);
+                }else{   
                 line = db.getConnection().prepareStatement(sqlConstructor);
                 line.setString(1, user);
+                }
                 res = line.executeQuery();
                 while (res.next()) {
                     Orders orders = new Orders();
@@ -53,7 +66,8 @@ public class Orders_List {
                     orders.orderDate = (java.sql.Timestamp ) orders.orderDate;
                     System.out.println(orders.orderDate);
                    list.add(orders);
-                }
+                   }
+                
             } else {
                 line = db.getConnection().prepareStatement(sqlConstructor2);
                 line.setString(1, user);
