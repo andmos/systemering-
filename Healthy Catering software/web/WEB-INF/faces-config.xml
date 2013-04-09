@@ -30,6 +30,14 @@
             <from-outcome>Contact</from-outcome>
             <to-view-id>Contact.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>Log in</from-outcome>
+            <to-view-id>LoginChoose.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Register</from-outcome>
+            <to-view-id>Register.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 
     
@@ -65,9 +73,9 @@
     </navigation-rule>
     
     
-     <application>
-	  <message-bundle>
-	  	Properties.MyMessage
-	  </message-bundle>
-     </application>
+    <application>
+        <message-bundle>
+            Properties.MyMessage
+        </message-bundle>
+    </application>
 </faces-config>

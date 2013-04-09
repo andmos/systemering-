@@ -12,30 +12,32 @@
                 <h:link value="About" outcome="About"/>
                 <h:link value="Contact" outcome="Contact"/>
             </h:panelGroup>
-            
-            <h:panelGroup rendered="#{empty request.remoteUser}">
-                <span id="first"><h:link value="Log in" outcome="LoginChoose.xhtml"/></span>
-                <span id="second"><h:link value="Register" outcome="Register"/></span>
-            </h:panelGroup>
-            
+            <span id="RightMenu">
+                <h:panelGroup rendered="#{empty request.remoteUser}">
+                    <h:form>
+                        <h:commandLink value="Log in" action="Log in"/>
+                        <h:commandLink value="Register" action="Register"/>
+                    </h:form>
+                </h:panelGroup>
+            </span>
+
             <h:panelGroup rendered="#{not empty request.remoteUser}">
                 <h:link value="Make an order" outcome="MakeOrder"/>
                 <h:link value="Order history" outcome="OrderHistoryChoose"/>
-                <h:link value="User profile" outcome="UserProfile"/>
             </h:panelGroup>
             <ui:insert name="userMenu" >
 
                 <h:panelGroup rendered="#{not empty request.remoteUser}">
-                    <span id="first" style="font-size: 20px">
-                        #{user.name}
-                    </span>
-                    <span id="second">
+
+                    <span id="RightMenu">
                         <h:form>
-                            <h:commandLink value="Log out" action="#{user.doLogout}"/> 
+                            <h:commandLink value="#{user.name}" action="UserProfile"/>
+                            <h:commandLink value="Log out" action="#{user.doLogout}"/>
+                            <h:commandLink value="Shopping cart" action="ShoppingCart"/>
                         </h:form>
                     </span>
                 </h:panelGroup>
-                
+
                 <hr></hr>
             </ui:insert>
         </ui:composition>

@@ -27,7 +27,7 @@ Header
 #header img{
     display: block;
     margin:0 auto;
-    width: 100px;
+    width: 123px;
 }
 #header #orderNow{
     font-family: 'Emblema One', cursive;
@@ -42,12 +42,12 @@ Header
     text-align: center;
 }
 #header #logoName #first{
-    font-size: 25px;
+    font-size: 45px;
     text-decoration: underline;
     color:#bdb4ab ;
 }
 #header #logoName #second{
-    font-size:20px;
+    font-size:40px;
     text-decoration: underline;
     color:#8d3701;
 }
@@ -65,25 +65,17 @@ Navigation
     margin: 0 auto;
 }
 
-#navigation > a{
-    margin-left:10px;
-}
 #choose a{
     text-decoration: none;
-   font-weight: bold;
-   font-size: 120%;
+    font-weight: bold;
+    font-size: 120%;
     color: #8d3701;
-    
+
 }
 #choose a:hover{
     cursor: pointer;
     text-decoration: underline;
-}
-
-#navigation a{
-    text-decoration:none;
-    color:#A0A0A0;
-    font-size:1.1em;
+    
 }
 #navigation #first{
     position:absolute;
@@ -93,9 +85,25 @@ Navigation
     position:absolute;
     right:0px;
 }
+
+#navigation #RightMenu{
+    position:absolute;
+    right:0px;
+}
+
+#navigation a{
+    color:#8d3701;
+    text-decoration: none;
+    border: 3px solid #8d3701;
+    margin-bottom: 15px;
+    border-radius: 15px;
+    background: #fffff0;
+    padding: 2px 8px; 
+}
 #navigation a:hover{
     text-decoration: underline;
-    color:#8d3701
+    color:white;
+    background-color: #8d3701;
 }
 /*********************
 Content
@@ -110,64 +118,64 @@ Content
 
 table {
     margin: 50px auto;
-    
-	border: 1px solid #e3e3e3;
-	background-color: #f2f2f2;
-        width: 100%;
-	border-radius: 6px;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
+
+    border: 1px solid #e3e3e3;
+    background-color: #f2f2f2;
+    width: 100%;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
 }
 table td, table th {
-	padding: 5px;
-	color: #333;
+    padding: 5px;
+    color: #333;
 }
 table thead {
-	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-	padding: .2em 0 .2em .5em;
-	text-align: left;
-	color: #4B4B4B;
-	background-color: #C8C8C8;
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#e3e3e3), color-stop(.6,#B3B3B3));
-	background-image: -moz-linear-gradient(top, #D6D6D6, #B0B0B0, #B3B3B3 90%);
-	border-bottom: solid 1px #999;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    padding: .2em 0 .2em .5em;
+    text-align: left;
+    color: #4B4B4B;
+    background-color: #C8C8C8;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#e3e3e3), color-stop(.6,#B3B3B3));
+    background-image: -moz-linear-gradient(top, #D6D6D6, #B0B0B0, #B3B3B3 90%);
+    border-bottom: solid 1px #999;
 }
 table th {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size: 17px;
-	line-height: 20px;
-	font-style: normal;
-	font-weight: normal;
-	text-align: left;
-	text-shadow: white 1px 1px 1px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 20px;
+    font-style: normal;
+    font-weight: normal;
+    text-align: left;
+    text-shadow: white 1px 1px 1px;
 }
 table td {
-	line-height: 20px;
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-size: 14px;
-	border-bottom: 1px solid #fff;
-	border-top: 1px solid #fff;
+    line-height: 20px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    border-bottom: 1px solid #fff;
+    border-top: 1px solid #fff;
 }
 table td:hover {
-	background-color: #fff;
+    background-color: #fff;
 }
 
 
 input[type="submit"]{
     color: #8d3701;
-  font-weight: bold;
-  text-transform: uppercase;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 input[type="submit"]:hover{
-     
+
     cursor: pointer;
     color: #e23636;
 }
 #content > #picture{
     margin-left: 175px;
-    
-    
-    
+
+
+
 }
 
 #loginDropdown{

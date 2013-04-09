@@ -178,11 +178,11 @@ public class Users {
         else if (!checkPasswordCriteria(newPassword) && newPassword.matches("^.*(?=.{6,10})(?=.*[a-zA-Z]).*$")) {
             return 3;
         }
-        else if (newPassword.length()>10 && newPassword.length()<10) {
+        else if (newPassword.length()>5 && newPassword.length()<11) {
             return 4;
         }else if(checkPasswordCriteria(newPassword)){
             return 0;
-        }
+            }
         }
         return 5;
     }
