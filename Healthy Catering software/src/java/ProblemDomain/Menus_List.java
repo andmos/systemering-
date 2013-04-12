@@ -18,9 +18,16 @@ public class Menus_List {
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
     private PreparedStatement line = null;
     private ResultSet res = null;
-    private String sqlConstructor = "SELECT * FROM menus order by type_id";
+    private String sqlGetMenus = "SELECT * FROM menus order by type_id";
+    private String sqlGetMenus2 = "SELECT * FROM menus where menu_id=? order by type_id";
+    private int menu_id = 0;
 
 
+    public Menus_List(int menu_id){
+        this.menu_id = menu_id;
+    }
+    
+    public Menus_List(){};
     /** 
      * Menu_id = 0 ,If you have not choosen a menu from your order history.
      * Menu_id != 0 ,If you have choosen a menu from your order history. 
@@ -29,7 +36,12 @@ public class Menus_List {
         List<Menus> list = new ArrayList<Menus>();
         try {
             db.openConnection();
-            line = db.getConnection().prepareStatement(sqlConstructor);
+            if(menu_id == 0){
+            line = db.getConnection().prepareStatement(sqlGetMenus);
+            }else{
+                line = db.getConnection().prepareStatement(sqlGetMenus2);
+                line.setInt(1, menu_id);
+            }
             res = line.executeQuery();
             while (res.next()) {
                 Menus menu = new Menus();
