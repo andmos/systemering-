@@ -20,20 +20,36 @@
                     </h:form>
                 </h:panelGroup>
             </span>
-
-            <h:panelGroup rendered="#{not empty request.remoteUser}">
+            <!--Different navigation cases depending on the role of the logged in user -->
+            <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userNormal')}">
                 <h:link value="Make an order" outcome="MakeOrder"/>
                 <h:link value="Order history" outcome="OrderHistoryChoose"/>
             </h:panelGroup>
-            <ui:insert name="userMenu" >
 
+            <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userCompany')}">
+                <h:link value="Make an order" outcome="MakeOrder"/>
+                <h:link value="Order history" outcome="OrderHistoryChoose"/>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('management')}">
+                <h:link value="Manage users" outcome="ManageUsers"/>
+                <h:link value="Manage menus/ inventory"  outcome="ManageMenus"/>
+                <h:link value="View Stastistics" outcome="ViewStatistics"/>
+            </h:panelGroup>
+
+            <ui:insert name="userMenu" >
                 <h:panelGroup rendered="#{not empty request.remoteUser}">
 
                     <span id="RightMenu">
                         <h:form>
                             <h:commandLink value="#{user.name}" action="UserProfile"/>
                             <h:commandLink value="Log out" action="#{user.doLogout}"/>
-                            <h:commandLink value="Shopping cart" action="ShoppingCart"/>
+                            <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userNormal')}">
+                                <h:commandLink value="Shopping cart" action="ShoppingCart"/>
+                            </h:panelGroup>
+                            <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userCompany')}">
+                                <h:commandLink value="Shopping cart" action="ShoppingCart"/>
+                            </h:panelGroup>
+
                         </h:form>
                     </span>
                 </h:panelGroup>

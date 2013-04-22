@@ -1,7 +1,9 @@
 package Beans;
 
 import ProblemDomain.Users;
+import ProblemDomain.Users_List;
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
@@ -31,7 +33,9 @@ public class UserBean implements Serializable {
     private boolean adminLogin = false;
     private int passwordStatus;
     private Users user = new Users();
+    private Users_List userlist = new Users_List();
     private boolean isCompany;
+    
 
     /**
      * 
@@ -186,8 +190,15 @@ public class UserBean implements Serializable {
      * Changes user information
      */
     public void changeUser(){
-        user.setName(name);
-        user.setAddress(address);
+        String name = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
+        String address = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("address");
+        String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
+        if(name!=null){
+            user.changeUser(name, address, username);
+        }else{
+           user.setName(this.name);
+            user.setAddress(this.address);
+        }
     }
     
     /*
@@ -202,5 +213,24 @@ public class UserBean implements Serializable {
     public void notLoginAdmin(){
         adminLogin = false;
     }
+    
+    public List getNormalUsers(){
+        String role = "userNormal";
+        return userlist.getUsers(role);
+        
+    }
+    
+    public List getManagementUsers(){
+        String role = "management";
+        return userlist.getUsers(role);
+    }
+    
+    public List getCompanyUsers(){
+        String role = "userCompany";
+        return userlist.getUsers(role);
+    }
+
+    
+    
 
 }

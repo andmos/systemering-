@@ -29,6 +29,7 @@ public class Users {
     public String sqlStatementSetAdress = "UPDATE users SET address=? WHERE username =?";
     public String sqlStatementSetName = "UPDATE users SET name=? WHERE username =?";
     public String sqlStatementSetPassword = "update users set password=? where username =?";
+    public String sqlStatementChangeUser = "update users set name=?,address=? where username =?";
     /**
      * Constructor checks if a user is logged in on the website, and creates an
      * object from data in the database.
@@ -106,6 +107,24 @@ public class Users {
             line = db.getConnection().prepareStatement(sqlStatementSetName);
             line.setString(1, name);
             line.setString(2, user);
+            line.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println("Could not get name from DB " + e.getMessage());
+
+        } finally {
+            db.closeStatement(line);
+            db.closeConnection();
+        }
+    }
+    public void changeUser(String name,String address,String username) {
+        this.name = name;
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlStatementChangeUser);
+            line.setString(1, name);
+            line.setString(2, address);
+            line.setString(3, username);
             line.executeUpdate();
 
         } catch (SQLException e) {

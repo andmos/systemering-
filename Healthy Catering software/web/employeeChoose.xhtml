@@ -7,10 +7,17 @@
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
-           
             <ui:define name="content">
+                <div id="choose">
+                    <table>
+
+                        <tr><td><h:link value="Management" outcome="Management"/></td></tr>
+                        <tr><td><h:link value="Driver" outcome="Driver"/></td></tr>
+                        <tr><td><h:link value="Chef" outcome="Chef"/></td></tr>
+
+                    </table>
+                </div>
             </ui:define>
         </ui:composition> 
     </h:body>
 </html>
-

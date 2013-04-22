@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="content">
+                <!-- Normal users-->
+                <h3>Normal users:</h3>
+                <h:form>
+                    <h:dataTable value="#{user.getNormalUsers()}" var="c" >
+
+                        <h:column> 
+                            <f:facet name="header">
+                                Name
+                            </f:facet>
+                            <input type="text" value="#{c.name}" name="name"/>
+                        </h:column>
+
+                        <h:column> 
+                            <f:facet name="header">
+                                Address
+                            </f:facet>
+                            <input type="text" value="#{c.address}" name="address"/>
+                        </h:column>
+                        <h:column>
+                            <input type="hidden" value="#{c.username}" name="username"/>
+                            <h:commandButton value="Change" action="#{user.changeUser()}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+
+                <!--Company users-->
+                <h3>Company users:</h3>
+                <h:form>
+                    <h:dataTable value="#{user. getCompanyUsers()}" var="c" >
+
+                        <h:column> 
+                            <f:facet name="header">
+                                Name
+                            </f:facet>
+                            <input type="text" value="#{c.name}" name="name"/>
+                        </h:column>
+
+                        <h:column> 
+                            <f:facet name="header">
+                                Address
+                            </f:facet>
+                            <input type="text" value="#{c.address}" name="address"/>
+                        </h:column>
+                        <h:column>
+                            <input type="hidden" value="#{c.username}" name="username"/>
+                            <h:commandButton value="Change" action="#{user.changeUser()}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+
+                <!-- Management users-->
+                <h3>Management users:</h3>
+                <h:form>
+                    <h:dataTable value="#{user.getManagementUsers()}" var="c" >
+
+                        <h:column> 
+                            <f:facet name="header">
+                                Name
+                            </f:facet>
+                            <input type="text" value="#{c.name}" name="name"/>
+                        </h:column>
+
+                        <h:column> 
+                            <f:facet name="header">
+                                Address
+                            </f:facet>
+                            <input type="text" value="#{c.address}" name="address"/>
+                        </h:column>
+                        <h:column>
+                            <input type="hidden" value="#{c.username}" name="username"/>
+                            <h:commandButton value="Change" action="#{user.changeUser()}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition> 
+    </h:body>
+</html>
+
+
