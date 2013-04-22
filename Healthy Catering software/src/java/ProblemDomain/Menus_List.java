@@ -47,7 +47,14 @@ public class Menus_List {
                 ResultSet res2 = line.executeQuery();
                 double sum = 0;
                 while (res2.next()) {
-                    sum += res2.getInt("sum");
+                    //userNormal = normal price, userCompany = normal price  * VAT, else normal price (not logged in)
+                    if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userNormal")) {
+                        sum += res2.getInt("sum") * 1.25;
+                    } else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userCompany")) {
+                        sum += res2.getInt("sum");
+                    }else{
+                        sum += res2.getInt("sum") * 1.25;
+                    }
                 }
                 menu.total_price = res.getInt("total_price");
                 menu.name = res.getString("name");
@@ -92,9 +99,13 @@ public class Menus_List {
                 ResultSet res2 = line.executeQuery();
                 double sum = 0;
                 while (res2.next()) {
-                    sum += res2.getInt("sum");
+                    //userNormal = normal price, userCompany = normal price  * VAT
+                    if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userNormal")) {
+                        sum += res2.getInt("sum") * 1.25;
+                    } else {
+                        sum += res2.getInt("sum");
+                    }
                 }
-                temp.total_price = res.getInt("total_price");
                 temp.name = res.getString("name");
                 temp.type = res.getString("type");
                 temp.sum = sum;

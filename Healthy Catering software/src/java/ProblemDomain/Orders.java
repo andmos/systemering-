@@ -104,7 +104,13 @@ public class Orders {
             line.setString(1, this.username);
             line.setInt(2, menu.menu_id);
             line.setInt(3, this.order_nr);
-            line.setDouble(4, menu.sum);
+            if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userNormal")) {
+                        line.setDouble(4, menu.sum*1.25);
+                    } else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userCompany")) {
+                        line.setDouble(4, menu.sum);
+                    }else{
+                        line.setDouble(4, menu.sum*1.25);
+                    }
             line.executeUpdate();
             check = true;
 

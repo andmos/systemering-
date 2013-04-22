@@ -25,7 +25,7 @@ public class Users {
     // SQL - statements: 
     public String sqlConstructor = "SELECT * FROM users WHERE username =?";
     public String sqlnewUser = "INSERT INTO users VALUES (?, ?, ?, ?)";
-    public String sqlnewUserRole = "INSERT INTO roles values('userNormal',?)"; //user - role is hardcoded inn becouse a user registration from the site should be a normal user. 
+    public String sqlnewUserRole = "INSERT INTO roles values(?,?)"; //user - role is hardcoded inn becouse a user registration from the site should be a normal user. 
     public String sqlStatementSetAdress = "UPDATE users SET address=? WHERE username =?";
     public String sqlStatementSetName = "UPDATE users SET name=? WHERE username =?";
     public String sqlStatementSetPassword = "update users set password=? where username =?";
@@ -165,7 +165,7 @@ public class Users {
         else if (!checkPasswordCriteria(newPassword) && newPassword.matches("^.*(?=.{6,10})(?=.*[a-zA-Z]).*$")) {
             return 3;
         }
-        else if (newPassword.length()>10 && newPassword.length()<10) {
+        else if (newPassword.length()>11 || newPassword.length()<5) {
             return 4;
         }else if(checkPasswordCriteria(newPassword)){
             return 0;
@@ -178,7 +178,7 @@ public class Users {
         else if (!checkPasswordCriteria(newPassword) && newPassword.matches("^.*(?=.{6,10})(?=.*[a-zA-Z]).*$")) {
             return 3;
         }
-        else if (newPassword.length()>5 && newPassword.length()<11) {
+        else if (newPassword.length()>11 || newPassword.length()<5) {
             return 4;
         }else if(checkPasswordCriteria(newPassword)){
             return 0;
@@ -260,8 +260,9 @@ public class Users {
      * 1 = registrered
      * 2 = name already exists
      * 3 = password fault
+     * isCompany = true=company, false=not company
      */
-    public int newUser() {
+    public int newUser(boolean isCompany) {
         if(this.password != null){
         try {
             db.openConnection();
@@ -273,8 +274,14 @@ public class Users {
             line.setString(4, this.username);
             line.executeUpdate();
             db.closeStatement(line);
+            if(isCompany){
             line = db.getConnection().prepareStatement(sqlnewUserRole);
-            line.setString(1, this.username);
+            line.setString(1,"userCompany");
+            }else{
+                line = db.getConnection().prepareStatement(sqlnewUserRole);
+                line.setString(1,"userNormal");
+            }
+            line.setString(2, this.username);
             line.executeUpdate();
             return 0;
         } catch (SQLException e) {

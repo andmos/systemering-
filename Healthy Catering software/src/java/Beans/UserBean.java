@@ -31,6 +31,7 @@ public class UserBean implements Serializable {
     private boolean adminLogin = false;
     private int passwordStatus;
     private Users user = new Users();
+    private boolean isCompany;
 
     /**
      * 
@@ -57,7 +58,15 @@ public class UserBean implements Serializable {
         this.password = user.getPassword();
         return user.getPassword();
     }
+    public boolean getIsCompany(){
+        return isCompany;
+    }
 
+    public void setIsCompany(boolean isCompany) {
+        this.isCompany = isCompany;
+    }
+    
+    
     public String getNewPassword() {
         return newPassword;
     }
@@ -143,9 +152,8 @@ public class UserBean implements Serializable {
      */
     public void newUser() {
         errorPanelGroup = true;
-        System.out.println("passord: "+password+" ,confirm password: "+newPasswordConfirmed);
         user.setPassword(password, newPasswordConfirmed);
-        error = user.newUser();
+        error = user.newUser(isCompany);
     }
 
     /**

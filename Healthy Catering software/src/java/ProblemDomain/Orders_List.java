@@ -31,9 +31,9 @@ public class Orders_List {
     private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
     private String sqlConstructor2 = "SELECT menu_id FROM orders where username=? and order_nr=?";
     private String sqlConstructor3 = "select menu_id,name,total_price  from menus where menu_id=?";
-    private String sqlConstructorCheff = "SELECT distinct status,order_nr,orderDate FROM orders where status < 0"; //
-    private String sqlGetSum = "select menu_id from orders  where order_nr=?";
-    private String sqlGetSum2 = "select total_price from menus where menu_id=?";
+    private String sqlConstructor4 = "select price from orders,menus where orders.menu_id=? and username=?";
+    private String sqlConstructorCheff = "SELECT distinct status,order_nr,orderDate FROM orders where status < 0";
+    private String sqlGetSum2 = "select price from orders where order_nr=? and username=?";
     private int order_nr = 0;
 
     public Orders_List() {
@@ -50,7 +50,6 @@ public class Orders_List {
         try {
             db.openConnection();
             if (order_nr == 0) {
-
                 if (isCheff) {
                     line = db.getConnection().prepareStatement(sqlConstructorCheff);
                 } else {
@@ -79,7 +78,13 @@ public class Orders_List {
                         Menus menu = new Menus();
                         menu.menu_id = res2.getInt("menu_id");
                         menu.name = res2.getString("name");
-                        menu.total_price = res2.getInt("total_price");
+                        line = db.getConnection().prepareStatement(sqlConstructor4);
+                        line.setInt(1, menu.menu_id);
+                        line.setString(2, user);
+                        ResultSet res3 = line.executeQuery();
+                        while (res3.next()) {
+                            menu.sum = (double) res3.getInt("price");
+                        }
                         list2.add(menu);
                     }
                 }
@@ -108,22 +113,17 @@ public class Orders_List {
     }
 
     public double getSum(int order_nr) {
-        System.out.println("her");
         double sum = 0;
         try {
             db.openConnection();
-            line = db.getConnection().prepareStatement(sqlGetSum);
+            line = db.getConnection().prepareStatement(sqlGetSum2);
             line.setInt(1, order_nr);
-            res = line.executeQuery();
-            while (res.next()) {
-                int menu_id = res.getInt("menu_id");
-                line = db.getConnection().prepareStatement(sqlGetSum2);
-                line.setInt(1, menu_id);
-                ResultSet res2 = line.executeQuery();
-                while (res2.next()) {
-                    sum += res2.getInt("total_price");
-                }
+            line.setString(2, user);
+            ResultSet res2 = line.executeQuery();
+            while (res2.next()) {
+                sum += res2.getInt("price");
             }
+            //}
         } catch (SQLException e) {
             System.out.println("Feil i getSum " + e.getMessage());
         } finally {

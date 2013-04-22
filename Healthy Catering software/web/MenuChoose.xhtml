@@ -12,11 +12,11 @@
 
                     <h:column>
                         <div id="special">
-                        <h:form>
-                            <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
-                            <h:commandButton  value="#{c.name}"  action="#{menu.choosenMenu()}"/> 
-                        </h:form>
-                            </div>
+                            <h:form>
+                                <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
+                                <h:commandButton  value="#{c.name}"  action="#{menu.choosenMenu()}"/> 
+                            </h:form>
+                        </div>
                     </h:column>
 
                     <h:column  > 
@@ -29,7 +29,9 @@
                     <h:column  > 
                         <f:facet name="header">
                             Type
-                        #{c.type}
+                        </f:facet>
+                            #{c.type}
+
                     </h:column>
                 </h:dataTable>
             </ui:define>

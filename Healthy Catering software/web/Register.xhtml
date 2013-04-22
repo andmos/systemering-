@@ -14,10 +14,10 @@
 
                             <tr><td>Name</td><td><h:inputText id="newName" label="Name" required="true" value="#{user.name}"></h:inputText><td width="100%"><h:message for="newName" style="color:red"/></td></td></tr>
                             <tr><td>Username</td><td><h:inputText id="newUsername" label="Username" required="true" value="#{user.username}"></h:inputText></td><td width="100%"><h:message for="newUsername" style="color:red" />
-                                        <h:panelGroup rendered="#{user.errorPanelGroup}">
-                                            <h:outputText style="color:red" value="Username already exists" rendered="#{user.error == -1}"></h:outputText>
-                                        </h:panelGroup>
-                                    </td></tr>
+                                    <h:panelGroup rendered="#{user.errorPanelGroup}">
+                                        <h:outputText style="color:red" value="Username already exists" rendered="#{user.error == -1}"></h:outputText>
+                                    </h:panelGroup>
+                                </td></tr>
                             <tr><td>Password</td><td><h:inputSecret id="newPassword" label="Password" required="true" value="#{user.password}"></h:inputSecret><td width="100%"><h:message for="newPassword" style="color:red" />
                                         <h:panelGroup rendered="#{user.errorPanelGroup}">
                                             <h:outputText style="color:red" value="The password does not match" rendered="#{user.error == 1}"></h:outputText>
@@ -31,14 +31,16 @@
                                     </h:panelGroup>
                                 </td></tr>
                             <tr><td>Address</td><td><h:inputText id="newAddress" label="Address" required="true" value="#{user.address}"></h:inputText><td width="100%"><h:message for="newAddress" style="color:red" /></td></td></tr>
-
+                            <tr><td>Company?</td>
+                                <td><h:selectBooleanCheckbox value="#{user.isCompany}"></h:selectBooleanCheckbox></td>
+                            </tr>
+                            
                             <tr><td><h:commandButton value="Register new user" action="#{user.newUser()}"/></td><td>
                                     <h:panelGroup rendered="#{user.errorPanelGroup}">
                                         <h:outputText style="color:green" value="You are now registered." rendered="#{user.error==0}"></h:outputText>
                                     </h:panelGroup>
                                 </td></tr>
-
-                        </table>    
+                        </table>
                     </h:form>
 
                 </div>
