@@ -41,11 +41,10 @@
             <url-pattern>/protected/*</url-pattern>
         </web-resource-collection>
         <auth-constraint>
-            <role-name>user</role-name>
-            <role-name>admin</role-name>
+            <role-name>userNormal</role-name>
+            <role-name>userCompany</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <security-constraint>
         <web-resource-collection>
             <web-resource-name>Restricted Pages</web-resource-name>
@@ -57,8 +56,7 @@
             <role-name>admin</role-name>
         </auth-constraint>
     </security-constraint>
-    
-     <security-constraint>
+    <security-constraint>
         <web-resource-collection>
             <web-resource-name>Cheff Pages</web-resource-name>
             <description/>
@@ -69,7 +67,6 @@
             <role-name>cheff</role-name>
         </auth-constraint>
     </security-constraint>
-    
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>loginRealm</realm-name>
@@ -79,12 +76,17 @@
         </form-login-config>
     </login-config>
     <security-role>
-        <role-name>user</role-name>
+        <description/>
+        <role-name>userNormal</role-name>
     </security-role>
     <security-role>
         <role-name>admin</role-name>
     </security-role>
     <security-role>
         <role-name>cheff</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>userCompany</role-name>
     </security-role>
 </web-app>

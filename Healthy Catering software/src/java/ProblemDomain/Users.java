@@ -25,7 +25,7 @@ public class Users {
     // SQL - statements: 
     public String sqlConstructor = "SELECT * FROM users WHERE username =?";
     public String sqlnewUser = "INSERT INTO users VALUES (?, ?, ?, ?)";
-    public String sqlnewUserRole = "INSERT INTO roles values('user',?)"; //user - role is hardcoded inn becouse a user registration from the site should be a normal user. 
+    public String sqlnewUserRole = "INSERT INTO roles values('userNormal',?)"; //user - role is hardcoded inn becouse a user registration from the site should be a normal user. 
     public String sqlStatementSetAdress = "UPDATE users SET address=? WHERE username =?";
     public String sqlStatementSetName = "UPDATE users SET name=? WHERE username =?";
     public String sqlStatementSetPassword = "update users set password=? where username =?";
