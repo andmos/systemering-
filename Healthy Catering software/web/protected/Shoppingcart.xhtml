@@ -9,17 +9,13 @@
         <ui:composition template="/template/template.xhtml">
 
             <ui:define name="content">
-                <h:dataTable value="#{menu.getMenu()}" var="c" >
-
+                <h:dataTable value="#{order.getMenus()}" var="c" >
                     <h:column>
                         <f:facet name="header">
                             Name
                         </f:facet>
                         <div id="special">
-                            <h:form>
-                                <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
-                                <h:commandButton  value="#{c.name}"  action="#{order.choosenMenu()}"/> 
-                            </h:form>
+                            #{c.name}
                         </div>
                     </h:column>
 
@@ -30,19 +26,17 @@
                         #{c.sum}
                     </h:column>
 
-                    <h:column> 
+                    <h:column  > 
                         <f:facet name="header">
                             Type
                         </f:facet>
                         #{c.type}
                     </h:column>
-                    <h:column>
-                        <h:form>
-                        <input type="hidden" name="menu_id" value="#{c.menu_id}"/>
-                        <h:commandLink  value="Add to cart"  action="#{order.placeOrder()}"/> 
-                        </h:form>
-                    </h:column>
                 </h:dataTable>
+                <h:form>
+                    <h:commandButton value="Place Order" action="#{order.placeOrders()}">
+                    </h:commandButton>
+                </h:form>
             </ui:define>
         </ui:composition> 
     </h:body>

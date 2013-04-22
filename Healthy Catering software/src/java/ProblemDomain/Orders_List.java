@@ -7,9 +7,11 @@ package ProblemDomain;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import javax.faces.context.FacesContext;
 import java.util.*;
+import java.util.Date.*;
 
 /**
  *
@@ -20,12 +22,10 @@ public class Orders_List {
 
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-    
     private boolean isCheff = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("cheff");
-    private boolean isDriver = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("driver");         
+    private boolean isDriver = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("driver");
     private boolean isAdmin = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin");
     private boolean isUser = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("user");
-
     private PreparedStatement line = null;
     private ResultSet res = null;
     private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
@@ -46,28 +46,26 @@ public class Orders_List {
     public List buildOrdersList() {
         List<Orders> list = new ArrayList<Orders>();
         List<Menus> list2 = new ArrayList<>();
-        
+
         try {
             db.openConnection();
             if (order_nr == 0) {
-                
-                if(isCheff){
+
+                if (isCheff) {
                     line = db.getConnection().prepareStatement(sqlConstructorCheff);
-                }else{   
-                line = db.getConnection().prepareStatement(sqlConstructor);
-                line.setString(1, user);
+                } else {
+                    line = db.getConnection().prepareStatement(sqlConstructor);
+                    line.setString(1, user);
                 }
                 res = line.executeQuery();
                 while (res.next()) {
                     Orders orders = new Orders();
                     orders.status = res.getInt("status");
-                    orders.order_nr = res.getString("order_nr");
-                    orders.orderDate = res.getTimestamp("orderDate");
-                    orders.orderDate = (java.sql.Timestamp ) orders.orderDate;
-                    System.out.println(orders.orderDate);
-                   list.add(orders);
-                   }
-                
+                    orders.order_nr = res.getInt("order_nr");
+                    orders.orderDate = res.getDate("orderDate");
+                    list.add(orders);
+                }
+
             } else {
                 line = db.getConnection().prepareStatement(sqlConstructor2);
                 line.setString(1, user);
@@ -108,8 +106,8 @@ public class Orders_List {
         List<Menus> list = buildOrdersList();
         return list; //.size()>0 ? list : null;
     }
-    
-    public double getSum(int order_nr){
+
+    public double getSum(int order_nr) {
         System.out.println("her");
         double sum = 0;
         try {
@@ -117,18 +115,18 @@ public class Orders_List {
             line = db.getConnection().prepareStatement(sqlGetSum);
             line.setInt(1, order_nr);
             res = line.executeQuery();
-            while(res.next()){
+            while (res.next()) {
                 int menu_id = res.getInt("menu_id");
                 line = db.getConnection().prepareStatement(sqlGetSum2);
-                line.setInt(1,menu_id);
+                line.setInt(1, menu_id);
                 ResultSet res2 = line.executeQuery();
-                while(res2.next()){
+                while (res2.next()) {
                     sum += res2.getInt("total_price");
                 }
             }
-        }catch(SQLException e){
-            System.out.println("Feil i getSum "+e.getMessage());
-        }finally{
+        } catch (SQLException e) {
+            System.out.println("Feil i getSum " + e.getMessage());
+        } finally {
             db.closeResSet(res);
             db.closeStatement(line);
             db.getConnection();

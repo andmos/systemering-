@@ -69,7 +69,10 @@
             <from-outcome>chooseMenuUser</from-outcome>
             <to-view-id>protected/ViewMenuOrder.xhtml</to-view-id>
         </navigation-case>
-    
+        <navigation-case>
+            <from-outcome>ShoppingCart</from-outcome>
+            <to-view-id>protected/Shoppingcart.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
     
     

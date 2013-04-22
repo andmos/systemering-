@@ -15,20 +15,21 @@ import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-@RequestScoped
+@SessionScoped
 @Named("order")
 public class OrderBean implements Serializable {
 
     private int order_id;
     private int order_nr;
     private int status;
-    private int menu_id;
+    private int menu_id = 0;
     private double sum;
     private Orders order = new Orders();
     private Orders_List orderlist;
-    private Menus_List menulist;
+    private Menus_List menulist = new Menus_List();
     private Course_List courselist;
-    private ArrayList shoppingcart = new ArrayList();
+    private ArrayList<Orders> shoppingcart = new ArrayList();
+    private List menulists = new ArrayList();
 
     public int getOrder_id() {
         return order.getOrder_id();
@@ -91,10 +92,32 @@ public class OrderBean implements Serializable {
         String value = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("menu_id");
         menu_id = Integer.parseInt(value);
-        shoppingcart.add(menu_id);
-        for (int i = 0; i < shoppingcart.size(); i++) {
-            System.out.println(shoppingcart.get(i));
+        Orders orders = new Orders();
+        orders.setMenu_id(menu_id);
+        shoppingcart.add(orders);
+    }
 
+    public List getMenus() {
+        for (int i = 0; i < shoppingcart.size(); i++) {
+            menu_id = shoppingcart.get(i).menu_id;
+            menulists.add(new Menus_List(menu_id).getMenus());
+            shoppingcart.remove(i);
         }
+        return menulists;
+    }
+
+    public void placeOrders() {
+        Orders order = new Orders();
+        order.setNewOrderNr();
+        if (menulists.size() > 0) {
+            for (int i = 0; i < menulists.size(); i++) {
+                Menus menu = (Menus) menulists.get(i);
+                order.placeOrder(menu);
+            }
+        }
+    }
+
+    public ArrayList<Orders> getShoppingcart() {
+        return shoppingcart;
     }
 }

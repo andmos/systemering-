@@ -1,4 +1,3 @@
-
 package ProblemDomain;
 
 import java.sql.PreparedStatement;
@@ -20,14 +19,16 @@ public class Menus_List {
     private ResultSet res = null;
     private String sqlGetMenus = "SELECT * FROM menus order by type_id";
     private String sqlGetMenus2 = "SELECT * FROM menus where menu_id=? order by type_id";
-    private int menu_id = 0;
+    private int menu_id = -1;
 
-
-    public Menus_List(int menu_id){
+    public Menus_List(int menu_id) {
         this.menu_id = menu_id;
     }
-    
-    public Menus_List(){};
+
+    public Menus_List() {
+    }
+
+    ;
     /** 
      * Menu_id = 0 ,If you have not choosen a menu from your order history.
      * Menu_id != 0 ,If you have choosen a menu from your order history. 
@@ -36,12 +37,7 @@ public class Menus_List {
         List<Menus> list = new ArrayList<Menus>();
         try {
             db.openConnection();
-            if(menu_id == 0){
             line = db.getConnection().prepareStatement(sqlGetMenus);
-            }else{
-                line = db.getConnection().prepareStatement(sqlGetMenus2);
-                line.setInt(1, menu_id);
-            }
             res = line.executeQuery();
             while (res.next()) {
                 Menus menu = new Menus();
@@ -50,7 +46,7 @@ public class Menus_List {
                 line.setInt(1, menu.menu_id);
                 ResultSet res2 = line.executeQuery();
                 double sum = 0;
-                while (res2.next()){
+                while (res2.next()) {
                     sum += res2.getInt("sum");
                 }
                 menu.total_price = res.getInt("total_price");
@@ -68,12 +64,48 @@ public class Menus_List {
         }
         return list;
     }
+
     /**
-     * 
-     * @return returns the meny list. 
+     *
+     * @return
+     * returns
+     * the
+     * meny
+     * list.
      */
     public List getMenu() {
         List<Menus> list = buildMenuList();
         return list; //.size()>0 ? list : null;
+    }
+
+    public Menus getMenus() {
+        Menus temp = new Menus();
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlGetMenus2);
+            line.setInt(1, this.menu_id);
+            res = line.executeQuery();
+            while (res.next()) {
+                temp.menu_id = res.getInt("menu_id");
+                line = db.getConnection().prepareStatement("select sum(price) as sum from course where menu_id=?");
+                line.setInt(1, temp.menu_id);
+                ResultSet res2 = line.executeQuery();
+                double sum = 0;
+                while (res2.next()) {
+                    sum += res2.getInt("sum");
+                }
+                temp.total_price = res.getInt("total_price");
+                temp.name = res.getString("name");
+                temp.type = res.getString("type");
+                temp.sum = sum;
+            }
+        } catch (SQLException e) {
+            System.out.println("Feil i buildMenuList() " + e.getMessage());
+        } finally {
+            db.closeResSet(res);
+            db.closeStatement(line);
+            db.closeConnection();
+        }
+        return temp;
     }
 }

@@ -1,6 +1,11 @@
 package ProblemDomain;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.Date;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -9,12 +14,21 @@ import java.util.Date;
  */
 public class Orders {
 
+    public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
+    private PreparedStatement line = null;
+    private ResultSet res = null;
+    String sqlPlaceOrder = "insert into orders(status,username,menu_id,order_nr,orderDate,price) values(-1,?,?,?,now(),?)";
     public int order_id;
     public int status;
     public int menu_id;
-    public String order_nr;
+    public int order_nr;
     public Date orderDate;
     public int menuCount;
+    public double price;
+    public String username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+
+    public Orders() {
+    }
 
     public int getOrder_id() {
         return order_id;
@@ -48,11 +62,11 @@ public class Orders {
         this.orderDate = orderDate;
     }
 
-    public void setOrder_nr(String order_nr) {
+    public void setOrder_nr(int order_nr) {
         this.order_nr = order_nr;
     }
 
-    public String getOrder_nr() {
+    public int getOrder_nr() {
         return order_nr;
     }
 
@@ -62,5 +76,45 @@ public class Orders {
 
     public void setMenuCount(int menuCount) {
         this.menuCount = menuCount;
+    }
+
+    public void setNewOrderNr() {
+        try{PreparedStatement line2 = null;
+        db.openConnection();
+        line2 = db.getConnection().prepareStatement("select max(order_nr) as max from orders where username=?");
+        line2.setString(1, this.username);
+        ResultSet res2 = line2.executeQuery();
+        while (res2.next()) {
+            this.order_nr = res2.getInt("max") + 1;
+        }
+         } catch (SQLException e) {
+            System.out.println("Feil i setNewOrderNr()" + e.getMessage());
+        } finally {
+            db.closeResSet(res);
+            db.closeStatement(line);
+            db.closeConnection();
+        }
+    }
+
+    public boolean placeOrder(Menus menu) {
+        boolean check = false;
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlPlaceOrder);
+            line.setString(1, this.username);
+            line.setInt(2, menu.menu_id);
+            line.setInt(3, this.order_nr);
+            line.setDouble(4, menu.sum);
+            line.executeUpdate();
+            check = true;
+
+        } catch (SQLException e) {
+            System.out.println("Feil i placeOrder()" + e.getMessage());
+        } finally {
+            db.closeResSet(res);
+            db.closeStatement(line);
+            db.closeConnection();
+        }
+        return check;
     }
 }
