@@ -191,15 +191,17 @@ input[type="submit"]:hover{
 Footer
 ********************/
 #footer{
+    border-top: 1px #333 outset;
+    color: #4B4B4B;
     font-family: 'Syncopate', sans-serif;
     text-align: center;
     margin: 0 auto;
-    min-height: 200px;
-    background-color: white;
+    min-height: 50px;
+    background-color: #cfcaaa;
+/*    background-color: #eee;*/
 }
-#footer #powered{
-    position: relative;
-    top:200px;   
+#footer > #powered{
+    margin-top: 15px; 
 }
 #footer #address{
     position: relative;
