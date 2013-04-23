@@ -81,6 +81,7 @@ public class Statistics {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlNumberOfCustomers);
             res = line.executeQuery();
+            res.next();
             customers = res.getInt("count");
 
         } catch (SQLException e) {
@@ -99,6 +100,7 @@ public class Statistics {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlNumberOfManagement);
             res = line.executeQuery();
+            res.next();
             management = res.getInt("count");
 
         } catch (SQLException e) {
@@ -117,6 +119,7 @@ public class Statistics {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlNumberOfChefs);
             res = line.executeQuery();
+            res.next();
             chefs = res.getInt("count");
 
         } catch (SQLException e) {
