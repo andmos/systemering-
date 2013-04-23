@@ -8,9 +8,29 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:inputText value="#{course.name}"/>
-                <h:inputText value="#{course.price}"/>
-                <h:inputText value="#{course.description}"/>
+                <h:form>
+                    <table>
+                        <tr>
+                            <td>Name</td>
+                            <td><h:inputText value="#{course.name}" required="true" label="Name" id="newName"/></td>
+                            <td><h:message for="newName" style="color:red"/></td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td><h:inputText value="#{course.price}" required="true" label="Price" id="newPrice"/></td>
+                            <td>New price should exclude VAT</td>
+                            <td><h:message for="newPrice" style="color:red"/></td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td><h:inputText value="#{course.description}" required="true" label="Description" id="newDescription"/></td>
+                            <td><h:message for="newDescription" style="color:red"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:commandButton action="#{course.updateCourse()}" value="Update course"/></td>
+                </tr>
+                    </table>
+                </h:form>
             </ui:define>
         </ui:composition> 
     </h:body>

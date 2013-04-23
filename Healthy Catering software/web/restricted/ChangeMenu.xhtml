@@ -10,7 +10,9 @@
             <ui:define name="content">
                 
                     <h:dataTable value="#{menu.getMenu()}" var="c" >
-                        
+                        <f:facet name="header">
+                            Menus
+                        </f:facet>
                         <h:column>
                             <f:facet name="header">
                                 Name

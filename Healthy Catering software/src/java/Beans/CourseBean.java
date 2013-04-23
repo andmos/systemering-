@@ -21,9 +21,15 @@ public class CourseBean implements Serializable {
     private String description;
     private int menuID;
     private double price;
+    //Error handling
+    private boolean updateCourse;
 
     public double getPrice() {
         return course.getPrice();
+    }
+
+    public boolean getUpdateCourse() {
+        return updateCourse;
     }
 
     public void setPrice(double price) {
@@ -43,7 +49,7 @@ public class CourseBean implements Serializable {
         this.menuID = menuID;
         course.setMenu_id(menuID);
     }
-    
+
     public String getName() {
         return course.getName_course();
     }
@@ -78,8 +84,12 @@ public class CourseBean implements Serializable {
         setDescription(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("description"));
         return "EditCourse";
     }
-    
-    public void updateCourse(){
-       // course.updateCourse();
+
+    public void updateCourse() {
+        if (course.updateCourse()) {
+            updateCourse = true;
+        } else {
+            updateCourse = false;
+        }
     }
 }

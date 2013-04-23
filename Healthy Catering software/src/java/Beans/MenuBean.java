@@ -138,13 +138,4 @@ public class MenuBean implements Serializable {
     public boolean getCreateMenu() {
         return createMenu;
     }
-    
-    public void editCourse(Course course){
-        course.setEditable(true);
-        /*
-        List<Course> courses = getCourses();
-        for(Course c:courses){
-            c.setEditable(true);
-        }*/
-    }
 }

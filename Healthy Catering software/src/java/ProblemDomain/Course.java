@@ -1,5 +1,9 @@
 package ProblemDomain;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
  * @author
@@ -13,6 +17,10 @@ public class Course {
     public String description;
     public int menu_id;
     public boolean editable;
+    private PreparedStatement line = null;
+    private ResultSet res = null;
+    public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
+    public String sqlUpdateCourse = "update course set description=?, price=?, name_course=? where menu_id=? and course_id=?";
 
     public double getPrice() {
         return price;
@@ -54,13 +62,26 @@ public class Course {
         this.description = description;
     }
 
-    public boolean getEditable() {
-        System.out.println(editable);
-        return editable;
-    }
+    
+    public boolean updateCourse() {
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlUpdateCourse);
+            line.setString(1, description);
+            line.setDouble(2, price);
+            line.setString(3, name_course);
+            line.setInt(4, menu_id);
+            line.setInt(5, course_id);
+            line.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Failure in updateCourse():" + e.getMessage());
+            return false;
+        } finally {
+            db.closeConnection();
+            db.closeResSet(res);
+            db.closeStatement(line);
+        }
 
-    public void setEditable(boolean var) {
-        editable = var;
-        System.out.println(editable);
     }
 }
