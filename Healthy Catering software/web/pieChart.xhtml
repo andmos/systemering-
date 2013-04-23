@@ -13,11 +13,16 @@
 
                 Welcome to Healthy Caterings home page. Please make some orders!
 
-                <p:pieChart id="sample" value="#{chartBean.pieModel}" legendPosition="w"  
-                            title="Sample Pie Chart" style="width:400px;height:300px" />  
+                <p:pieChart id="sample" value="#{model.pieModel}" legendPosition="c"  
+                            title="Most popular menu" style="width:600px;height:600px" /> 
+                
+                <p:pieChart id="sample2" value="#{model.pieModel2}" legendPosition="c"  
+                            title="Most profitable customers" style="width:600px;height:600px" /> 
+                
+                   <p:pieChart id="sample3" value="#{model.pieModel3}" legendPosition="c"  
+                            title="Number of user grouped by role" style="width:600px;height:600px" /> 
 
-                <p:pieChart id="custom" value="#{chartBean.pieModel}" legendPosition="e" fill="false" showDataLabels="true"  
-                            title="Custom Options" style="width:400px;height:300px" sliceMargin="5" diameter="150" />  
+              
 
                 <!--Write content of webpage-->
 
