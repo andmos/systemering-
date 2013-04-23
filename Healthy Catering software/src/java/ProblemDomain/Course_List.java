@@ -69,7 +69,7 @@ public class Course_List {
                 Course course = new Course();
                 course.course_id = res.getInt("course_id");
                 course.name_course = res.getString("name_course");
-                
+                course.menu_id = res.getInt("menu_id");
                 //userNormal = normal price, userCompany = normal price  * VAT
                 if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userNormal")) {
                     course.price = res.getInt("price")*1.25;

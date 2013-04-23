@@ -37,29 +37,33 @@
                             <f:facet name="header">
                                 Name
                             </f:facet>
-                            <h:outputText value="#{c.name_course}" rendered="#{not c.editable}"/>
-                            <h:inputText value="#{c.name_course}" rendered="#{c.editable}"/>
+                            <h:outputText value="#{c.name_course}"/>
                             
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 Price
                             </f:facet>
-                            <h:outputText value="#{c.price}" rendered="#{not c.editable}"/>
-                            <h:inputText value="#{c.price}" rendered="#{c.editable}"/>
+                            <h:outputText value="#{c.price}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 Description
                             </f:facet>
-                            <h:outputText value="#{c.description}" rendered="#{not c.editable}"/>
-                            <h:inputText value="#{c.description}" rendered="#{c.editable}"/>
+                            <h:outputText value="#{c.description}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 Action
                             </f:facet>
-                            <h:commandButton action="#{menu.editCourse(c)}"/>
+                            <h:form>
+                                <input type="hidden" value="#{c.course_id}" name="course_id"/>
+                                <input type="hidden" value="#{c.menu_id}" name="menu_id"/>
+                                <input type="hidden" value="#{c.name_course}" name="name"/>
+                                <input type="hidden" value="#{c.description}" name="description"/>
+                                <input type="hidden" value="#{c.price}" name="price"/>
+                                <h:commandButton value="Edit" action="#{course.chooseCourse()}"/>
+                            </h:form>
                         </h:column>
                     </h:dataTable>
                 </h:form>

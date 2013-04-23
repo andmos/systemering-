@@ -4,15 +4,15 @@
     <Scope Scope="Project">
         <Node id="protected/*" x="600" y="384" zoom="true"/>
         <Node id="protected/MakeOrderChoose.xhtml" x="1150" y="300" zoom="true"/>
-        <Node id="protected/UserProfile.xhtml" x="150" y="300" zoom="true"/>
         <Node id="Error.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="protected/UserProfile.xhtml" x="150" y="300" zoom="true"/>
         <Node id="LoginChoose.xhtml" x="900" y="300" zoom="true"/>
         <Node id="Register.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="template/common/commonContent.xhtml" x="150" y="750" zoom="true"/>
         <Node id="protected/ViewMenuOrder.xhtml" x="400" y="750" zoom="true"/>
         <Node id="protected/index.xhtml" x="364" y="445" zoom="true"/>
-        <Node id="Login.xhtml" x="650" y="150" zoom="true"/>
         <Node id="template/common/commonHeader.xhtml" x="400" y="150" zoom="true"/>
+        <Node id="Login.xhtml" x="650" y="150" zoom="true"/>
         <Node id="protected/Shoppingcart.xhtml" x="900" y="450" zoom="true"/>
         <Node id="Contact.xhtml" x="650" y="600" zoom="true"/>
         <Node id="protected/OrderHistory.xhtml" x="400" y="300" zoom="true"/>

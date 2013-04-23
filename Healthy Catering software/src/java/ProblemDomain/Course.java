@@ -11,10 +11,19 @@ public class Course {
     public String name_course;
     public double price;
     public String description;
+    public int menu_id;
     public boolean editable;
 
     public double getPrice() {
         return price;
+    }
+
+    public void setMenu_id(int menuID) {
+        this.menu_id = menuID;
+    }
+
+    public int getMenu_id() {
+        return menu_id;
     }
 
     public String getName_course() {
