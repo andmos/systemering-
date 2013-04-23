@@ -4,7 +4,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      xmlns:p="http://primefaces.org/ui"  
+      > 
+
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
@@ -23,6 +25,7 @@
                     <h:graphicImage value="/resources/img/food/RisNStuff.jpg"/>
                         
                     </div>
+                <p:spinner />  
             </ui:define>
         </ui:composition> 
     </h:body>
