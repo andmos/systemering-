@@ -1,13 +1,17 @@
 package ProblemDomain;
+
 /**
  *
- * @author havardb
+ * @author
+ * havardb
  */
 public class Course {
-public int course_id;
-public String name_course;
-public double price;
-public String description;
+
+    public int course_id;
+    public String name_course;
+    public double price;
+    public String description;
+    public boolean editable;
 
     public double getPrice() {
         return price;
@@ -40,8 +44,14 @@ public String description;
     public void setDescription(String description) {
         this.description = description;
     }
-    
-    
 
-    
+    public boolean getEditable() {
+        System.out.println(editable);
+        return editable;
+    }
+
+    public void setEditable(boolean var) {
+        editable = var;
+        System.out.println(editable);
+    }
 }

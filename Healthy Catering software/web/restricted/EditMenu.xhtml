@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="content">
+                <h:form>
+                    <table>
+                        <tr>
+                            <th scope="col">Menu Information</th>
+                        </tr>
+                        <tr>
+                            <td>Menu name</td>
+                            <td><h:inputText value="#{menu.name}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Menu type</td>
+                            <td><h:selectOneMenu value="#{menu.type}">
+                                    <f:selectItem itemValue="Breakfast" itemLabel="Breakfast" />
+                                    <f:selectItem itemValue="Lunch" itemLabel="Lunch" />
+                                    <f:selectItem itemValue="Dinner" itemLabel="Dinner" />
+                                    <f:selectItem itemValue="Supper" itemLabel="Supper" />
+                                </h:selectOneMenu></td>
+                        </tr>
+                        <tr><td><h:commandButton value="Update information" action="#{menu.updateMenu()}"/></td></tr>
+                    </table>
+
+                    <h:dataTable value="#{menu.courses}" var="c">
+                        <f:facet name="header">
+                            Courses
+                        </f:facet>
+                        <h:column>
+                            <f:facet name="header">
+                                Name
+                            </f:facet>
+                            <h:outputText value="#{c.name_course}" rendered="#{not c.editable}"/>
+                            <h:inputText value="#{c.name_course}" rendered="#{c.editable}"/>
+                            
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Price
+                            </f:facet>
+                            <h:outputText value="#{c.price}" rendered="#{not c.editable}"/>
+                            <h:inputText value="#{c.price}" rendered="#{c.editable}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Description
+                            </f:facet>
+                            <h:outputText value="#{c.description}" rendered="#{not c.editable}"/>
+                            <h:inputText value="#{c.description}" rendered="#{c.editable}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Action
+                            </f:facet>
+                            <h:commandButton action="#{menu.editCourse(c)}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+
+        </ui:composition> 
+    </h:body>
+</html>
+

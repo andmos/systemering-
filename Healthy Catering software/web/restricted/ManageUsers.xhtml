@@ -8,80 +8,109 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
+
+                <h:outputText style="color:green" value="Password has been reset for #{user.usernameChange}" rendered="#{user.resetPassword}"/>
+                <h:outputText style="color:green" value="User information has been changed for #{user.usernameChange}" rendered="#{user.changedInformation}"/>
                 <!-- Normal users-->
                 <h3>Normal users:</h3>
-                <h:form>
-                    <h:dataTable value="#{user.getNormalUsers()}" var="c" >
+                <h:dataTable value="#{user.getNormalUsers()}" var="c" >
+                    <h:column> 
+                        <f:facet name="header">
+                            Username
+                        </f:facet>
+                        <h:outputText value="#{c.username}"/>
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        <h:outputText value="#{c.name}"/>
+                        <!--<input type="text" value="#{c.name}" name="name"/>-->
+                    </h:column>
 
-                        <h:column> 
-                            <f:facet name="header">
-                                Name
-                            </f:facet>
-                            <input type="text" value="#{c.name}" name="name"/>
-                        </h:column>
-
-                        <h:column> 
-                            <f:facet name="header">
-                                Address
-                            </f:facet>
-                            <input type="text" value="#{c.address}" name="address"/>
-                        </h:column>
-                        <h:column>
+                    <h:column> 
+                        <f:facet name="header">
+                            Address
+                        </f:facet>
+                        <h:outputText value="#{c.address}"/>
+                        <!--<input type="text" value="#{c.address}" name="address"/>-->
+                    </h:column>
+                    <h:column>
+                        <h:form>
                             <input type="hidden" value="#{c.username}" name="username"/>
-                            <h:commandButton value="Change" action="#{user.changeUser()}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
+                            <h:commandButton value="Edit" action="#{user.chooseUser()}"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
 
                 <!--Company users-->
                 <h3>Company users:</h3>
-                <h:form>
-                    <h:dataTable value="#{user. getCompanyUsers()}" var="c" >
+                <h:dataTable value="#{user.getCompanyUsers()}" var="c" >
+                    <h:column> 
+                        <f:facet name="header">
+                            Username
+                        </f:facet>
+                        <h:outputText value="#{c.username}"/>
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        <h:outputText value="#{c.name}"/>
+                        <!--<input type="text" value="#{c.name}" name="name"/>-->
+                    </h:column>
 
-                        <h:column> 
-                            <f:facet name="header">
-                                Name
-                            </f:facet>
-                            <input type="text" value="#{c.name}" name="name"/>
-                        </h:column>
-
-                        <h:column> 
-                            <f:facet name="header">
-                                Address
-                            </f:facet>
-                            <input type="text" value="#{c.address}" name="address"/>
-                        </h:column>
-                        <h:column>
+                    <h:column> 
+                        <f:facet name="header">
+                            Address
+                        </f:facet>
+                        <h:outputText value="#{c.address}"/>
+                        <!--<input type="text" value="#{c.address}" name="address"/>-->
+                    </h:column>
+                    <h:column>
+                        <h:form>
                             <input type="hidden" value="#{c.username}" name="username"/>
-                            <h:commandButton value="Change" action="#{user.changeUser()}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
+                            <h:commandButton value="Edit" action="#{user.chooseUser()}"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+
 
                 <!-- Management users-->
                 <h3>Management users:</h3>
-                <h:form>
-                    <h:dataTable value="#{user.getManagementUsers()}" var="c" >
+                <h:dataTable value="#{user.getManagementUsers()}" var="c" >
+                    <h:column> 
+                        <f:facet name="header">
+                            Username
+                        </f:facet>
+                        <h:outputText value="#{c.username}"/>
+                    </h:column>
+                    <h:column> 
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        <h:outputText value="#{c.name}"/>
+                        <!--<input type="text" value="#{c.name}" name="name"/>-->
+                    </h:column>
 
-                        <h:column> 
-                            <f:facet name="header">
-                                Name
+                    <h:column> 
+                        <f:facet name="header">
+                            Address
+                        </f:facet>
+                        <h:outputText value="#{c.address}"/>
+                        <!--<input type="text" value="#{c.address}" name="address"/>-->
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                                Action
                             </f:facet>
-                            <input type="text" value="#{c.name}" name="name"/>
-                        </h:column>
-
-                        <h:column> 
-                            <f:facet name="header">
-                                Address
-                            </f:facet>
-                            <input type="text" value="#{c.address}" name="address"/>
-                        </h:column>
-                        <h:column>
+                        <h:form>
                             <input type="hidden" value="#{c.username}" name="username"/>
-                            <h:commandButton value="Change" action="#{user.changeUser()}"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
+                            <h:commandButton value="Edit" action="#{user.chooseUser()}"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+
             </ui:define>
         </ui:composition> 
     </h:body>

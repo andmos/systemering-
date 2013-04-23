@@ -1,5 +1,6 @@
 package Beans;
 
+import ProblemDomain.Course;
 import ProblemDomain.Course_List;
 import ProblemDomain.Menus;
 import ProblemDomain.Menus_List;
@@ -28,6 +29,10 @@ public class MenuBean implements Serializable {
     private Menus menu = new Menus();
     private Menus_List menulist;
     private Course_List courselist;
+    //Error handling variables
+    private boolean createMenu;
+    private boolean deleteMenu;
+    private boolean updateMenu;
 
     public int getMenu_id() {
         return menu_id;
@@ -49,9 +54,9 @@ public class MenuBean implements Serializable {
         String value = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("menu_id");
         menu_id = Integer.parseInt(value);
         String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-        if(user == null){
-        return "choosenMenu";
-        }else{
+        if (user == null) {
+            return "choosenMenu";
+        } else {
             return "chooseMenuUser";
         }
     }
@@ -84,5 +89,62 @@ public class MenuBean implements Serializable {
     public List getCourses() {
         courselist = new Course_List(menu_id);
         return courselist.getCourses();
+    }
+
+    public String chooseMenu() {
+        String input = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("menu_id");
+        setName(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name"));
+        setType(FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("type"));
+        setMenu_id(Integer.parseInt(input));
+        return "EditMenu";
+
+    }
+
+    public void createMenu() {
+        if (menu.createMenu()) {
+            createMenu = true;
+        } else {
+            createMenu = false;
+        }
+    }
+
+    public void deleteMenu() {
+        String input = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("menu_id");
+        menu_id = Integer.parseInt(input);
+        setMenu_id(menu_id);
+        if (menu.deleteMenu()) {
+            deleteMenu = true;
+        } else {
+            deleteMenu = false;
+        }
+    }
+
+    public void updateMenu() {
+        if (menu.updateMenu()) {
+            updateMenu = true;
+        } else {
+            updateMenu = false;
+        }
+    }
+
+    public boolean getUpdateMenu(){
+        return updateMenu;
+    }
+    
+    public boolean getDeleteMenu() {
+        return deleteMenu;
+    }
+
+    public boolean getCreateMenu() {
+        return createMenu;
+    }
+    
+    public void editCourse(Course course){
+        course.setEditable(true);
+        /*
+        List<Course> courses = getCourses();
+        for(Course c:courses){
+            c.setEditable(true);
+        }*/
     }
 }

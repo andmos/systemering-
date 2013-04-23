@@ -21,15 +21,19 @@ import javax.servlet.http.HttpSession;
 @Named("user")
 public class UserBean implements Serializable {
 
+    private String usernameChange;
     private String name;
     private String username;
     private String password;
     private String newPassword;
     private String newPasswordConfirmed;
     private String address;
+    private boolean editable;
     /*This variables is used to error management, 5 = Undifiend value*/
     private int error = 5;
     private boolean errorPanelGroup;
+    private boolean resetPassword;
+    private boolean changedInformation;
     private boolean adminLogin = false;
     private int passwordStatus;
     private Users user = new Users();
@@ -115,7 +119,7 @@ public class UserBean implements Serializable {
     /**
      * 
      * @return returns name from the Users - class 
-     */                    
+     */
     public String getName() {
         return user.getName();
     }
@@ -151,7 +155,7 @@ public class UserBean implements Serializable {
     
     
     /** 
-     * Register a new user and set error = true/false dephending on outcome,
+     * Register a new user and set error = true/false depending on outcome,
      * Also sets the the errorPanelGroup = true so we can view errors.
      */
     public void newUser() {
@@ -185,19 +189,44 @@ public class UserBean implements Serializable {
     public void changePassword(){
         error = passwordStatus = user.setnewPassword(newPassword, newPasswordConfirmed);
     }
+
+    public String getUsernameChange() {
+        return usernameChange;
+    }
+
+    public void setUsernameChange(String usernameChange) {
+        this.usernameChange = usernameChange;
+    }
+    
     
     /**
      * Changes user information
+     * Stores the username you click on in a variable to be able to view the content of the user.
      */
-    public void changeUser(){
+    public String changeUser(){
         String name = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
         String address = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("address");
         String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
-        if(name!=null){
-            user.changeUser(name, address, username);
+        user.changeUser(name, address, username);
+        setUsernameChange(username);
+        changedInformation = true;
+        return "ManageUsers";
+        /*
+        if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")){
+            user.changeUser();
         }else{
            user.setName(this.name);
             user.setAddress(this.address);
+        }*/
+    }
+    
+    public String chooseUser(){
+        String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
+        if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")){
+            setUsernameChange(username);
+            return "changeUser";
+    }else{
+            return null;
         }
     }
     
@@ -229,8 +258,24 @@ public class UserBean implements Serializable {
         String role = "userCompany";
         return userlist.getUsers(role);
     }
-
     
+    public List getUser(){
+        return userlist.getUser(usernameChange);
+    }
     
-
+    public String resetPassword(){
+        String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
+        user.resetPassword(username);
+        setUsernameChange(username);
+        resetPassword = true;
+        return "ManageUsers";
+    }
+    
+    public boolean getResetPassword(){
+        return resetPassword;
+    }
+    
+    public boolean getChangedInformation(){
+        return changedInformation;
+    }
 }

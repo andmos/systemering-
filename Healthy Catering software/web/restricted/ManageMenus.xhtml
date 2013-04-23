@@ -8,26 +8,14 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:dataTable value="#{menu.getMenu()}" var="c" >
-
-                    <h:column>
-                                <input type="text" value="#{c.name}"/>
-                    </h:column>
-
-                    <h:column  > 
-                        <f:facet name="header">
-                            Price
-                        </f:facet>
-                        #{c.sum}
-                    </h:column>
-
-                    <h:column  > 
-                        <f:facet name="header">
-                            Type
-                        </f:facet>
-                        <input type="text" value="#{c.type}"/>
-                    </h:column>
-                </h:dataTable>
+                <div id="choose">
+                    <table>
+                        <tr>
+                            <td><h:link value="Create menus" outcome="CreateMenu"/></td>
+                                <td><h:link value="Edit menus" outcome="ChangeMenu"/></td>
+                        </tr>
+                    </table>
+                </div>
             </ui:define>
         </ui:composition> 
     </h:body>

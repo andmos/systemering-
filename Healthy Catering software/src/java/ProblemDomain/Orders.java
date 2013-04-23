@@ -79,7 +79,8 @@ public class Orders {
     }
 
     public void setNewOrderNr() {
-        try{PreparedStatement line2 = null;
+        try{
+        PreparedStatement line2 = null;
         db.openConnection();
         line2 = db.getConnection().prepareStatement("select max(order_nr) as max from orders where username=?");
         line2.setString(1, this.username);

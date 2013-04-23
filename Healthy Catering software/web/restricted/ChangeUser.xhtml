@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="content">
+                <!-- Change user-->
+                <h3>Username: #{user.usernameChange}</h3>
+                <h:form>
+                    <h:dataTable value="#{user.getUser()}" var="c">
+                        <h:column>
+                            <f:facet name="header">
+                                Name
+                            </f:facet>
+                            <input type="text" name="name" value="#{c.name}"/>
+                            <f:facet name="footer">
+                                <h:commandButton value="Save" action="#{user.changeUser()}"/>
+                            </f:facet>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                Address
+                            </f:facet>
+                            <input type="text" name="address" value="#{c.address}"/>
+                            <f:facet name="footer">
+                                <input type="hidden" name="username" value="#{user.usernameChange}"/>
+                                <h:commandButton value="Reset password" action="#{user.resetPassword()}"/>
+                            </f:facet>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition> 
+    </h:body>
+</html>
+
+

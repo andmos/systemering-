@@ -30,10 +30,13 @@ public class Users {
     public String sqlStatementSetName = "UPDATE users SET name=? WHERE username =?";
     public String sqlStatementSetPassword = "update users set password=? where username =?";
     public String sqlStatementChangeUser = "update users set name=?,address=? where username =?";
+    public String sqlResetPassword = "update users set password='password1' where username=?";
+
     /**
-     * Constructor checks if a user is logged in on the website, and creates an
+     * Constructor checks if a user is logged in on the web-site, and creates an
      * object from data in the database.
      */
+    
     public Users() {
         if (user != null) {
             this.username = user;
@@ -117,8 +120,7 @@ public class Users {
             db.closeConnection();
         }
     }
-    public void changeUser(String name,String address,String username) {
-        this.name = name;
+    public void changeUser(String name, String address, String username) {
         try {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlStatementChangeUser);
@@ -230,16 +232,8 @@ public class Users {
     public int setnewPassword(String newPassword, String confirmPassword) {
         int passwordCheck = verifyPassword(newPassword, confirmPassword);
         if (passwordCheck != 0) {
-            System.out.println(passwordCheck);
-            System.out.println(passwordCheck);
-            System.out.println(passwordCheck);
-            System.out.println(passwordCheck);
             return passwordCheck;
         } else {
-            System.out.println(checkPasswordCriteria(newPassword));
-            System.out.println(checkPasswordCriteria(newPassword));
-            System.out.println(checkPasswordCriteria(newPassword));
-            System.out.println(checkPasswordCriteria(newPassword));
             this.password = newPassword;
             try {
                 db.openConnection();
@@ -317,5 +311,20 @@ public class Users {
             return error;
         }
     }
-
+    
+    /*
+     *Method used by management to reset password for a user
+     */
+    public void resetPassword(String username){
+        try{
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlResetPassword);
+            line.setString(1, username);
+            line.executeUpdate();
+        }catch(SQLException e){
+            System.out.println("resetPassoword() failure:"+e.getMessage());
+        }finally{
+            
+        }
+    }
 }

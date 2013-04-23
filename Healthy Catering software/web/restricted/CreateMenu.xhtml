@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+    <h:body>
+        <ui:composition template="/template/template.xhtml">
+            <ui:define name="content">
+                <div style="text-align:center">
+                    <h:form>
+                        <h3>Create Menu</h3>
+                        <table  align="center">
+                            <h:outputText style="color:green" value="Menus has been created" rendered="#{menu.createMenu}"/>
+                            <h:outputText style="color:red" value="Name already exists" rendered="#{not menu.createMenu}"/>
+                            <tr>
+                                <td>Menu name</td>
+                                <td><h:inputText value="#{menu.name}" required="true" id="newName" label="Menu name"/></td>
+                                <td><h:message for="newName" style="color:red"/></td>
+                            </tr>
+                            <tr>
+                                <td>Menu Type</td>
+                                <td><h:selectOneMenu value="#{menu.type}">
+                                        <f:selectItem itemValue="Breakfast" itemLabel="Breakfast" />
+                                        <f:selectItem itemValue="Lunch" itemLabel="Lunch" />
+                                        <f:selectItem itemValue="Dinner" itemLabel="Dinner" />
+                                        <f:selectItem itemValue="Supper" itemLabel="Supper" />
+                                    </h:selectOneMenu></td>
+                                <td><h:message for="newType" style="color:red"/></td>
+                            </tr>
+                            <tr><td><h:commandButton value="Create new menu" action="#{menu.createMenu()}"/></td></tr>
+                        </table>
+                    </h:form>
+                </div>
+            </ui:define>
+        </ui:composition> 
+    </h:body>
+</html>
+
+

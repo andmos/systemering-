@@ -12,7 +12,8 @@
                     <h:form>
                         <table align="center">
 
-                            <tr><td>Name</td><td><h:inputText id="newName" label="Name" required="true" value="#{user.name}"></h:inputText><td width="100%"><h:message for="newName" style="color:red"/></td></td></tr>
+                            <tr><td>Name</td><td><h:inputText id="newName" label="Name" required="true" value="#{user.name}"></h:inputText>
+                                    <td width="100%"><h:message for="newName" style="color:red"/></td></td></tr>
                             <tr><td>Username</td><td><h:inputText id="newUsername" label="Username" required="true" value="#{user.username}"></h:inputText></td><td width="100%"><h:message for="newUsername" style="color:red" />
                                     <h:panelGroup rendered="#{user.errorPanelGroup}">
                                         <h:outputText style="color:red" value="Username already exists" rendered="#{user.error == -1}"></h:outputText>

@@ -56,7 +56,7 @@ public class Course_List {
      * from
      * your
      * order
-     * history.
+      * history.
      */
     public List buildCourseList() {
         List<Course> list = new ArrayList<Course>();
@@ -65,7 +65,6 @@ public class Course_List {
             line = db.getConnection().prepareStatement(sqlConstructor);
             line.setInt(1, menu_id);
             res = line.executeQuery();
-            System.out.println("her: " + menu_id);
             while (res.next()) {
                 Course course = new Course();
                 course.course_id = res.getInt("course_id");
