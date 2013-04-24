@@ -334,12 +334,11 @@ public class UserBean implements Serializable {
     }
     
     
-  
-    public void addedToCart(ActionEvent actionEvent) {
-        setText(FacesContext.getCurrentInstance().
-                getExternalContext().getRequestParameterMap().get("menu_name"));
+  @PostConstruct
+    public void logInMessage(ActionEvent actionEvent) {
+        setText(getNewUsername());
         FacesContext context = FacesContext.getCurrentInstance();  
-        context.addMessage(null, new FacesMessage("Successful", text +" was added to your cart"));  
+        context.addMessage(null, new FacesMessage("the login was successful","Welcome " + text));  
           
     }
 }
