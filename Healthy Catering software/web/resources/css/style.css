@@ -112,6 +112,7 @@ Content
     margin: 0 auto;
     min-height: 500px;
     width: 600px;
+    margin-bottom: 15px;
 }
 #piewrapper{
     position: relative;
@@ -237,4 +238,41 @@ Footer
 #right img:hover{
     opacity:1.0;
     filter:alpha(opacity=100); /* For IE8 and earlier */
+}
+#content #add{
+    
+    display: inline-block;
+    position: relative;
+    font-size: 40px;
+}
+#content #remove{
+    display: inline-block;
+    position: absolute;
+    margin-left: 60px;
+    font-size: 40px;
+}
+.buttons{
+
+    position: relative;
+    width: 125px;
+}
+ #add .quantityAdd{
+    font-size: 20px;
+    
+    color: green;
+    
+}
+ #remove .quantityRemove{
+    font-size: 20px;
+    color: red;
+        
+}
+.quantityAdd:hover{
+    cursor: pointer;
+    color: green;
+    
+}
+.quantityRemove:hover{
+    cursor: pointer;
+    color: red;
 }

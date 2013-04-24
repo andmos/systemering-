@@ -1,14 +1,27 @@
 package ProblemDomain;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 /**
  *
- * @author havardb
+ * @author
+ * havardb
  */
 public class Ingredient {
-public int ingridient_id;
-public double price;
-public int inventory_id;
-public String name;
-public int quantity;
+
+    public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
+    private PreparedStatement line = null;
+    private ResultSet res = null;
+    public int ingridient_id;
+    public double price;
+    public int inventory_id;
+    public String name;
+    public int quantity;
+    public String sqlAddQuantity = "update ingredient set quantity=quantity+? where name=? and inventory_id=?";
+    public String sqlRemoveQuantity = "update ingredient set quantity=quantity-? where name=? and inventory_id=?";
+    public String sqlAddIngredient = "insert into ingredient(name,quantity,inventory_id) values(?,?,?)";
 
     public double getPrice() {
         return price;
@@ -50,5 +63,61 @@ public int quantity;
         return name;
     }
 
+    public boolean addQuantity(int inventory_id) {
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlAddQuantity);
+            line.setInt(1, quantity);
+            line.setString(2,name);
+            line.setInt(3,inventory_id);
+            line.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Failure in addQuantity():" + e.getMessage());
+            return false;
+        } finally {
+            db.getConnection();
+            db.closeResSet(res);
+            db.closeStatement(line);
+        }
+
+    }
+
+    public boolean removeQuantity(int inventory_id) {
+       try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlRemoveQuantity);
+            line.setInt(1, quantity);
+            line.setString(2,name);
+            line.setInt(3,inventory_id);
+            line.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Failure in addQuantity():" + e.getMessage());
+            return false;
+        } finally {
+            db.getConnection();
+            db.closeResSet(res);
+            db.closeStatement(line);
+        }
+    }
     
+    public boolean addNewIngredient(int inventory_id){
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlAddIngredient);
+            line.setString(1,name);
+            line.setInt(2, quantity);
+            line.setInt(3,inventory_id);
+            line.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Failure in addQuantity():" + e.getMessage());
+            return false;
+        } finally {
+            db.getConnection();
+            db.closeResSet(res);
+            db.closeStatement(line);
+        }
+    }
 }
