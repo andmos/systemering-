@@ -39,6 +39,11 @@ public class UserBean implements Serializable {
     private Users user = new Users();
     private Users_List userlist = new Users_List();
     private boolean isCompany;
+    //New user from management view variables
+    private String newName;
+    private String newUsername;
+    private String newAddress;
+    private String newRole;
     
 
     /**
@@ -151,6 +156,38 @@ public class UserBean implements Serializable {
     public int getPasswordStatus() {
         return passwordStatus;
     }
+
+    public String getNewAddress() {
+        return newAddress;
+    }
+
+    public String getNewName() {
+        return newName;
+    }
+
+    public String getNewRole() {
+        return newRole;
+    }
+
+    public String getNewUsername() {
+        return newUsername;
+    }
+
+    public void setNewAddress(String newAddress) {
+        this.newAddress = newAddress;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
+
+    public void setNewRole(String newRole) {
+        this.newRole = newRole;
+    }
+
+    public void setNewUsername(String newUsername) {
+        this.newUsername = newUsername;
+    }
     
     
     
@@ -159,9 +196,17 @@ public class UserBean implements Serializable {
      * Also sets the the errorPanelGroup = true so we can view errors.
      */
     public void newUser() {
+        if(!FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")){
         errorPanelGroup = true;
         user.setPassword(password, newPasswordConfirmed);
-        error = user.newUser(isCompany);
+           error = user.newUser(isCompany);
+        }else{ //Logged in as management
+            user.newUser(newName, newUsername, newAddress, newRole);
+            setNewName(null);
+            setNewUsername(null);
+            setNewAddress(null);
+            setNewRole(null);
+        }
     }
 
     /**

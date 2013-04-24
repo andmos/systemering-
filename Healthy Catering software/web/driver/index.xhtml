@@ -8,26 +8,6 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:dataTable value="#{order.orders}" var = "c">
-                    <h:column>
-                        <f:facet name="header">
-                            Order nr: 
-                        </f:facet>
-                        <h:form>
-                            <input type="hidden" name="order_nr" value="#{c.order_nr}"/>
-                            <h:commandButton value="c.order_nr" action="#{order.choosenOrder()}"/>
-                        
-                        </h:form>
-                        
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            Ordered menu: 
-                        </f:facet>
-                    
-                    </h:column>
-                
-                </h:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>

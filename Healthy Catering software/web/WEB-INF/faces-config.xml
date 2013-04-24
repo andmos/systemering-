@@ -50,6 +50,14 @@
             <from-outcome>Chef</from-outcome>
             <to-view-id>/chef/index.xhtml</to-view-id>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>Salesmen</from-outcome>
+            <to-view-id>/salesmen/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Logout</from-outcome>
+            <to-view-id>/faces/index.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 
     
@@ -91,6 +99,12 @@
         <redirect/>
         <!-- After you are logged in as a Chef-->
         <from-view-id>/chef/*</from-view-id>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <redirect/>
+        <!-- After you are logged in as a Chef-->
+        <from-view-id>/salesmen/*</from-view-id>
     </navigation-rule>
     
     <navigation-rule>

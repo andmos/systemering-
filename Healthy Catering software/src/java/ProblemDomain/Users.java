@@ -311,6 +311,33 @@ public class Users {
             return error;
         }
     }
+    public boolean newUser(String name, String username,String address, String role) {
+        try {
+            db.openConnection();
+            db.getConnection().setAutoCommit(false);
+            line = db.getConnection().prepareStatement(sqlnewUser);
+            line.setString(1, name);
+            line.setString(2, address);
+            line.setString(3, "password1");
+            line.setString(4, username);
+            line.executeUpdate();
+            db.closeStatement(line);
+            line = db.getConnection().prepareStatement(sqlnewUserRole);
+            line.setString(1,role);
+            line.setString(2, username);
+            line.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Could not create user in DB" + e.getMessage());
+            return false;
+
+        } finally {
+            db.closeResSet(res);
+            db.closeStatement(line);
+            db.setAutoCommit();
+            db.closeConnection();
+        }
+    }
     
     /*
      *Method used by management to reset password for a user

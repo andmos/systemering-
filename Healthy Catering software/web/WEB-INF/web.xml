@@ -17,6 +17,7 @@
         <url-pattern>/restricted/*</url-pattern>
         <url-pattern>/chef/*</url-pattern>
         <url-pattern>/driver/*</url-pattern>
+        <url-pattern>/salesmen/*</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
@@ -86,6 +87,18 @@
         </auth-constraint>
     </security-constraint>
     
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Driver Pages</web-resource-name>
+            <description/>
+            <url-pattern>/faces/salesmen/*</url-pattern>
+            <url-pattern>/salesmen/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>salesmen</role-name>
+        </auth-constraint>
+    </security-constraint>
+    
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>loginRealm</realm-name>
@@ -107,5 +120,9 @@
     <security-role>
         <description/>
         <role-name>userCompany</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>salesmen</role-name>
     </security-role>
 </web-app>
