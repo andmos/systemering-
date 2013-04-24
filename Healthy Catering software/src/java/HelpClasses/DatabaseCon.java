@@ -101,7 +101,7 @@ public class DatabaseCon {
                 this.con.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            System.out.println("Cat set AutoCommit "+ e.getMessage());
+            System.out.println("Cant set AutoCommit "+ e.getMessage());
         }
     }
 }
