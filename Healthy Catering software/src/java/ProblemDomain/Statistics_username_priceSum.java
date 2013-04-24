@@ -22,5 +22,8 @@ public class Statistics_username_priceSum {
     public double getPriceSum(){
         return priceSum;
     }
+    public String toString(){
+        return "Username: "+username+" Total income: "+priceSum + "\n";
+    }
     
 }
