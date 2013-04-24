@@ -101,14 +101,14 @@ public class Ingredient {
             db.closeStatement(line);
         }
     }
-    //insert into ingredient(name,price,quantity) values(?,?,?)
+    
     public boolean addNewIngredient(){
         try {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlAddIngredient);
             line.setString(1,name);
             line.setDouble(2, price);
-            line.
+            line.setInt(3, quantity);
             line.executeUpdate();
             return true;
         } catch (SQLException e) {

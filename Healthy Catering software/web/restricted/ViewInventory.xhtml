@@ -41,11 +41,33 @@
                             </td>
                             <td><h:inputText value="#{inventory.ingredientQuantity}"/></td>
                         </tr>
+                        <div class="buttons">
                         <tr>
                             <td><div id="add"><h:commandButton value="+" action="#{inventory.addQuantity()}"/></div>
                                 <div id="remove"><h:commandButton value="-" action="#{inventory.removeQuantity()}"/></div></td>
                         </tr>
+                        </div>
                     </table>
+                </h:form>
+                <br></br>
+                <h:form>
+                    <table>
+                        <tr>
+                            <thead>
+                                <th colspan="3" scope="colgroup">Add new ingredient</th>
+                            </thead>
+                        </tr>
+                        <tr>
+                            <td>Ingredient name</td><td><h:inputText value="#{inventory.ingredientName}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Ingredient price</td><td><h:inputText value="#{inventory.ingredientPrice}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Ingredient quantity</td><td><h:inputText value="#{inventory.ingredientQuantity}"/></td>
+                        </tr>
+                    </table>
+                    
                 </h:form>
 
             </ui:define>
