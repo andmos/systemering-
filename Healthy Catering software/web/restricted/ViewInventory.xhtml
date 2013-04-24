@@ -4,6 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
@@ -36,12 +37,31 @@
                         </tr>
                         <tr><td>Quantity</td><td><h:inputText value="#{inventory.ingredientQuantity}"/></td>
                         </tr>
-                        
-                            <tr>
-                                <td><div class="buttons"><div id="add"><h:commandButton value="+" action="#{inventory.addQuantity()}" styleClass="quantityAdd"/></div>
-                                    <div id="remove"><h:commandButton value="-" action="#{inventory.removeQuantity()}" styleClass="quantityRemove"/></div></div></td>
-                            </tr>
-                        
+
+
+
+                        <tr>
+                            <td>
+                                <div id="buttons">
+
+                                    <div id="add">
+                                        <h:outputLink id="addQuantity" value="#" style="text-decoration: none;">
+                                            <h:commandButton value="+" action="#{inventory.addQuantity()}" styleClass="quantityAdd"/>
+                                        </h:outputLink>
+                                        <p:tooltip for="addQuantity" value="Add a given quantity" showEffect="fade" hideEffect="fade" />
+                                    </div>
+
+                                    <div id="remove">
+                                        <h:outputLink id="removeQuantity" value="#" style="text-decoration: none;">
+                                            <h:commandButton value="-" action="#{inventory.removeQuantity()}" styleClass="quantityRemove"/>
+                                        </h:outputLink>
+                                        <p:tooltip for="removeQuantity" value="Remove a given quantity" showEffect="fade" hideEffect="fade"/>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+
                     </table>
                 </h:form>
                 <br></br>
