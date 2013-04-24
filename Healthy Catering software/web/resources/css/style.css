@@ -112,6 +112,7 @@ Content
     margin: 0 auto;
     min-height: 500px;
     width: 600px;
+    margin-bottom: 15px;
 }
 #piewrapper{
     position: relative;
