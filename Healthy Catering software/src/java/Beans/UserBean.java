@@ -9,8 +9,10 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.ConfigurableNavigationHandler;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import javax.servlet.ServletException;
@@ -44,7 +46,7 @@ public class UserBean implements Serializable {
     private String newUsername;
     private String newAddress;
     private String newRole;
-    
+    private String text;
 
     /**
      * 
@@ -322,5 +324,22 @@ public class UserBean implements Serializable {
     
     public boolean getChangedInformation(){
         return changedInformation;
+    }
+    public String getText() {  
+        return text;  
+    }  
+
+    public void setText(String text) {
+        this.text = text;
+    }
+    
+    
+  
+    public void addedToCart(ActionEvent actionEvent) {
+        setText(FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap().get("menu_name"));
+        FacesContext context = FacesContext.getCurrentInstance();  
+        context.addMessage(null, new FacesMessage("Successful", text +" was added to your cart"));  
+          
     }
 }

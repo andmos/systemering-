@@ -4,6 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
@@ -17,6 +18,7 @@
                         <div id="special">
                             <h:form>
                                 <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
+                                <input type="hidden"  name="menu_name" value="#{c.name}"/>
                                 <h:commandButton  value="#{c.name}"  action="#{order.choosenMenu()}"/> 
                             </h:form>
                         </div>
@@ -37,11 +39,15 @@
                     </h:column>
                     <h:column>
                         <h:form>
-                        <input type="hidden" name="menu_id" value="#{c.menu_id}"/>
-                        <h:commandLink  value="Add to cart"  action="#{order.placeOrder()}"/> 
+                            <p:growl id="growl" showDetail="true" sticky="true" /> 
+                            <input type="hidden" name="menu_id" value="#{c.menu_id}"/>
+                            <input type="hidden"  name="menu_name" value="#{c.name}"/>
+                            <p:commandButton value="Add to cart"  action="#{order.placeOrder()}" actionListener="#{order.addedToCart}" update="growl"/> 
+             
                         </h:form>
                     </h:column>
                 </h:dataTable>
+                
             </ui:define>
         </ui:composition> 
     </h:body>

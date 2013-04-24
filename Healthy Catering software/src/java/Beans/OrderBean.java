@@ -17,6 +17,9 @@ import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.faces.application.FacesMessage;  
+import javax.faces.context.FacesContext;  
+import javax.faces.event.ActionEvent; 
 
 @SessionScoped
 @Named("order")
@@ -33,6 +36,7 @@ public class OrderBean implements Serializable {
     private Course_List courselist;
     private ArrayList<Orders> shoppingcart = new ArrayList();
     private List menulists = new ArrayList();
+    private String text;
 
     public int getOrder_id() {
         return order.getOrder_id();
@@ -56,6 +60,8 @@ public class OrderBean implements Serializable {
     }
 
     public String choosenMenu() {
+        setText(FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap().get("menu_name"));
         String value = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("menu_id");
         menu_id = Integer.parseInt(value);
         return "chooseMenuUser";
@@ -101,12 +107,15 @@ public class OrderBean implements Serializable {
     }
 
     public void placeOrder() {
+        setText(FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap().get("menu_name"));
         String value = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("menu_id");
         menu_id = Integer.parseInt(value);
         Orders orders = new Orders();
         orders.setMenu_id(menu_id);
         shoppingcart.add(orders);
+        
     }
 
     public List getMenus() {
@@ -133,5 +142,22 @@ public class OrderBean implements Serializable {
 
     public ArrayList<Orders> getShoppingcart() {
         return shoppingcart;
+    }
+    public String getText() {  
+        return text;  
+    }  
+
+    public void setText(String text) {
+        this.text = text;
+    }
+    
+    
+  
+    public void addedToCart(ActionEvent actionEvent) {
+        setText(FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap().get("menu_name"));
+        FacesContext context = FacesContext.getCurrentInstance();  
+        context.addMessage(null, new FacesMessage("Successful", text +" was added to your cart"));  
+          
     }
 }
