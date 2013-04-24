@@ -91,21 +91,20 @@ public class InventoryBean implements Serializable {
     }
 
     public void addQuantity() {
-        ingredient.addQuantity();
+        ingredient.addQuantity(inventory_id);
         setIngredientName(null);
         setIngredientQuantity(0);
     }
 
     public void removeQuantity() {
-        ingredient.removeQuantity();
+        ingredient.removeQuantity(inventory_id);
         setIngredientName(null);
         setIngredientQuantity(0);
     }
     
     public void addNewIngredient(){
-        ingredient.addNewIngredient();
+        ingredient.addNewIngredient(inventory_id);
         setIngredientName(null);
-        setIngredientPrice(0);
         setIngredientQuantity(0);
     }
 
@@ -114,7 +113,6 @@ public class InventoryBean implements Serializable {
         for (int i = 0; i < getIngredients().size(); i++) {
             list.add(getIngredients().get(i).getName());
         }
-        ingredient.setInventory_id(inventory_id);
         return list;
     }
     
