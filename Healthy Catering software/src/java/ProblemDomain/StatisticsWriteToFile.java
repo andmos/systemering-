@@ -13,18 +13,20 @@ import java.util.*;
  */
 public class StatisticsWriteToFile {
 
-    private Statistics stat = new Statistics();
+    private static Statistics stat = new Statistics();
     private String path = "path/hello/ok";
     
-    public String getPopularMenu(){
+    public static String getPopularMenu(){
         String content = "";
+        System.out.println("JAIJ??????????????????????????????");
         List<Statistics_id_count> list = stat.getMostPopularMenu();
+        System.out.println("JAAAAAAIJ" + list.get(0));
         for (Statistics_id_count s: list) {
             content += s.toString();
         }
         return content;
     }
-    public String getProfitableCustomers(){
+    public static String getProfitableCustomers(){
         String content = "";
         List<Statistics_username_priceSum> list = stat.getMostProfitableCustomers();
         for (Statistics_username_priceSum s: list) {
@@ -34,8 +36,8 @@ public class StatisticsWriteToFile {
     }
     
     public static void main(String[] args) {
-        StatisticsWriteToFile s = new StatisticsWriteToFile();
+        //StatisticsWriteToFile s = new StatisticsWriteToFile();
         
-        System.out.println(s.getPopularMenu());
+        System.out.println(getPopularMenu());
     }
 }

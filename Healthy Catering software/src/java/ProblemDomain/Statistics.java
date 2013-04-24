@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
  */
 public class Statistics {
     
-    private String dropViewIfExists = "DROP VIEW IF EXISTS subquerry, metaquerry";
+    private String dropViewIfExists = "DROP VIEW IF EXISTS subquerry";
     private String viewMostPopularMenuSub = "create view subquerry as select menu_id, count(menu_id) as counter from orders group by menu_id order by counter desc";
     //private String viewMostPopularMenuMeta = "create view metaquerry as select menus.menu_id, id from menus,subquerry where menus.menu_id=subquerry.menu_id;";
     private String sqlMostPopularMenu = "select menus.name,counter from menus,subquerry where menus.menu_id=subquerry.menu_id";   
@@ -33,7 +33,7 @@ public class Statistics {
     private ResultSet res = null;
 
     public List getMostPopularMenu() {
-        ArrayList<Statistics_id_count> list = new ArrayList();
+        List<Statistics_id_count> list = new ArrayList();
 
         try {
             db.openConnection();
