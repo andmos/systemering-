@@ -334,7 +334,7 @@ public class UserBean implements Serializable {
     }
     
     
-  @PostConstruct
+  
     public void logInMessage(ActionEvent actionEvent) {
         setText(getNewUsername());
         FacesContext context = FacesContext.getCurrentInstance();  
