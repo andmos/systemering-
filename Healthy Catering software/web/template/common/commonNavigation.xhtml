@@ -30,17 +30,17 @@
             </span>
             <!--Different navigation cases depending on the role of the logged in user -->
             <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userNormal')}">
-                <h:link id="createOrder" value="Make an order" outcome="MakeOrder"/>
-                <h:link id="orderHistory" value="Order history" outcome="OrderHistoryChoose"/>
-                <p:tooltip for="createOrder" value="Place your order" showEffect="fade" hideEffect="fade" />
-                <p:tooltip for="orderHistory" value="View your orderhistory" showEffect="fade" hideEffect="fade" />
+                <h:link id="createOrderNormal" value="Make an order" outcome="MakeOrder"/>
+                <h:link id="orderHistoryNormal" value="Order history" outcome="OrderHistoryChoose"/>
+                <p:tooltip for="createOrderNormal" value="Place your order" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="orderHistoryNormal" value="View your orderhistory" showEffect="fade" hideEffect="fade" />
             </h:panelGroup>
 
             <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userCompany')}">
-                <h:link id="createOrder" value="Make an order" outcome="MakeOrder"/>
-                <h:link id="orderHistory" value="Order history" outcome="OrderHistoryChoose"/>
-                <p:tooltip for="createOrder" value="Place your order" showEffect="fade" hideEffect="fade" />
-                <p:tooltip for="orderHistory" value="View your orderhistory" showEffect="fade" hideEffect="fade" />
+                <h:link id="createOrderCompany" value="Make an order" outcome="MakeOrder"/>
+                <h:link id="orderHistoryCompany" value="Order history" outcome="OrderHistoryChoose"/>
+                <p:tooltip for="createOrderCompany" value="Place your order" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="orderHistoryCompany" value="View your orderhistory" showEffect="fade" hideEffect="fade" />
             </h:panelGroup>
             
             <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('management')}">
