@@ -4,13 +4,34 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
-           
             <ui:define name="content">
+                Welcome to Healthy Caterings home page. Please make some orders!
+                <div id="piewrapper">
+
+
+
+                    <div id="pie"> 
+                        <p:pieChart id="sample" value="#{model.pieModel}" legendPosition="c"  
+                                    title="Most popular menu" style="width:300px;height:300px" /> 
+                    </div>
+                    <div id="pie"> 
+                        <p:pieChart id="sample2" value="#{model.pieModel2}" legendPosition="c"  
+                                    title="Most profitable customers" style="width:300px;height:300px" />
+                    </div>
+                    <div id="pie"> 
+                        <p:pieChart id="sample3" value="#{model.pieModel3}" legendPosition="c"  
+                                    title="Number of user grouped by role" style="width:300px;height:300px" /> 
+                    </div>
+
+                </div>
+                <!--Write content of webpage-->
+
             </ui:define>
+
         </ui:composition> 
     </h:body>
 </html>
-
