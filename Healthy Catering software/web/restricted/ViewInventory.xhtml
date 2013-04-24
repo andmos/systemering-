@@ -19,8 +19,35 @@
                         <f:facet name="header">
                             Quantity
                         </f:facet>
+                        #{c.quantity}
                     </h:column>
                 </h:dataTable>
+                <br></br>
+                <h:form>
+                    <table>
+                        <tr><thead>
+                                <th colspan="3" scope="colgroup"> Add quantity </th>
+                            </thead>
+                        </tr>
+                        <tr><thead>
+                                <th scope="colgroup">Name</th>
+                                <th scope="colgroup">Quantity</th>
+                            </thead></tr>
+                        <tr>
+                            <td>
+                                <h:selectOneMenu id="preset" value="#{inventory.ingredientName}" >
+                                    <f:selectItems value="#{inventory.ingredientsName}"/>
+                                </h:selectOneMenu>
+                            </td>
+                            <td><h:inputText value="#{inventory.ingredientQuantity}"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:commandButton value="Add quantity" action="#{inventory.addQuantity()}"/>
+                            <h:commandButton value="Remove quantity" action="#{inventory.removeQuantity()}"/></td>
+                        </tr>
+                    </table>
+                </h:form>
+
             </ui:define>
         </ui:composition> 
     </h:body>
