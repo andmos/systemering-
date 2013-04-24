@@ -24,6 +24,7 @@ public class DatabaseCon {
     
     private DataSource ds;
     public Connection con;
+   
     /**
      * Method opens connection to our database. If the main database fails, 
      * the system will try a secondary backup DB. throws exception and console message if failed. 
