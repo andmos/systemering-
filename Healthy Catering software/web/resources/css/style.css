@@ -113,7 +113,18 @@ Content
     min-height: 500px;
     width: 600px;
 }
-
+#piewrapper{
+    position: relative;
+    margin: 0 auto;
+    width: 700px;
+    }
+    
+#pie{
+    border-radius: 10px 10px 10px 10px;
+    display: inline-block;
+    background-color: #cfcaaa;
+    margin: 10px 10px 10px;
+}
 
 
 table {

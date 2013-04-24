@@ -47,8 +47,8 @@ public class ChartBean implements Serializable {
         pieModel = new PieChartModel();
         List<Statistics_id_count> list = stat.getMostPopularMenu();
         System.out.println("test pie chart ");
-        for (Statistics_id_count s : list) {
-            pieModel.set("Menu ID:" + s.getId(), s.getCount());
+        for (Statistics_id_count s : list) {            
+            pieModel.set("Menu: " + s.getMenu(), s.getCount());
         }
         
     }

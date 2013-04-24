@@ -10,15 +10,18 @@ package ProblemDomain;
  */
 
 public class Statistics_id_count {
-    private int id,count;
+    private int count;
+    private String menu;
     
-    public Statistics_id_count(int id, int count){
-        this.id=id;
+    public Statistics_id_count(int count,String menu){
+        
         this.count=count;
+        this.menu=menu;
     }
     
-    public int getId(){
-        return id;
+    
+    public String getMenu(){
+        return menu;
     }
     public int getCount(){
         return count;

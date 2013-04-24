@@ -17,7 +17,7 @@ import javax.faces.context.FacesContext;
  */
 public class Statistics {
 
-    private String sqlMostPopularMenu = "select menu.menu_id, id from (select menu_id, count(menu_id) as id from orders group by menu_id order by id desc) menu;";
+    private String sqlMostPopularMenu = "select menu.name, id from (select menu.name, menu_id, count(menu_id) as id from orders group by menu_id order by id desc) menu;";
     private String sqlMostProfitableCustomers = "select username, priceSum from (select username, sum(price) as priceSum from orders group by username order by priceSum desc) sumTable;";
     private String sqlNumberOfCustomers = "select count(username) as count from roles where role = 'userNormal';";
     private String sqlNumberOfManagement = "select count(username)as count from roles where role = 'management';";
@@ -35,9 +35,10 @@ public class Statistics {
             line = db.getConnection().prepareStatement(sqlMostPopularMenu);
             res = line.executeQuery();
             while (res.next()) {
-                int id = res.getInt("menu_id");
+               
                 int count = res.getInt("id");
-                Statistics_id_count obj = new Statistics_id_count(id, count);
+                String menu = res.getString("name");
+                Statistics_id_count obj = new Statistics_id_count(count,menu);
                 list.add(obj);
             }
         } catch (SQLException e) {
