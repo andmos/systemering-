@@ -18,6 +18,10 @@ public class DatabaseCon {
 //resource injection
 
     @Resource(name = "jdbc/mysql")
+    
+    String mainDB = "jdbc/mysql"; 
+    String backubDB = "jdbc/mysqlBackup"; 
+    
     private DataSource ds;
     public Connection con;
     /**
@@ -25,10 +29,16 @@ public class DatabaseCon {
      */
     public void openConnection() {
         try {
-            ds = (DataSource) new InitialContext().lookup("jdbc/mysql");
+          try{ 
+            ds = (DataSource) new InitialContext().lookup(mainDB);
+          }catch (Exception e) {
+              ds = (DataSource) new InitialContext().lookup(backubDB);
+          }
             if (ds == null) {
-                throw new SQLException("No datasource found");
-            }
+                
+                throw new SQLException("No datasource found");  
+             } 
+            
             con = ds.getConnection();
         } catch (Exception e) {
             System.out.println("Error with databaseconnection " + e);
