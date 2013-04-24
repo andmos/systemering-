@@ -42,8 +42,8 @@
                             <td><h:inputText value="#{inventory.ingredientQuantity}"/></td>
                         </tr>
                         <tr>
-                            <td><h:commandButton value="Add quantity" action="#{inventory.addQuantity()}"/>
-                            <h:commandButton value="Remove quantity" action="#{inventory.removeQuantity()}"/></td>
+                            <td><div id="add"><h:commandButton value="Add quantity" action="#{inventory.addQuantity()}"/></div>
+                                <div id="remove"><h:commandButton value="Remove quantity" action="#{inventory.removeQuantity()}"/></div></td>
                         </tr>
                     </table>
                 </h:form>
