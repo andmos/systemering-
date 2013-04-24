@@ -2,58 +2,77 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
     <h:body>
         <ui:composition>
 
             <h:panelGroup rendered="#{empty request.remoteUser}">
-                <h:link value="Home" outcome="index"/>
-                <h:link value="Menu" outcome="MenuChoose"/>
-                <h:link value="About" outcome="About"/>
-                <h:link value="Contact" outcome="Contact"/>
+                <h:link id="home" value="Home" outcome="index"/>
+                <h:link id="menu" value="Menu" outcome="MenuChoose"/>
+                <h:link id="about" value="About" outcome="About"/>
+                <h:link id="contact" value="Contact" outcome="Contact"/>
+                <p:tooltip for="home" value="Navigate to front page" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="menu" value="View menus" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="about" value="Information about Healthy Catering" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="contact" value="Contactinformation!" showEffect="fade" hideEffect="fade" />
             </h:panelGroup>
             <span id="RightMenu">
                 <h:panelGroup rendered="#{empty request.remoteUser}">
                     <h:form>
-                        <h:commandLink value="Log in" action="Log in"/>
-                        <h:commandLink value="Register" action="Register"/>
+                        <h:commandLink id="logIn" value="Log in" action="Log in"/>
+                        <h:commandLink id="reg" value="Register" action="Register"/>
+                        <p:tooltip for="logIn" value="Log in" showEffect="fade" hideEffect="fade" />
+                        <p:tooltip for="reg" value="Register as new user" showEffect="fade" hideEffect="fade" />
+
                     </h:form>
                 </h:panelGroup>
             </span>
             <!--Different navigation cases depending on the role of the logged in user -->
             <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userNormal')}">
-                <h:link value="Make an order" outcome="MakeOrder"/>
-                <h:link value="Order history" outcome="OrderHistoryChoose"/>
+                <h:link id="createOrder" value="Make an order" outcome="MakeOrder"/>
+                <h:link id="orderHistory" value="Order history" outcome="OrderHistoryChoose"/>
+                <p:tooltip for="createOrder" value="Place your order" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="orderHistory" value="View your orderhistory" showEffect="fade" hideEffect="fade" />
             </h:panelGroup>
 
             <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userCompany')}">
-                <h:link value="Make an order" outcome="MakeOrder"/>
-                <h:link value="Order history" outcome="OrderHistoryChoose"/>
+                <h:link id="createOrder" value="Make an order" outcome="MakeOrder"/>
+                <h:link id="orderHistory" value="Order history" outcome="OrderHistoryChoose"/>
+                <p:tooltip for="createOrder" value="Place your order" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="orderHistory" value="View your orderhistory" showEffect="fade" hideEffect="fade" />
             </h:panelGroup>
+            
             <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('management')}">
-                <h:link value="Manage users" outcome="ManageUsers"/>
-                <h:link value="Manage menus/ inventory"  outcome="ManageMenus"/>
-                <h:link value="View Statistics" outcome="ViewStatistics"/>
+                <h:link id="manageUser" value="Manage users" outcome="ManageUsers"/>
+                <h:link id="manageMenu" value="Manage menus/ inventory"  outcome="ManageMenus"/>
+                <h:link id="viewStat" value="View Statistics" outcome="ViewStatistics"/>
+                <p:tooltip for="manageUser" value="Manage registered users" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="manageMenu" value="Manage menu or inventory" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="viewStat" value="View company statistics" showEffect="fade" hideEffect="fade" />
             </h:panelGroup>
 
             <ui:insert name="userMenu" >
+                
                 <h:panelGroup rendered="#{not empty request.remoteUser}">
-
                     <span id="RightMenu">
                         <h:form>
-                            <h:commandLink value="#{user.name}" action="UserProfile"/>
-                            <h:commandLink value="Log out" action="#{user.doLogout}"/>
+                            <h:commandLink id="username" value="#{user.name}" action="UserProfile"/>
+                            <p:tooltip for="username" value="Your userprofile" showEffect="fade" hideEffect="fade" /> 
+                            
+                            <h:commandLink id="logOut" value="Log out" action="#{user.doLogout}"/>
+                            <p:tooltip for="logOut" value="Log out!" showEffect="fade" hideEffect="fade" /> 
                             <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userNormal')}">
-                                <h:commandLink value="Shopping cart" action="ShoppingCart"/>
+                                <h:commandLink id="cartNormal" value="Shopping cart" action="ShoppingCart"/>
+                                <p:tooltip for="cartNormal" value="View shoppingcart" showEffect="fade" hideEffect="fade" /> 
                             </h:panelGroup>
                             <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userCompany')}">
-                                <h:commandLink value="Shopping cart" action="ShoppingCart"/>
+                                <h:commandLink id="cartCompany" value="Shopping cart" action="ShoppingCart"/>
+                                <p:tooltip for="cartCompany" value="View shoppingcart" showEffect="fade" hideEffect="fade" />
                             </h:panelGroup>
-
                         </h:form>
                     </span>
                 </h:panelGroup>
-
                 <hr></hr>
             </ui:insert>
         </ui:composition>
