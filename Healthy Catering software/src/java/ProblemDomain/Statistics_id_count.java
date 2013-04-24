@@ -26,4 +26,7 @@ public class Statistics_id_count {
     public int getCount(){
         return count;
     }
+    public String toString(){
+        return "Menu: " + menu + " Count: "+ count + " \n";
+    }
 }
