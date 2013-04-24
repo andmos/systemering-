@@ -21,6 +21,7 @@ public class Ingredient {
     public int quantity;
     public String sqlAddQuantity = "update ingredient set quantity=quantity+? where name=? and inventory_id=?";
     public String sqlRemoveQuantity = "update ingredient set quantity=quantity-? where name=? and inventory_id=?";
+    public String sqlAddIngredient = "insert into ingredient(name,price,quantity) values(?,?,?)";
 
     public double getPrice() {
         return price;
@@ -99,6 +100,24 @@ public class Ingredient {
             db.closeResSet(res);
             db.closeStatement(line);
         }
-
+    }
+    //insert into ingredient(name,price,quantity) values(?,?,?)
+    public boolean addNewIngredient(){
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlAddIngredient);
+            line.setString(1,name);
+            line.setDouble(2, price);
+            line.
+            line.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Failure in addQuantity():" + e.getMessage());
+            return false;
+        } finally {
+            db.getConnection();
+            db.closeResSet(res);
+            db.closeStatement(line);
+        }
     }
 }
