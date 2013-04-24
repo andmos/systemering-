@@ -101,6 +101,13 @@ public class InventoryBean implements Serializable {
         setIngredientName(null);
         setIngredientQuantity(0);
     }
+    
+    public void addNewIngredient(){
+        ingredient.addNewIngredient();
+        setIngredientName(null);
+        setIngredientPrice(0);
+        setIngredientQuantity(0);
+    }
 
     public List<String> getIngredientsName() {
         List<String> list = new ArrayList();
@@ -110,4 +117,5 @@ public class InventoryBean implements Serializable {
         ingredient.setInventory_id(inventory_id);
         return list;
     }
+    
 }

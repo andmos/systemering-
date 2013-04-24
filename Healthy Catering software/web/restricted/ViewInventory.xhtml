@@ -38,8 +38,8 @@
                         </tr>
                         
                             <tr>
-                                <td><div class="buttons"><div id="add"><h:commandButton value="+" action="#{inventory.addQuantity()}"/></div>
-                                    <div id="remove"><h:commandButton value="-" action="#{inventory.removeQuantity()}"/></div></div></td>
+                                <td><div class="buttons"><div id="add"><h:commandButton value="+" action="#{inventory.addQuantity()}" styleClass="quantityAdd"/></div>
+                                    <div id="remove"><h:commandButton value="-" action="#{inventory.removeQuantity()}" styleClass="quantityRemove"/></div></div></td>
                             </tr>
                         
                     </table>
@@ -56,12 +56,9 @@
                             <td>Ingredient name</td><td><h:inputText value="#{inventory.ingredientName}"/></td>
                         </tr>
                         <tr>
-                            <td>Ingredient price</td><td><h:inputText value="#{inventory.ingredientPrice}"/></td>
-                        </tr>
-                        <tr>
                             <td>Ingredient quantity</td><td><h:inputText value="#{inventory.ingredientQuantity}"/></td>
                         </tr>
-                        <tr><td><h:commandButton value="Add new ingredient" action="jaij"/></td></tr>
+                        <tr><td><h:commandButton value="Add new ingredient" action="#{inventory.addNewIngredient()}"/></td></tr>
                     </table>
 
                 </h:form>
