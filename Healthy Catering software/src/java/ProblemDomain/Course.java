@@ -21,6 +21,8 @@ public class Course {
     private ResultSet res = null;
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     public String sqlUpdateCourse = "update course set description=?, price=?, name_course=? where menu_id=? and course_id=?";
+    public String sqlDeleteCourse = "delete from course where menu_id=? and course_id=?";
+    public String sqlAddCourse = "insert into course(name_course,price,description,menu_id) values(?,?,?,?)";
 
     public double getPrice() {
         return price;
@@ -82,6 +84,43 @@ public class Course {
             db.closeResSet(res);
             db.closeStatement(line);
         }
-
+    }
+    
+    public boolean deleteCourse(){
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlDeleteCourse);
+            line.setInt(1, menu_id);
+            line.setInt(2, course_id);
+            line.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Failure in deleteCourse():" + e.getMessage());
+            return false;
+        } finally {
+            db.closeConnection();
+            db.closeResSet(res);
+            db.closeStatement(line);
+        }
+    }
+    
+    public boolean addCourse(){
+         try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlAddCourse);
+            line.setString(1,name_course);
+            line.setDouble(2, price);
+            line.setString(3,description);
+            line.setInt(4, menu_id);
+            line.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Failure in deleteCourse():" + e.getMessage());
+            return false;
+        } finally {
+            db.closeConnection();
+            db.closeResSet(res);
+            db.closeStatement(line);
+        }
     }
 }

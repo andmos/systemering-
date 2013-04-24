@@ -28,47 +28,83 @@
                         </tr>
                         <tr><td><h:commandButton value="Update information" action="#{menu.updateMenu()}"/></td></tr>
                     </table>
-
-                    <h:dataTable value="#{menu.courses}" var="c">
-                        <f:facet name="header">
-                            Courses
-                        </f:facet>
-                        <h:column>
-                            <f:facet name="header">
-                                Name
-                            </f:facet>
-                            <h:outputText value="#{c.name_course}"/>
-                            
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Price
-                            </f:facet>
-                            <h:outputText value="#{c.price}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Description
-                            </f:facet>
-                            <h:outputText value="#{c.description}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Action
-                            </f:facet>
-                            <h:form>
-                                <input type="hidden" value="#{c.course_id}" name="course_id"/>
-                                <input type="hidden" value="#{c.menu_id}" name="menu_id"/>
-                                <input type="hidden" value="#{c.name_course}" name="name"/>
-                                <input type="hidden" value="#{c.description}" name="description"/>
-                                <input type="hidden" value="#{c.price}" name="price"/>
-                                <h:commandButton value="Edit" action="#{course.chooseCourse()}"/>
-                            </h:form>
-                        </h:column>
-                    </h:dataTable>
+                    <h:panelGroup rendered="#{menu.updateMenuGroupError}">
+                    <h:outputLabel style="color:green" value="Menu has been updated" rendered="#{menu.updateMenuError}"/>
+                    <h:outputLabel style="color:red" value="Name: #{menu.name} already exists, please change it" rendered="#{not menu.updateMenuError}"/>
+                    </h:panelGroup>
                 </h:form>
-            </ui:define>
+                <br></br>
+                <br></br>
+                <h:form>
+                    <table>
+                        <tr>
+                            <th scope="col">Add course</th>
+                        </tr>
+                        <tr>
+                            <td>Course name</td>
+                            <td><h:inputText value="#{course.name}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td><h:inputText value="#{course.price}"/></td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td><h:inputText value="#{course.description}"/></td>
+                        </tr>
+                        <tr><td>
+                                <input type="hidden" value="#{menu.menu_id}" name="menu_id"/>
+                                <h:commandButton value="Add course" action="#{course.addCourse()}"/>
+                            </td></tr>
+                    </table>
+                </h:form>
+                <br>
+                    <h:panelGroup rendered="">
+                    <h:outputLabel style="color:green" value="Course has been updated" rendered="#{course.updateCourseError}"/>
+                    <h:outputLabel style="color:green" value="Course has been deleted" rendered="#{course.deleteCourseError}"/>
+                    <h:outputLabel style="color:green" value="Course has been added" rendered="#{course.addCourseError}"/>
+                    </h:panelGroup>
+                </br>
+                <h:dataTable value="#{menu.courses}" var="c">
+                    <f:facet name="header">
+                        Courses
+                    </f:facet>
+                    <h:column>
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        <h:outputText value="#{c.name_course}"/>
 
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Price
+                        </f:facet>
+                        <h:outputText value="#{c.price}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Description
+                        </f:facet>
+                        <h:outputText value="#{c.description}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Action
+                        </f:facet>
+                        <h:form>
+                            <input type="hidden" value="#{c.course_id}" name="course_id"/>
+                            <input type="hidden" value="#{c.menu_id}" name="menu_id"/>
+                            <input type="hidden" value="#{c.name_course}" name="name"/>
+                            <input type="hidden" value="#{c.description}" name="description"/>
+                            <input type="hidden" value="#{c.price}" name="price"/>
+                            <h:commandButton value="Edit" action="#{course.chooseCourse()}"/>
+                            <h:commandButton value="Delete" action="#{course.deleteCourse()}"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+
+            </ui:define>
         </ui:composition> 
     </h:body>
 </html>

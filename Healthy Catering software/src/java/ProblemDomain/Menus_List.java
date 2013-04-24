@@ -8,8 +8,7 @@ import java.util.*;
 
 /**
  *
- * @author
- * espen
+ * @author espen
  */
 public class Menus_List {
 
@@ -30,8 +29,8 @@ public class Menus_List {
 
     ;
     /** 
-     * Menu_id = 0 ,If you have not choosen a menu from your order history.
-     * Menu_id != 0 ,If you have choosen a menu from your order history. 
+     * Menu_id = 0 ,If you have not chosen a menu from your order history.
+     * Menu_id != 0 ,If you have chosen a menu from your order history. 
      */
     public List buildMenuList() {
         List<Menus> list = new ArrayList<Menus>();
@@ -49,11 +48,13 @@ public class Menus_List {
                 while (res2.next()) {
                     //userNormal = normal price, userCompany = normal price  * VAT, else normal price (not logged in)
                     if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userNormal")) {
-                        sum += res2.getInt("sum") * 1.25;
-                    } else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userCompany")) {
-                        sum += res2.getInt("sum");
-                    }else{
-                        sum += res2.getInt("sum") * 1.25;
+                        sum = res2.getDouble("sum") * 1.25;
+                    } else if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userCompany")) {
+                        sum = res2.getDouble("sum");
+                    } else if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")) {
+                        sum = res2.getDouble("sum");
+                    } else {
+                        sum = res2.getInt("sum") * 1.25;
                     }
                 }
                 menu.total_price = res.getInt("total_price");
@@ -74,11 +75,7 @@ public class Menus_List {
 
     /**
      *
-     * @return
-     * returns
-     * the
-     * meny
-     * list.
+     * @return returns the meny list.
      */
     public List getMenu() {
         List<Menus> list = buildMenuList();

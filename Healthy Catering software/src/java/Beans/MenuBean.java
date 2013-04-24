@@ -30,9 +30,12 @@ public class MenuBean implements Serializable {
     private Menus_List menulist;
     private Course_List courselist;
     //Error handling variables
-    private boolean createMenu;
-    private boolean deleteMenu;
-    private boolean updateMenu;
+    private boolean createMenuGroupError;
+    private boolean createMenuError;
+    private boolean deleteMenuGroupError;
+    private boolean deleteMenuError;
+    private boolean updateMenuGroupError;
+    private boolean updateMenuError;
 
     public int getMenu_id() {
         return menu_id;
@@ -82,6 +85,11 @@ public class MenuBean implements Serializable {
     }
 
     public List getMenu() {
+        //Sets variables to default so we can add menus later.
+        setName(null);
+        setType(null);
+        //Error handling
+        createMenuGroupError = false;
         menulist = new Menus_List();
         return menulist.getMenu();
     }
@@ -101,41 +109,66 @@ public class MenuBean implements Serializable {
     }
 
     public void createMenu() {
+        deleteMenuGroupError = false;
+        createMenuGroupError = true;
         if (menu.createMenu()) {
-            createMenu = true;
+            updateMenuError = false;
+            deleteMenuError = false;
+            createMenuError = true;
         } else {
-            createMenu = false;
+            createMenuError = false;
         }
     }
 
     public void deleteMenu() {
+        deleteMenuGroupError = true;
         String input = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("menu_id");
         menu_id = Integer.parseInt(input);
         setMenu_id(menu_id);
         if (menu.deleteMenu()) {
-            deleteMenu = true;
+            createMenuError =  false;
+            updateMenuError = false;
+            deleteMenuError = true;
         } else {
-            deleteMenu = false;
+            deleteMenuError = false;
         }
     }
 
     public void updateMenu() {
+        updateMenuGroupError = true;
         if (menu.updateMenu()) {
-            updateMenu = true;
+            deleteMenuError = false;
+            createMenuError = false;
+            updateMenuError = true;
         } else {
-            updateMenu = false;
+            setName(menu.name);
+            updateMenuError = false;
         }
     }
-
-    public boolean getUpdateMenu(){
-        return updateMenu;
+    public boolean getCreateMenuGroupError(){
+        return createMenuGroupError;
+    }
+    public boolean getUpdateMenuError(){
+        return updateMenuError;
     }
     
-    public boolean getDeleteMenu() {
-        return deleteMenu;
+    public boolean getDeleteMenuError() {
+        return deleteMenuError;
     }
 
-    public boolean getCreateMenu() {
-        return createMenu;
+    public boolean getCreateMenuError() {
+        return createMenuError;
+    }
+    public boolean getDeleteMenuGroupError(){
+        return deleteMenuGroupError;
+    }
+    public boolean getUpdateMenuGroupError(){
+        return updateMenuGroupError;
+    }
+    
+    public void setErrorGroups(){
+        updateMenuGroupError = false;
+        deleteMenuGroupError = false;
+        createMenuGroupError = false;
     }
 }

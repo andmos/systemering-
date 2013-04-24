@@ -75,6 +75,8 @@ public class Course_List {
                     course.price = res.getInt("price")*1.25;
                 }else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userCompany")){
                     course.price = res.getInt("price");
+                }else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")){
+                    course.price = res.getInt("price");
                 }else{
                     course.price = res.getInt("price")*1.25;
                 }

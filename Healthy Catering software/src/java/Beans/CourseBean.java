@@ -22,14 +22,27 @@ public class CourseBean implements Serializable {
     private int menuID;
     private double price;
     //Error handling
-    private boolean updateCourse;
+    private boolean updateCourseError;
+    private boolean deleteCourseError;
+    private boolean addCourseError;
 
     public double getPrice() {
         return course.getPrice();
     }
 
-    public boolean getUpdateCourse() {
-        return updateCourse;
+    public boolean getUpdateCourseError() {
+        return updateCourseError;
+    }
+
+    public boolean getCourseError() {
+        return addCourseError;
+    }
+    
+    public boolean getAddCourseError(){
+        return addCourseError;
+    }
+
+    public CourseBean() {
     }
 
     public void setPrice(double price) {
@@ -73,6 +86,10 @@ public class CourseBean implements Serializable {
         course.setName_course(name);
     }
 
+    public boolean getDeleteCourseError() {
+        return deleteCourseError;
+    }
+
     public String chooseCourse() {
         String value = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("course_id");
         setCourseID(Integer.parseInt(value));
@@ -85,11 +102,45 @@ public class CourseBean implements Serializable {
         return "EditCourse";
     }
 
-    public void updateCourse() {
+    public String updateCourse() {
         if (course.updateCourse()) {
-            updateCourse = true;
+            updateCourseError = true;
+            addCourseError = false;
+            deleteCourseError = false;
+            return "EditMenu";
         } else {
-            updateCourse = false;
+            updateCourseError = false;
+            return null;
+        }
+    }
+
+    public void deleteCourse() {
+        String value = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("course_id");
+        setCourseID(Integer.parseInt(value));
+        String value2 = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("menu_id");
+        setMenuID(Integer.parseInt(value2));
+        if (course.deleteCourse()) {
+            updateCourseError = false;
+            addCourseError = false;
+            deleteCourseError = true;
+        } else {
+            deleteCourseError = false;
+        }
+    }
+    
+    public void addCourse(){
+        String value2 = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("menu_id");
+        setMenuID(Integer.parseInt(value2));
+        if(course.addCourse()){
+            //Sets the variables back to null for future adding of courses
+            setName(null);
+            setPrice(0);
+            setDescription(null);
+            addCourseError = true;
+            updateCourseError = false;
+            deleteCourseError = false;
+        }else{
+            addCourseError = false;
         }
     }
 }

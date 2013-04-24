@@ -8,44 +8,46 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                
-                    <h:dataTable value="#{menu.getMenu()}" var="c" >
-                        <f:facet name="header">
-                            Menus
-                        </f:facet>
-                        <h:column>
-                            <f:facet name="header">
-                                Name
-                            </f:facet>
-                            #{c.name}
-                        </h:column>
-                        <h:column  > 
-                            <f:facet name="header">
-                                Price
-                            </f:facet>
-                            #{c.sum}
-                        </h:column>
 
-                        <h:column  > 
-                            <f:facet name="header">
-                                Type
-                            </f:facet>
-                            #{c.type}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                Action
-                            </f:facet>
-                            <h:form>
+                <h:dataTable value="#{menu.getMenu()}" var="c" >
+                    <f:facet name="header">
+                        Menus
+                    </f:facet>
+                    <h:column>
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        #{c.name}
+                    </h:column>
+                    <h:column  > 
+                        <f:facet name="header">
+                            Price
+                        </f:facet>
+                        #{c.sum}
+                    </h:column>
+
+                    <h:column  > 
+                        <f:facet name="header">
+                            Type
+                        </f:facet>
+                        #{c.type}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            Action
+                        </f:facet>
+                        <h:form>
                             <input type="hidden" value="#{c.menu_id}" name="menu_id"/>
                             <input type="hidden" value="#{c.name}" name="name"/>
                             <input type="hidden" value="#{c.type}" name="type"/>
-                            <h:commandButton value="Edit" action="#{menu.chooseMenu()}"/>
-                            <h:commandButton value="Delete" action="#{menu.deleteMenu()}"/>
-                            </h:form>
-                        </h:column>
-                    </h:dataTable>
-                
+                            <h:commandButton value="Edit menu" action="#{menu.chooseMenu()}"/>
+                            <h:commandButton value="Delete menu" action="#{menu.deleteMenu()}"/>
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+                <h:panelGroup rendered="#{menu.deleteMenuGroupError}">
+                    <h:outputLabel style="color:green" value="Menu has been deleted" rendered="#{menu.deleteMenuError}"/>
+                </h:panelGroup>
             </ui:define>
         </ui:composition> 
     </h:body>

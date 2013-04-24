@@ -8,11 +8,15 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
+                <f:event listener="#{menu.setErrorGroups()}" type="preRenderView"/>
                 <div id="choose">
                     <table>
                         <tr>
                             <td><h:link value="Create menus" outcome="CreateMenu"/></td>
-                                <td><h:link value="Edit menus" outcome="ChangeMenu"/></td>
+                            <td><h:link value="Edit menus" outcome="ChangeMenu"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:link value="View inventory" outcome="ViewInventory"/></td>
                         </tr>
                     </table>
                 </div>

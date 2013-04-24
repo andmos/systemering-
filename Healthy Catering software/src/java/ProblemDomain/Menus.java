@@ -22,10 +22,12 @@ public class Menus {
     private ResultSet res = null;
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     public String sqlChangeMenu = "update menus set name=?,type=? where menu_id=?";
-    public String sqlCreateMenu = "insert into menus(name,type,menu_id,type_id) values(?,?,?,?)";
+    public String sqlCreateMenu = "insert into menus(name,type,type_id) values(?,?,?)";
     public String sqlGetMenuId = "select max(menu_id)+1 as menu_id from menus";
     public String sqlCheckName = "select name from menus where name=?";
+    public String sqlGetName = "select name from menu where menu_id=?";
     public String sqlDeleteMenu = "delete from menus where menu_id=?";
+    public String sqlDeleteCoursesOnMenu = "delete from course where menu_id=?";
     public String sqlUpdateMenu = "update menus set name=?,type=?,type_id=? where menu_id=?";
 
     public int getMenu_id() {
@@ -103,6 +105,7 @@ public class Menus {
     /*
      *CreateMenu:
      *Increments the menu_id and checks if the name is avaible
+     *
      */
     public boolean createMenu() {
         try {
@@ -125,9 +128,8 @@ public class Menus {
                 line = db.getConnection().prepareStatement(sqlCreateMenu);
                 line.setString(1, name);
                 line.setString(2, type);
-                line.setInt(3, menu_id);
                 type_id = chooseTypeID(type);
-                line.setInt(4, type_id);
+                line.setInt(3, type_id);
                 line.executeUpdate();
                 return true;
             }
@@ -141,9 +143,13 @@ public class Menus {
         }
     }
 
-    public boolean deleteMenu(){
+    public boolean deleteMenu() {
         try {
             db.openConnection();
+            PreparedStatement line2 = null;
+            line2 = db.getConnection().prepareStatement(sqlDeleteCoursesOnMenu);
+            line2.setInt(1, menu_id);
+            line2.executeUpdate();
             line = db.getConnection().prepareStatement(sqlDeleteMenu);
             line.setInt(1, menu_id);
             line.executeUpdate();
@@ -157,19 +163,27 @@ public class Menus {
             db.closeConnection();
         }
     }
-    
-    
-    public boolean updateMenu(){
+
+    public boolean updateMenu() {
         try {
             db.openConnection();
-            line = db.getConnection().prepareStatement(sqlUpdateMenu);
-            type_id = chooseTypeID(type);
-            line.setString(1, this.name);
-            line.setString(2,this.type);
-            line.setInt(3, type_id);
-            line.setInt(4,menu_id);
-            line.executeUpdate();
-            return true;
+            //Checks if name is avaible
+            PreparedStatement line3 = null;
+            line3 = db.getConnection().prepareStatement(sqlCheckName);
+            line3.setString(1, name);
+            res = line3.executeQuery();
+            if (res.next()) {
+                return false;   
+            } else {
+                line = db.getConnection().prepareStatement(sqlUpdateMenu);
+                type_id = chooseTypeID(type);
+                line.setString(1, this.name);
+                line.setString(2, this.type);
+                line.setInt(3, type_id);
+                line.setInt(4, menu_id);
+                line.executeUpdate();
+                return true;
+            }
         } catch (SQLException e) {
             System.out.println("Could not get name from DB " + e.getMessage());
             return false;
