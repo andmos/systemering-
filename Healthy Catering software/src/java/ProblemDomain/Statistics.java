@@ -16,8 +16,13 @@ import javax.faces.context.FacesContext;
  * @author espen
  */
 public class Statistics {
-
-    private String sqlMostPopularMenu = "select menu.name, id from (select menu.name, menu_id, count(menu_id) as id from orders group by menu_id order by id desc) menu;";
+    
+    private String dropViewIfExists = "DROP VIEW IF EXISTS subquerry, metaquerry";
+    private String viewMostPopularMenuSub = "create view subquerry as select menu_id, count(menu_id) as counter from orders group by menu_id order by id desc";
+    //private String viewMostPopularMenuMeta = "create view metaquerry as select menus.menu_id, id from menus,subquerry where menus.menu_id=subquerry.menu_id;";
+    private String sqlMostPopularMenu = "select menus.name,counter from menus,subquerry where menus.menu_id=subquerry.menu_id";   
+    
+    //private String sqlMostPopularMenu = "select menu.name, id from (select menu.name, menu_id, count(menu_id) as id from orders group by menu_id order by id desc) menu;";
     private String sqlMostProfitableCustomers = "select username, priceSum from (select username, sum(price) as priceSum from orders group by username order by priceSum desc) sumTable;";
     private String sqlNumberOfCustomers = "select count(username) as count from roles where role = 'userNormal';";
     private String sqlNumberOfManagement = "select count(username)as count from roles where role = 'management';";
@@ -32,11 +37,19 @@ public class Statistics {
 
         try {
             db.openConnection();
+            //private String viewIfExists = "DROP VIEW IF EXISTS subquerry, metaquerry";
+            //private String viewMostPopularMenuSub = "create view subquerry as select menu_id, count(menu_id) as id from orders group by menu_id order by id desc;";
+            //private String viewMostPopularMenuMeta = "create view metaquerry as select menus.menu_id, id from menus,subquerry where menus.menu_id=subquerry.menu_id;";
+            line = db.getConnection().prepareStatement(dropViewIfExists);
+            System.out.println(line.executeUpdate() + " test ");
+            db.closeStatement(line);
+            line = db.getConnection().prepareStatement(viewMostPopularMenuSub);
+            line.executeUpdate();
+            db.closeStatement(line);
             line = db.getConnection().prepareStatement(sqlMostPopularMenu);
             res = line.executeQuery();
             while (res.next()) {
-               
-                int count = res.getInt("id");
+                int count = res.getInt("counter");
                 String menu = res.getString("name");
                 Statistics_id_count obj = new Statistics_id_count(count,menu);
                 list.add(obj);
