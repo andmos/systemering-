@@ -42,9 +42,6 @@ public class CourseBean implements Serializable {
         return addCourseError;
     }
 
-    public CourseBean() {
-    }
-
     public void setPrice(double price) {
         this.price = price;
         course.setPrice(price);

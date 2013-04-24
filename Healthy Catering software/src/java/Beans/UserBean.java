@@ -1,7 +1,7 @@
 package Beans;
 
 import ProblemDomain.Users;
-import ProblemDomain.Users_List;
+import Lists.Users_List;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;

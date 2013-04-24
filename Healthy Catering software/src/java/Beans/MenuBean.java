@@ -1,9 +1,9 @@
 package Beans;
 
 import ProblemDomain.Course;
-import ProblemDomain.Course_List;
+import Lists.Course_List;
 import ProblemDomain.Menus;
-import ProblemDomain.Menus_List;
+import Lists.Menus_List;
 /**
  *
  * @author

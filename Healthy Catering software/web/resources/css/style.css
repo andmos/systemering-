@@ -167,10 +167,6 @@ table td {
     border-bottom: 1px solid #fff;
     border-top: 1px solid #fff;
 }
-table td:hover {
-    background-color: #fff;
-}
-
 
 input[type="submit"]{
     color: #8d3701;

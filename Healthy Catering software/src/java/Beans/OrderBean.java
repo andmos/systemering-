@@ -4,6 +4,9 @@ package Beans;
  * havardb
  */
 
+import Lists.Menus_List;
+import Lists.Course_List;
+import Lists.Orders_List;
 import ProblemDomain.*;
 import java.io.Serializable;
 import java.util.*; //List and other important java.util classes

@@ -8,14 +8,15 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <div style="text-align:center">
                     <h:panelGroup rendered="#{menu.createMenuGroupError}">
                         <h:outputText style="color:green" value="Menus has been created" rendered="#{menu.createMenuError}"/>
                         <h:outputText style="color:red" value="Name already exists" rendered="#{not menu.createMenuError}"/>
                     </h:panelGroup>
                     <h:form>
-                        <h3>Create Menu</h3>
-                        <table  align="center">
+                        <table>
+                            <thead><tr><th colspan="4" scope="colgroup">
+                        Create menu
+                    </th></tr></thead>
                             <tr>
                                 <td>Menu name</td>
                                 <td><h:inputText value="#{menu.name}" required="true" id="newName" label="Menu name"/></td>
@@ -34,7 +35,6 @@
                             <tr><td><h:commandButton value="Create new menu" action="#{menu.createMenu()}"/></td></tr>
                         </table>
                     </h:form>
-                </div>
             </ui:define>
         </ui:composition> 
     </h:body>

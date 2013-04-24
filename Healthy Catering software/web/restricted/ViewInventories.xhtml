@@ -8,20 +8,25 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:dataTable value="#{inventory.getIngredients()}" var="c">
+
+                <h:dataTable value="#{inventory.getInventory()}" var="c" >
+                    <f:facet name="header">
+                        Inventories
+                    </f:facet>
                     <h:column>
-                        <f:facet name="header">
-                            Name
-                        </f:facet>
-                        #{c.name}
+                        #{c.type}
                     </h:column>
                     <h:column>
-                        <f:facet name="header">
-                            Quantity
-                        </f:facet>
+                        <h:form>
+                            <input type="hidden" value="#{c.inventory_id}" name="inventory_id"/>
+                            <h:commandButton value="See inventory" action="#{inventory.chooseInventory()}"/>
+                        </h:form>
                     </h:column>
+
                 </h:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>
 </html>
+
+

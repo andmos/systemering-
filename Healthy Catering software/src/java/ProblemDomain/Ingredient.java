@@ -7,6 +7,8 @@ public class Ingredient {
 public int ingridient_id;
 public double price;
 public int inventory_id;
+public String name;
+public int quantity;
 
     public double getPrice() {
         return price;
@@ -30,6 +32,22 @@ public int inventory_id;
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     

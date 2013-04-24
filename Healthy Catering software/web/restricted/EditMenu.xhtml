@@ -10,9 +10,9 @@
             <ui:define name="content">
                 <h:form>
                     <table>
-                        <tr>
-                            <th scope="col">Menu Information</th>
-                        </tr>
+                        <thead><tr>
+                           <th colspan="4" scope="colgroup">Menu Information</th>
+                        </tr></thead>
                         <tr>
                             <td>Menu name</td>
                             <td><h:inputText value="#{menu.name}"/></td>
@@ -37,9 +37,9 @@
                 <br></br>
                 <h:form>
                     <table>
-                        <tr>
-                            <th scope="col">Add course</th>
-                        </tr>
+                        <thead><tr>
+                            <th colspan="4" scope="colgroup">Add course</th>
+                        </tr></thead>
                         <tr>
                             <td>Course name</td>
                             <td><h:inputText value="#{course.name}"/></td>
