@@ -4,37 +4,38 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:dataTable  value="#{order.orders}" var="c">
-                    <h:column>
+                <p:dataTable  value="#{order.orders}" var="c">
+                    <p:column>
                         <f:facet name="header">
                             Order nr:
                         </f:facet>
                         <h:form>
                             <input type="hidden"  name="order_nr" value="#{c.order_nr}"/>
-                            <h:commandButton  value="#{c.order_nr}"  action="#{order.choosenOrder()}"/> 
+                            <p:commandButton  value="#{c.order_nr}"  action="#{order.choosenOrder()}" ajax="false"/> 
                         </h:form>
-                    </h:column>
+                    </p:column>
 
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">
                             Status:
                         </f:facet>
                         <h:outputText value="Cooking" style="color:red" rendered="#{c.status lt 0}"/>
                         <h:outputText value="Ready for deliver" style="color:orange" rendered="#{c.status == 0}"/>
                         <h:outputText value="Delivered" style="color:green" rendered="#{c.status gt 0 }"/>
-                    </h:column>
+                    </p:column>
 
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">
                             Date:
                         </f:facet>
                         #{c.orderDate}
-                    </h:column>
-                </h:dataTable>
+                    </p:column>
+                </p:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>

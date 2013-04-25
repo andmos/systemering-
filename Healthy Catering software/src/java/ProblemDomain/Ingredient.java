@@ -15,17 +15,12 @@ public class Ingredient {
     private PreparedStatement line = null;
     private ResultSet res = null;
     public int ingridient_id;
-    public double price;
     public int inventory_id;
     public String name;
     public int quantity;
     public String sqlAddQuantity = "update ingredient set quantity=quantity+? where name=? and inventory_id=?";
     public String sqlRemoveQuantity = "update ingredient set quantity=quantity-? where name=? and inventory_id=?";
     public String sqlAddIngredient = "insert into ingredient(name,quantity,inventory_id) values(?,?,?)";
-
-    public double getPrice() {
-        return price;
-    }
 
     public int getInventory_id() {
         return inventory_id;
@@ -43,9 +38,7 @@ public class Ingredient {
         this.inventory_id = inventory_id;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;

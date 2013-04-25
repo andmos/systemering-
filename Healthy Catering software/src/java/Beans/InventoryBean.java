@@ -29,15 +29,12 @@ public class InventoryBean implements Serializable {
     private Ingredient_List ingredientlist = new Ingredient_List();
     private String ingredientName;
     private int ingredientQuantity;
-    private double ingredientPrice;
 
     public String getIngredientName() {
         return ingredient.name;
     }
 
-    public double getIngredientPrice() {
-        return ingredient.getPrice();
-    }
+
 
     public int getIngredientQuantity() {
         return ingredient.quantity;
@@ -61,10 +58,6 @@ public class InventoryBean implements Serializable {
         ingredient.setName(ingredientName);
     }
 
-    public void setIngredientPrice(double ingredientPrice) {
-        this.ingredientPrice = ingredientPrice;
-        ingredient.setPrice(ingredientPrice);
-    }
 
     public void setIngredientQuantity(int ingredientQuantity) {
         this.ingredientQuantity = ingredientQuantity;

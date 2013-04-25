@@ -4,53 +4,57 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
-      >
+
+      xmlns:p="http://primefaces.org/ui">
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-
-                <p:dataTable value="#{menu.getMenu()}" var="c" >
-                    <f:facet name="header">
-                        Menus
-                    </f:facet>
+                <p:dataTable value="#{tempUser.menus}" var="c">
                     <p:column>
                         <f:facet name="header">
                             Name
                         </f:facet>
                         #{c.name}
                     </p:column>
-                    <p:column  > 
+                    <p:column>
                         <f:facet name="header">
                             Price
                         </f:facet>
                         #{c.sum}
                     </p:column>
-
-                    <p:column  > 
+                    <p:column>
                         <f:facet name="header">
                             Type
                         </f:facet>
                         #{c.type}
                     </p:column>
                     <p:column>
-                        <f:facet name="header">
-                            Action
-                        </f:facet>
                         <h:form>
                             <input type="hidden" value="#{c.menu_id}" name="menu_id"/>
-                            <input type="hidden" value="#{c.name}" name="name"/>
-                            <input type="hidden" value="#{c.type}" name="type"/>
-                            <p:commandButton value="Edit menu" action="#{menu.chooseMenu()}" ajax="false"/>
-                            <p:commandButton value="Delete menu" action="#{menu.deleteMenu()}" ajax="false"/>
+                            <p:commandButton value="Add menu to the order" action="#{tempUser.saveMenu()}" ajax='false'/>
+                        </h:form>
+                    </p:column>
+                </p:dataTable> 
+                <br></br>
+                
+                <p:dataTable value="#{tempUser.savedOrder}" var="d">
+                    <f:facet name="header">
+                        The order
+                    </f:facet>
+                    <p:column>
+                        #{d.name}
+                    </p:column>
+                    <p:column>
+                        <h:form>
+                            <input type="hidden" value="#{d.menu_id}" name="menu_id"/>
+                            <p:commandButton value="Delete" action="#{tempUser.deleteMenu()}" ajax='false'/>
                         </h:form>
                     </p:column>
                 </p:dataTable>
-                <h:panelGroup rendered="#{menu.deleteMenuGroupError}">
-                    <h:outputLabel style="color:green" value="Menu has been deleted" rendered="#{menu.deleteMenuError}"/>
-                </h:panelGroup>
+                <h:form>
+                    <p:commandButton value="Place order" action="#{tempUser.placeOrders()}" ajax='false'/>
+                </h:form>
             </ui:define>
         </ui:composition> 
     </h:body>
 </html>
-

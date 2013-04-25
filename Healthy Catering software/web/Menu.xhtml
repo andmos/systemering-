@@ -4,33 +4,34 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:dataTable  value="#{menu.getCourses()}" var="c">
-                    <h:column>
+                <p:dataTable  value="#{menu.getCourses()}" var="c">
+                    <p:column>
                         <f:facet name="header">
                             Name
                         </f:facet>
                         #{c.name_course}
-                    </h:column>
+                    </p:column>
                     
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">
                             Description
                         </f:facet>
                         #{c.description}
-                    </h:column>
+                    </p:column>
 
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">
                             Price
                         </f:facet>
                         #{c.price}
-                    </h:column>
+                    </p:column>
 
-                </h:dataTable>
+                </p:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>

@@ -267,6 +267,14 @@ public class UserBean implements Serializable {
         }*/
     }
     
+     public void changeYourUser(){
+        String name = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
+        String address = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("address");
+        String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
+        user.changeUser(name, address, username);
+        setUsernameChange(username);
+    }
+    
     public String chooseUser(){
         String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
         if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")){

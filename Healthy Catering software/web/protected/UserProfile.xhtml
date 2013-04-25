@@ -4,6 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
@@ -11,10 +12,10 @@
             <ui:define name="content">
                 <h:form>
                     <table>
-                        <thead><tr><th scope="col" style="font-size: 20px;font-weight: bold">User information</th>
+                        <tr><th scope="col" style="font-size: 20px;font-weight: bold">User information</th>
                                 <th scrope="cloL"></th>
                             </tr>
-                        </thead>
+                        
                         <tr><td>Name:</td> <td><h:inputText value="#{user.name}"/></td></tr>
                         <tr><td>Adress:</td> <td><h:inputText value="#{user.address}"/></td></tr>
                         <tr><td><h:commandButton action="#{user.changeUser()}" value="Change user"/></td></tr>
@@ -23,10 +24,9 @@
 
                 <h:form>
                     <table>
-                        <thead><tr><th scope="col" style="font-size: 20px;font-weight: bold">Change password</th>
+                        <tr><th scope="col" style="font-size: 20px;font-weight: bold">Change password</th>
                                 <th scrope="cloL"></th>
                             </tr>
-                        </thead>
                         <tr><td>New password: </td><td><h:inputSecret value="#{user.newPassword}"/></td></tr>
                         <tr><td>Confirm new password: </td><td><h:inputSecret value="#{user.newPasswordConfirmed}"/></td></tr>
                         <tr><td><h:commandButton action="#{user.changePassword()}" value="Change password"/></td>

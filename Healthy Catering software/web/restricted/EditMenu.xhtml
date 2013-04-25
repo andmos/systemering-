@@ -4,29 +4,30 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
                 <h:form>
                     <table>
-                        <thead><tr>
+                        <tr>
                            <th colspan="4" scope="colgroup">Menu Information</th>
-                        </tr></thead>
+                        </tr>
                         <tr>
                             <td>Menu name</td>
                             <td><h:inputText value="#{menu.name}"/></td>
                         </tr>
                         <tr>
                             <td>Menu type</td>
-                            <td><h:selectOneMenu value="#{menu.type}">
+                            <td><p:selectOneMenu value="#{menu.type}">
                                     <f:selectItem itemValue="Breakfast" itemLabel="Breakfast" />
                                     <f:selectItem itemValue="Lunch" itemLabel="Lunch" />
                                     <f:selectItem itemValue="Dinner" itemLabel="Dinner" />
                                     <f:selectItem itemValue="Supper" itemLabel="Supper" />
-                                </h:selectOneMenu></td>
+                                </p:selectOneMenu></td>
                         </tr>
-                        <tr><td><h:commandButton value="Update information" action="#{menu.updateMenu()}"/></td></tr>
+                        <tr><td><p:commandButton value="Update information" action="#{menu.updateMenu()}" ajax="false"/></td></tr>
                     </table>
                     <h:panelGroup rendered="#{menu.updateMenuGroupError}">
                     <h:outputLabel style="color:green" value="Menu has been updated" rendered="#{menu.updateMenuError}"/>
@@ -37,9 +38,9 @@
                 <br></br>
                 <h:form>
                     <table>
-                        <thead><tr>
+                        <tr>
                             <th colspan="4" scope="colgroup">Add course</th>
-                        </tr></thead>
+                        </tr>
                         <tr>
                             <td>Course name</td>
                             <td><h:inputText value="#{course.name}"/></td>
@@ -54,7 +55,7 @@
                         </tr>
                         <tr><td>
                                 <input type="hidden" value="#{menu.menu_id}" name="menu_id"/>
-                                <h:commandButton value="Add course" action="#{course.addCourse()}"/>
+                                <p:commandButton value="Add course" action="#{course.addCourse()}" ajax="false"/>
                             </td></tr>
                     </table>
                 </h:form>
@@ -65,30 +66,30 @@
                     <h:outputLabel style="color:green" value="Course has been added" rendered="#{course.addCourseError}"/>
                     </h:panelGroup>
                 </br>
-                <h:dataTable value="#{menu.courses}" var="c">
+                <p:dataTable value="#{menu.courses}" var="c">
                     <f:facet name="header">
                         Courses
                     </f:facet>
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">
                             Name
                         </f:facet>
                         <h:outputText value="#{c.name_course}"/>
 
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             Price
                         </f:facet>
                         <h:outputText value="#{c.price}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             Description
                         </f:facet>
                         <h:outputText value="#{c.description}"/>
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             Action
                         </f:facet>
@@ -98,11 +99,11 @@
                             <input type="hidden" value="#{c.name_course}" name="name"/>
                             <input type="hidden" value="#{c.description}" name="description"/>
                             <input type="hidden" value="#{c.price}" name="price"/>
-                            <h:commandButton value="Edit" action="#{course.chooseCourse()}"/>
-                            <h:commandButton value="Delete" action="#{course.deleteCourse()}"/>
+                            <p:commandButton value="Edit" action="#{course.chooseCourse()}" ajax="false"/>
+                            <p:commandButton value="Delete" action="#{course.deleteCourse()}" ajax="false"/>
                         </h:form>
-                    </h:column>
-                </h:dataTable>
+                    </p:column>
+                </p:dataTable>
 
             </ui:define>
         </ui:composition> 

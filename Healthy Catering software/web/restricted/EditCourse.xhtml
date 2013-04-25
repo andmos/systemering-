@@ -4,6 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
@@ -27,7 +28,7 @@
                             <td><h:message for="newDescription" style="color:red"/></td>
                         </tr>
                         <tr>
-                            <td><h:commandButton action="#{course.updateCourse()}" value="Update course"/></td>
+                            <td><p:commandButton action="#{course.updateCourse()}" value="Update course" ajax="false"/></td>
                 </tr>
                     </table>
                 </h:form>

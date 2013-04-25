@@ -10,8 +10,8 @@
         <ui:composition template="/template/template.xhtml">
 
             <ui:define name="content">
-                <h:dataTable value="#{menu.getMenu()}" var="c" >
-                    <h:column>
+                <p:dataTable value="#{menu.getMenu()}" var="c" >
+                    <p:column>
                         <f:facet name="header">
                             Name
                         </f:facet>
@@ -19,25 +19,25 @@
                             <h:form>
                                 <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
                                 <input type="hidden"  name="menu_name" value="#{c.name}"/>
-                                <h:commandButton  value="#{c.name}"  action="#{order.choosenMenu()}"/> 
+                                <p:commandButton  value="#{c.name}"  action="#{order.choosenMenu()}" ajax="false"/> 
                             </h:form>
                         </div>
-                    </h:column>
+                    </p:column>
 
-                    <h:column  > 
+                    <p:column  > 
                         <f:facet name="header">
                             Price
                         </f:facet>
                         #{c.sum}
-                    </h:column>
+                    </p:column>
 
-                    <h:column> 
+                    <p:column> 
                         <f:facet name="header">
                             Type
                         </f:facet>
                         #{c.type}
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <h:form>
                             <p:growl id="growl" showDetail="true" sticky="true" /> 
                             <input type="hidden" name="menu_id" value="#{c.menu_id}"/>
@@ -45,9 +45,8 @@
                             <p:commandButton value="Add to cart"  action="#{order.placeOrder()}" actionListener="#{order.addedToCart}" update="growl"/> 
              
                         </h:form>
-                    </h:column>
-                </h:dataTable>
-                
+                    </p:column>
+                </p:dataTable>   
             </ui:define>
         </ui:composition> 
     </h:body>

@@ -32,7 +32,6 @@ public class Ingredient_List {
                 ingredient.ingridient_id = res.getInt("ingredient_id");
                 ingredient.inventory_id = res.getInt("inventory_id");
                 ingredient.name = res.getString("name");
-                ingredient.price = res.getDouble("price");
                 ingredient.quantity = res.getInt("quantity");
                 list.add(ingredient);
             }

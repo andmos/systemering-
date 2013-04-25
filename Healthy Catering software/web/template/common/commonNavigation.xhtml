@@ -6,7 +6,6 @@
       xmlns:p="http://primefaces.org/ui">
     <h:body>
         <ui:composition>
-
             <h:panelGroup rendered="#{empty request.remoteUser}">
                 <h:link id="home" value="Home" outcome="index"/>
                 <h:link id="menu" value="Menu" outcome="MenuChoose"/>
@@ -48,17 +47,18 @@
                 <h:link id="manageMenuManagement" value="Manage menus/ inventory"  outcome="ManageMenus"/>
                 <h:link id="viewStatManagement" value="View Statistics" outcome="ViewStatistics"/>
                 <p:tooltip for="manageUserManagement" value="Manage registered users" showEffect="fade" hideEffect="fade" />
-                <p:tooltip for="manageMenuMangement" value="Manage menu or inventory" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="manageMenuManagement" value="Manage menu or inventory" showEffect="fade" hideEffect="fade" />
                 <p:tooltip for="viewStatManagement" value="View company statistics" showEffect="fade" hideEffect="fade" />
             </h:panelGroup>
             
             <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('salesmen')}">
-                <h:link id="manageUserSalesmen" value="Manage users" outcome="ManageUsers"/>
-                <h:link id="manageMenuSalesmen" value="Manage menus/ inventory"  outcome="ManageMenus"/>
-                <h:link id="viewStatSalesmen" value="View Statistics" outcome="ViewStatistics"/>
-                <p:tooltip for="manageUserSalesmen" value="Manage registered users" showEffect="fade" hideEffect="fade" />
-                <p:tooltip for="manageMenuSalesmen" value="Manage menu or inventory" showEffect="fade" hideEffect="fade" />
-                <p:tooltip for="viewStatSalesmen" value="View company statistics" showEffect="fade" hideEffect="fade" />
+                <h:link id="makeOrderSalesmen" value="Make an order" outcome="MakeOrder"/>
+                <h:link id="manageOrdersSalesmen" value="Manage orders" outcome="ManageOrders"/>
+                <h:link id="registerCustomersSalesmen" value="Register new customer" outcome="RegisterCustomer"/>
+                <p:tooltip for="makeOrderSalesmen" value="Make an order for a customer" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="manageOrdersSalesmen" value="Manage orders for a customer" showEffect="fade" hideEffect="fade" />
+                <p:tooltip for="registerCustomersSalesmen" value="Register a new customer" showEffect="fade" hideEffect="fade" />
+                
             </h:panelGroup>
 
             <ui:insert name="userMenu" >

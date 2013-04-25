@@ -4,36 +4,37 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:dataTable value="#{menu.getMenu()}" var="c" >
+                <p:dataTable value="#{menu.getMenu()}" var="c" >
 
-                    <h:column>
+                    <p:column>
                         <div id="special">
                             <h:form>
                                 <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
-                                <h:commandButton  value="#{c.name}"  action="#{menu.choosenMenu()}"/> 
+                                <p:commandButton  value="#{c.name}"  action="#{menu.choosenMenu()}" ajax="false"/> 
                             </h:form>
                         </div>
-                    </h:column>
+                    </p:column>
 
-                    <h:column  > 
+                    <p:column  > 
                         <f:facet name="header">
                             Price
                         </f:facet>
                         #{c.sum}
-                    </h:column>
+                    </p:column>
 
-                    <h:column  > 
+                    <p:column  > 
                         <f:facet name="header">
                             Type
                         </f:facet>
                             #{c.type}
 
-                    </h:column>
-                </h:dataTable>
+                    </p:column>
+                </p:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>

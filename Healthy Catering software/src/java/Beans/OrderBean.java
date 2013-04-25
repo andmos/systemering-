@@ -120,7 +120,6 @@ public class OrderBean implements Serializable {
 
     public List getMenus() {
         for (int i = 0; i < shoppingcart.size(); i++) {
-            System.out.println(i);
             menu_id = shoppingcart.get(i).menu_id;
             menulists.add(new Menus_List(menu_id).getMenus());
             shoppingcart.remove(i);

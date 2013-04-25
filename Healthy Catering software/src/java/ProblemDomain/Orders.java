@@ -124,4 +124,31 @@ public class Orders {
         }
         return check;
     }
+     public boolean placeOrder(Menus menu,String name) {
+        boolean check = false;
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlPlaceOrder);
+            line.setString(1, name);
+            line.setInt(2, menu.menu_id);
+            line.setInt(3, this.order_nr);
+            if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userNormal")) {
+                        line.setDouble(4, menu.sum*1.25);
+                    } else if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("userCompany")) {
+                        line.setDouble(4, menu.sum);
+                    }else{
+                        line.setDouble(4, menu.sum*1.25);
+                    }
+            line.executeUpdate();
+            check = true;
+
+        } catch (SQLException e) {
+            System.out.println("Feil i placeOrder()" + e.getMessage());
+        } finally {
+            db.closeResSet(res);
+            db.closeStatement(line);
+            db.closeConnection();
+        }
+        return check;
+    }
 }

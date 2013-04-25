@@ -4,26 +4,28 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      >
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
 
-                <h:dataTable value="#{inventory.getInventory()}" var="c" >
+                <p:dataTable value="#{inventory.getInventory()}" var="c" >
                     <f:facet name="header">
                         Inventories
                     </f:facet>
-                    <h:column>
+                    <p:column>
                         #{c.type}
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <h:form>
                             <input type="hidden" value="#{c.inventory_id}" name="inventory_id"/>
-                            <h:commandButton value="See inventory" action="#{inventory.chooseInventory()}"/>
+                            <p:commandButton value="See inventory" action="#{inventory.chooseInventory()}" ajax="false"/>
                         </h:form>
-                    </h:column>
+                    </p:column>
 
-                </h:dataTable>
+                </p:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>

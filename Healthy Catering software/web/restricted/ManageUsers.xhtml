@@ -4,8 +4,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      
-      xmlns:c="http://java.sun.com/jsp/jstl/core">
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
@@ -13,116 +13,116 @@
                 <h:outputText style="color:green" value="Password has been reset for #{user.usernameChange}" rendered="#{user.resetPassword}"/>
                 <h:outputText style="color:green" value="User information has been changed for #{user.usernameChange}" rendered="#{user.changedInformation}"/>
                 <!-- Normal users-->
-                <h:dataTable value="#{user.getNormalUsers()}" var="c" >
+                <p:dataTable value="#{user.getNormalUsers()}" var="c" >
                     <f:facet name="header">
-                        Normal users:
+                        Normal users
                     </f:facet>
-                    <h:column> 
+                    <p:column> 
                         <f:facet name="header">
                             Username
                         </f:facet>
                         <h:outputText value="#{c.username}"/>
-                    </h:column>
-                    <h:column> 
+                    </p:column>
+                    <p:column> 
                         <f:facet name="header">
                             Name
                         </f:facet>
                         <h:outputText value="#{c.name}"/>
                         <!--<input type="text" value="#{c.name}" name="name"/>-->
-                    </h:column>
+                    </p:column>
 
-                    <h:column> 
+                    <p:column> 
                         <f:facet name="header">
                             Address
                         </f:facet>
                         <h:outputText value="#{c.address}"/>
                         <!--<input type="text" value="#{c.address}" name="address"/>-->
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <h:form>
                             <input type="hidden" value="#{c.username}" name="username"/>
-                            <h:commandButton value="Edit" action="#{user.chooseUser()}"/>
+                            <p:commandButton value="Edit" action="#{user.chooseUser()}" ajax="false"/>
                         </h:form>
-                    </h:column>
-                </h:dataTable>
+                    </p:column>
+                </p:dataTable>
                 <br></br>
                 <br></br>
                 <!--Company users-->
-                <h:dataTable value="#{user.getCompanyUsers()}" var="c" >
+                <p:dataTable value="#{user.getCompanyUsers()}" var="c" >
                     <f:facet name="header">
-                        Company users:
+                        Company users
                     </f:facet>
-                    <h:column> 
+                    <p:column> 
                         <f:facet name="header">
                             Username
                         </f:facet>
                         <h:outputText value="#{c.username}"/>
-                    </h:column>
-                    <h:column> 
+                    </p:column>
+                    <p:column> 
                         <f:facet name="header">
                             Name
                         </f:facet>
                         <h:outputText value="#{c.name}"/>
                         <!--<input type="text" value="#{c.name}" name="name"/>-->
-                    </h:column>
+                    </p:column>
 
-                    <h:column> 
+                    <p:column> 
                         <f:facet name="header">
                             Address
                         </f:facet>
                         <h:outputText value="#{c.address}"/>
                         <!--<input type="text" value="#{c.address}" name="address"/>-->
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <h:form>
                             <input type="hidden" value="#{c.username}" name="username"/>
-                            <h:commandButton value="Edit" action="#{user.chooseUser()}"/>
+                            <p:commandButton value="Edit" action="#{user.chooseUser()}" ajax="false"/>
                         </h:form>
-                    </h:column>
-                </h:dataTable>
+                    </p:column>
+                </p:dataTable>
                 <br></br>
                 <br></br>
                 <!-- Management users-->
-                <h:dataTable value="#{user.getManagementUsers()}" var="c" >
+                <p:dataTable value="#{user.getManagementUsers()}" var="c" >
                     <f:facet name="header">
-                        Management users:
+                        Management users
                     </f:facet>
-                    <h:column> 
+                    <p:column> 
                         <f:facet name="header">
                             Username
                         </f:facet>
                         <h:outputText value="#{c.username}"/>
-                    </h:column>
-                    <h:column> 
+                    </p:column>
+                    <p:column> 
                         <f:facet name="header">
                             Name
                         </f:facet>
                         <h:outputText value="#{c.name}"/>
                         <!--<input type="text" value="#{c.name}" name="name"/>-->
-                    </h:column>
+                    </p:column>
 
-                    <h:column> 
+                    <p:column> 
                         <f:facet name="header">
                             Address
                         </f:facet>
                         <h:outputText value="#{c.address}"/>
                         <!--<input type="text" value="#{c.address}" name="address"/>-->
-                    </h:column>
-                    <h:column>
+                    </p:column>
+                    <p:column>
                         <f:facet name="header">
                             Action
                         </f:facet>
                         <h:form>
                             <input type="hidden" value="#{c.username}" name="username"/>
-                            <h:commandButton value="Edit" action="#{user.chooseUser()}"/>
+                            <p:commandButton value="Edit" action="#{user.chooseUser()}" ajax="false"/>
                         </h:form>
-                    </h:column>
-                </h:dataTable>
+                    </p:column>
+                </p:dataTable>
                 <br></br>
                 <h:form>
                     <table>
                         <tr>
-                            <thead><th colspan="4" scope="colgroup">Create new user</th></thead>
+                            <th colspan="4" scope="colgroup">Create new user</th>
                         </tr>
                         <tr>
                             <td>Name</td>
@@ -138,14 +138,14 @@
                         </tr>
                         <tr>
                             <td>Role</td>
-                            <td><h:selectOneMenu value="#{user.newRole}" >
+                            <td><p:selectOneMenu value="#{user.newRole}" >
                                     <f:selectItem itemValue="management" itemLabel="Management"/>
                                     <f:selectItem itemValue="salesmen" itemLabel="Salesmen"/>
                                     <f:selectItem itemValue="chef" itemLabel="Chef"/>
                                     <f:selectItem itemValue="driver" itemLabel="Driver"/>
-                                </h:selectOneMenu></td>
+                                </p:selectOneMenu></td>
                         </tr>
-                        <tr><td><h:commandButton value="Create new user" action="#{user.newUser()}"/></td></tr>
+                        <tr><td><p:commandButton value="Create new user" action="#{user.newUser()}" ajax="false"/></td></tr>
                     </table>
                 </h:form>
             </ui:define>

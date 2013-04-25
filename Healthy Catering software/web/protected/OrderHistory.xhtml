@@ -4,20 +4,21 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:dataTable  value="#{order.order}" var="c">
+                <p:dataTable  value="#{order.order}" var="c">
 
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">
                             Name
                         </f:facet>
                         #{c.name}
-                    </h:column>
+                    </p:column>
 
-                    <h:column>
+                    <p:column>
                         <f:facet name="header">
                             Price:
                         </f:facet>
@@ -26,8 +27,8 @@
                         <f:facet name="footer">
                             Total price: #{order.sum} kr
                         </f:facet>
-                    </h:column>
-                </h:dataTable>
+                    </p:column>
+                </p:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>

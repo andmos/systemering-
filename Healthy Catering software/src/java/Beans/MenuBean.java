@@ -50,7 +50,7 @@ public class MenuBean implements Serializable {
     }
 
     public String getType() {
-        return type;
+        return menu.getType();
     }
 
     public String choosenMenu() {
@@ -86,8 +86,6 @@ public class MenuBean implements Serializable {
 
     public List getMenu() {
         //Sets variables to default so we can add menus later.
-        setName(null);
-        setType(null);
         //Error handling
         createMenuGroupError = false;
         menulist = new Menus_List();
@@ -170,5 +168,7 @@ public class MenuBean implements Serializable {
         updateMenuGroupError = false;
         deleteMenuGroupError = false;
         createMenuGroupError = false;
+        setName(null);
+        setType(null);
     }
 }

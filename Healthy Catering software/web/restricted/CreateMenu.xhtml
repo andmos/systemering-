@@ -4,6 +4,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+       xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
@@ -14,9 +15,9 @@
                     </h:panelGroup>
                     <h:form>
                         <table>
-                            <thead><tr><th colspan="4" scope="colgroup">
+                            <tr><th colspan="4" scope="colgroup">
                         Create menu
-                    </th></tr></thead>
+                    </th></tr>
                             <tr>
                                 <td>Menu name</td>
                                 <td><h:inputText value="#{menu.name}" required="true" id="newName" label="Menu name"/></td>
@@ -32,7 +33,7 @@
                                     </h:selectOneMenu></td>
                                 <td><h:message for="newType" style="color:red"/></td>
                             </tr>
-                            <tr><td><h:commandButton value="Create new menu" action="#{menu.createMenu()}"/></td></tr>
+                            <tr><td><p:commandButton value="Create new menu" action="#{menu.createMenu()}" ajax="false"/></td></tr>
                         </table>
                     </h:form>
             </ui:define>
