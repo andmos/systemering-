@@ -31,8 +31,8 @@ public class Orders_List {
     private boolean isUser = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("user");
     private PreparedStatement line = null;
     private ResultSet res = null;
-    private String sqlConstructorDriver = "select orders.order_id,users.name,users.address,menus.name as MenuName from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
-    private String sqlConstructorChef = "select orders.order_id,users.name,users.address,menus.name as MenuName from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
+    private String sqlConstructorDriver = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
+    private String sqlConstructorChef = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
     private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
     private String sqlConstructor2 = "SELECT menu_id FROM orders where username=? and order_nr=?";
     private String sqlConstructor3 = "select menu_id,name,total_price  from menus where menu_id=?";
