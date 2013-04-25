@@ -9,19 +9,22 @@ package HelpClasses;
  * @author marius
  */
 public class Mailing {
-    public static void main(String[] args) {
-        
-        
-        String[] recipients = new String[]{"TO_MAIL"};
-        String[] bccRecipients = new String[]{"TO_MAIL"};
-        String subject = "SUBJET_HERE";
-        String messageBody = "ACTUAL_CONTENT";
-        
-
+    public void sendMail(String[] recipients, String[] bccRecipients, String subject,String messageBody){
         new Mail().sendMail(recipients, bccRecipients, subject, messageBody);
-
-
     }
+//    public static void main(String[] args) {
+//        
+//        
+//        String[] recipients = new String[]{"marius_lian@hotmail.com"};
+//        String[] bccRecipients = new String[]{"marius_lian@hotmail.com"};
+//        String subject = "thanks";
+//        String messageBody = "innhold";
+//        
+//
+//        new Mail().sendMail(recipients, bccRecipients, subject, messageBody);
+//
+//
+//    }
 }
 
     
