@@ -155,6 +155,11 @@ public class OrderBean implements Serializable {
         return orderlist.getDriverOrders();
     }
     
+    public List<DriverOrders> getChefOrders(){
+        orderlist = new Orders_List();
+        return orderlist.getChefOrders();
+    }
+    
     public String getText() {  
         return text;  
     }  
@@ -162,9 +167,7 @@ public class OrderBean implements Serializable {
     public void setText(String text) {
         this.text = text;
     }
-    
-    
-  
+
     public void addedToCart(ActionEvent actionEvent) {
         setText(FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("menu_name"));

@@ -32,11 +32,11 @@ public class Orders_List {
     private PreparedStatement line = null;
     private ResultSet res = null;
     private String sqlConstructorDriver = "select orders.order_id,users.name,users.address,menus.name as MenuName from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
+    private String sqlConstructorChef = "select orders.order_id,users.name,users.address,menus.name as MenuName from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
     private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
     private String sqlConstructor2 = "SELECT menu_id FROM orders where username=? and order_nr=?";
     private String sqlConstructor3 = "select menu_id,name,total_price  from menus where menu_id=?";
     private String sqlConstructor4 = "select price from orders,menus where orders.menu_id=? and username=?";
-    private String sqlConstructorChef = "SELECT distinct status,order_nr,orderDate FROM orders where status < -1";
     private String sqlGetSum2 = "select price from orders where order_nr=? and username=?";
     private String sqlConstructor5 = "SELECT distinct status,order_nr,orderDate FROM orders where username=?";
     private String sqlGetUsername = "select username from users where name=?";
@@ -180,7 +180,8 @@ public class Orders_List {
                 String name = res.getString("name");
                 String address = res.getString("address");
                 String menuName = res.getString("MenuName");
-                DriverOrders order = new DriverOrders(order_id, name, address, menuName);
+                int status = res.getInt("status");
+                DriverOrders order = new DriverOrders(order_id, name, address, menuName,status);
                 list.add(order);
             }
         } catch (SQLException e) {
@@ -192,4 +193,33 @@ public class Orders_List {
         }
         return list;
     }
+    
+    /*
+     *DriverOrders, could have renamed it to a better name, because both driver and chef uses it
+     */
+    public List<DriverOrders> getChefOrders() {
+        List<DriverOrders> list = new ArrayList();
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlConstructorChef);
+            res = line.executeQuery();
+            while (res.next()) {
+                int order_id = res.getInt("order_id");
+                String name = res.getString("name");
+                String address = res.getString("address");
+                String menuName = res.getString("MenuName");
+                int status = res.getInt("status");
+                DriverOrders order = new DriverOrders(order_id, name, address, menuName,status);
+                list.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println("Failure in getDriverOrders()" + e.getMessage());
+        } finally {
+            db.closeConnection();
+            db.closeResSet(res);
+            db.closeStatement(line);
+        }
+        return list;
+    }
+    
 }

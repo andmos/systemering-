@@ -13,6 +13,45 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
+                <p:dataTable value="#{order.getChefOrders()}" var="c">
+                    <f:facet name="header">
+                        Orders that are ready for cooking or are cooking
+                    </f:facet>
+                    <p:column>
+                        <f:facet name="header">
+                            Order id
+                        </f:facet>
+                        #{c.order_id}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        #{c.name}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Address
+                        </f:facet>
+                        #{c.address}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Menu name
+                        </f:facet>
+                        #{c.menuName}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Action
+                        </f:facet>
+                        <h:form>
+                            <input type="hidden" value="#{c.order_id}" name="order_id"/>
+                            <p:commandButton value="Start cooking" action="#{order.DeliverOrder()}" ajax="false" rendered="#{c.status==-2}"/>
+                            <p:commandButton value="Done" action="#{order.DeliverOrder()}" ajax="false" rendered="#{c.status==-1}"/>
+                        </h:form>
+                    </p:column>
+                </p:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>
