@@ -8,15 +8,14 @@
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
+            <h:form>
+                <p:panel header="AutoComplete" toggleable="true" id="panel">
+                    <h:outputLabel value="Simple :" for="acSimple"/>
+                    <p:autoComplete id="acSimple" value="" completeMethod=""/>
+                </p:panel>
+            </h:form>
             <ui:define name="content">
-                <div id="choose">
-                <table>
-                        <tr><td><h:link value="Registered customer" outcome="ManageRegUsers"/></td>
-                        <td><h:link value="Unregistered customer" outcome="ManageUnregUsers"/></td></tr>
-                    </table>
-                </div>
             </ui:define>
-
         </ui:composition> 
     </h:body>
 </html>
