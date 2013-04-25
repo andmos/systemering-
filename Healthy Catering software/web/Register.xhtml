@@ -4,11 +4,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      
+      xmlns:p="http://primefaces.org/ui">
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <div style="text-align:center">
+                
                     <h:form>
                         <table align="center">
 
@@ -35,16 +36,16 @@
                             <tr><td>Company?</td>
                                 <td><h:selectBooleanCheckbox value="#{user.isCompany}"></h:selectBooleanCheckbox></td>
                             </tr>
-                            
-                            <tr><td><h:commandButton value="Register new user" action="#{user.newUser()}"/></td><td>
+                            </table>
+                            <p:commandButton value="Register new user" action="#{user.newUser()}" ajax="false"/>
                                     <h:panelGroup rendered="#{user.errorPanelGroup}">
                                         <h:outputText style="color:green" value="You are now registered." rendered="#{user.error==0}"></h:outputText>
                                     </h:panelGroup>
-                                </td></tr>
-                        </table>
+                                
+                        
                     </h:form>
 
-                </div>
+                
             </ui:define>
         </ui:composition> 
     </h:body>

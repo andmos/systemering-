@@ -15,7 +15,11 @@
                         <div id="special">
                             <h:form>
                                 <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
-                                <p:commandButton  value="#{c.name}"  action="#{menu.choosenMenu()}" ajax="false"/> 
+
+                                <h:outputLink id="menuDetailsMake" value="#" style="text-decoration: none;">
+                                    <p:commandButton  value="#{c.name}"  action="#{menu.choosenMenu()}" ajax="false"/>
+                                </h:outputLink>
+                                <p:tooltip for="menuDetailsMake" value="Click to view detailed menuinformation" showEffect="fade" hideEffect="fade" />
                             </h:form>
                         </div>
                     </p:column>
@@ -31,7 +35,7 @@
                         <f:facet name="header">
                             Type
                         </f:facet>
-                            #{c.type}
+                        #{c.type}
 
                     </p:column>
                 </p:dataTable>

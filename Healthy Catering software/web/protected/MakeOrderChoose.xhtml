@@ -19,7 +19,12 @@
                             <h:form>
                                 <input type="hidden"  name="menu_id" value="#{c.menu_id}"/>
                                 <input type="hidden"  name="menu_name" value="#{c.name}"/>
-                                <p:commandButton  value="#{c.name}"  action="#{order.choosenMenu()}" ajax="false"/> 
+
+                                <h:outputLink id="menuDetailsMake" value="#" style="text-decoration: none;">
+                                    <p:commandButton  value="#{c.name}"  action="#{order.choosenMenu()}" ajax="false"/>
+                                </h:outputLink>
+                                <p:tooltip for="menuDetailsMake" value="Click to view detailed menuinformation" showEffect="fade" hideEffect="fade" />
+
                             </h:form>
                         </div>
                     </p:column>
@@ -30,7 +35,7 @@
                         </f:facet>
                         #{c.sum}
                     </p:column>
-
+                    
                     <p:column> 
                         <f:facet name="header">
                             Type
@@ -42,8 +47,10 @@
                             <p:growl id="growl" showDetail="true" sticky="true" /> 
                             <input type="hidden" name="menu_id" value="#{c.menu_id}"/>
                             <input type="hidden"  name="menu_name" value="#{c.name}"/>
-                            <p:commandButton value="Add to cart"  action="#{order.placeOrder()}" actionListener="#{order.addedToCart}" update="growl"/> 
-             
+                            <h:outputLink id="addToCart" value="#" style="text-decoration: none;">
+                                <p:commandButton value="Add to cart"  action="#{order.placeOrder()}" actionListener="#{order.addedToCart}" update="growl"/> 
+                            </h:outputLink>
+                            <p:tooltip for="addToCart" value="Add menu to shoppingcart" showEffect="fade" hideEffect="fade" />
                         </h:form>
                     </p:column>
                 </p:dataTable>   
