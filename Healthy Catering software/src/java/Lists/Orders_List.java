@@ -33,8 +33,10 @@ public class Orders_List {
     private ResultSet res = null;
     private ResultSet res2 = null;
     private String sqlConstructorDriver = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
-    private String sqlConstructorDriver2 = "select orders.order_id, tempUser.name, tempUser.address, menus.name as MenuName, orders.status from orders, tempUser, menus where orders.username=tempUser.name and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
     private String sqlConstructorChef = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
+    private String sqlConstructorDriver2 = "select orders.order_id, tempUser.name, tempUser.address, menus.name as MenuName, orders.status from orders, tempUser, menus where orders.username=tempUser.name and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
+    private String sqlConstructorChef2 = "select orders.order_id, tempUser.name, tempUser.address, menus.name as MenuName, orders.status from orders, tempUser, menus where orders.username=tempUser.name and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
+    //private String sqlConstructorChef = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
     private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
     private String sqlConstructor2 = "SELECT menu_id FROM orders where username=? and order_nr=?";
     private String sqlConstructor3 = "select menu_id,name,total_price  from menus where menu_id=?";
@@ -173,30 +175,8 @@ public class Orders_List {
     }
 
     private String splitString(String s) {
-        String username = "";
-        String[] parts = username.split("!");
-        if (parts[0].equals("temp")) {
-            for (int i = 1; i < parts.length; i++) {
-                username = parts[i] + " ";
-            }
-        } else {
-            try {
-                db.openConnection();
-                line2 = db.getConnection().prepareStatement(sqlNameAtUsername);
-                line2.setString(1, username);
-                res2 = line2.executeQuery();
-                res2.next();
-                username = res2.getString("name");
-            } catch (SQLException e) {
-                System.out.println("splitString()    " + e);
-            } finally {
-                db.closeResSet(res2);
-                db.closeStatement(line2);
-                db.closeConnection();
-            }
-        }
-        return username;
-
+        String[] parts = s.split("!");
+        return parts[0].equals("temp")? parts[1]: s;
     }
 
     public List<DriverOrders> getDriverOrders() {
@@ -207,7 +187,7 @@ public class Orders_List {
             res = line.executeQuery();
             while (res.next()) {
                 int order_id = res.getInt("order_id");
-                String username = splitString(res.getString("name"));    
+                String username = splitString(res.getString("name"));
                 String address = res.getString("address");
                 String menuName = res.getString("MenuName");
                 int status = res.getInt("status");
@@ -216,11 +196,12 @@ public class Orders_List {
             }
             db.closeResSet(res);
             db.closeStatement(line);
-            line = db.getConnection().prepareStatement(sqlConstructorDriver);
+            line = db.getConnection().prepareStatement(sqlConstructorDriver2);
             res = line.executeQuery();
             while (res.next()) {
                 int order_id = res.getInt("order_id");
                 String username = splitString(res.getString("name"));
+                System.out.println(username);
                 String address = res.getString("address");
                 String menuName = res.getString("MenuName");
                 int status = res.getInt("status");
@@ -255,13 +236,72 @@ public class Orders_List {
                 DriverOrders order = new DriverOrders(order_id, username, address, menuName, status);
                 list.add(order);
             }
+            db.closeResSet(res);
+            db.closeStatement(line);
+            line = db.getConnection().prepareStatement(sqlConstructorChef2);
+            res = line.executeQuery();
+            while (res.next()) {
+                int order_id = res.getInt("order_id");
+                String username = splitString(res.getString("name"));
+                System.out.println(username);
+                String address = res.getString("address");
+                String menuName = res.getString("MenuName");
+                int status = res.getInt("status");
+                DriverOrders order = new DriverOrders(order_id, username, address, menuName, status);
+                list.add(order);
+            }
         } catch (SQLException e) {
-            System.out.println("Failure in getDriverOrders()" + e.getMessage());
+            System.out.println("Failure in getChefOrders()" + e.getMessage());
         } finally {
             db.closeConnection();
             db.closeResSet(res);
             db.closeStatement(line);
         }
         return list;
+    }
+}
+
+
+class test{
+    public static HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
+    private static PreparedStatement line2 = null;
+    private static ResultSet res2 = null;
+    private static String sqlNameAtUsername = "select name from users where username=?";
+    
+    public static String splitString(String s) {
+        String username = "";
+        String[] parts = s.split("!");
+        if (parts[0].equals("temp")) {
+            username = parts[1];
+        } else {
+            try {
+                System.out.println("0");
+                db.openConnection();
+                System.out.println("1");
+                //line2 = db.getConnection().prepareStatement(sqlNameAtUsername);
+                System.out.println("2");
+                //line2.setString(1, s);
+                System.out.println("3");
+                res2 = line2.executeQuery("select * from users where username='andreas'");
+                System.out.println("4");
+                while (res2.next()) {
+                    username = res2.getString("name");
+                }
+            } catch (SQLException e) {
+                System.out.println("splitString()    " + e);
+            } finally {
+                db.closeResSet(res2);
+                db.closeStatement(line2);
+                db.closeConnection();
+            }
+        }
+        return username;
+
+    }
+    public static void main(String[] args) {
+        System.out.println(splitString("temp!Espen Halstensen"));
+        System.out.println(splitString("andreas"));
+        
+        
     }
 }
