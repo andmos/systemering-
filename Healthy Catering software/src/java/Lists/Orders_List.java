@@ -4,6 +4,7 @@
  */
 package Lists;
 
+import ProblemDomain.DriverOrders;
 import ProblemDomain.Menus;
 import ProblemDomain.Orders;
 import java.sql.PreparedStatement;
@@ -24,19 +25,21 @@ public class Orders_List {
 
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     private String user = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
-    private boolean isCheff = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("cheff");
+    private boolean isChef = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("chef");
     private boolean isDriver = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("driver");
     private boolean isAdmin = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin");
     private boolean isUser = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("user");
     private PreparedStatement line = null;
     private ResultSet res = null;
+    private String sqlConstructorDriver = "select orders.order_id,users.name,users.address,menus.name as MenuName from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
     private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
     private String sqlConstructor2 = "SELECT menu_id FROM orders where username=? and order_nr=?";
     private String sqlConstructor3 = "select menu_id,name,total_price  from menus where menu_id=?";
     private String sqlConstructor4 = "select price from orders,menus where orders.menu_id=? and username=?";
-    private String sqlConstructorCheff = "SELECT distinct status,order_nr,orderDate FROM orders where status < 0";
+    private String sqlConstructorChef = "SELECT distinct status,order_nr,orderDate FROM orders where status < -1";
     private String sqlGetSum2 = "select price from orders where order_nr=? and username=?";
-    private String sqlConstructor5 = "SELECT distinct status,order_nr,orderDate FROM orders where name=?";
+    private String sqlConstructor5 = "SELECT distinct status,order_nr,orderDate FROM orders where username=?";
+    private String sqlGetUsername = "select username from users where name=?";
     private int order_nr = 0;
 
     public Orders_List() {
@@ -53,12 +56,8 @@ public class Orders_List {
         try {
             db.openConnection();
             if (order_nr == 0) {
-                if (isCheff) {
-                    line = db.getConnection().prepareStatement(sqlConstructorCheff);
-                } else {
-                    line = db.getConnection().prepareStatement(sqlConstructor);
-                    line.setString(1, user);
-                }
+                line = db.getConnection().prepareStatement(sqlConstructor);
+                line.setString(1, user);
                 res = line.executeQuery();
                 while (res.next()) {
                     Orders orders = new Orders();
@@ -109,30 +108,42 @@ public class Orders_List {
             return list2;
         }
     }
-    public List<Orders> getOrdersByName(String name){
+
+    public List<Orders> getOrdersByName(String name) {
         List<Orders> list = new ArrayList();
-        //sqlConstructor5 = "SELECT distinct status,order_nr,orderDate FROM orders where name=?";
-        try{
-            db.openConnection();
-            line = db.getConnection().prepareStatement(sqlConstructor5);
-            line.setString(1, name);
-            res = line.executeQuery();
-            while(res.next()){
-                Orders temp = new Orders();
-                temp.setStatus(res.getInt("status"));
-                temp.setOrder_nr(res.getInt("order_nr"));
-                temp.setOrderDate(res.getDate("orderDate"));
-                list.add(temp);
+        try {
+            if (name != null) {
+                db.openConnection();
+                line = db.getConnection().prepareStatement(sqlGetUsername);
+                line.setString(1, name);
+                res = line.executeQuery();
+                res.next();
+                String username = res.getString("username");
+                db.closeStatement(line);
+                db.closeResSet(res);
+                line = db.getConnection().prepareStatement(sqlConstructor5);
+                line.setString(1, username);
+                res = line.executeQuery();
+                while (res.next()) {
+                    Orders temp = new Orders();
+                    temp.setStatus(res.getInt("status"));
+                    temp.setOrder_nr(res.getInt("order_nr"));
+                    temp.setOrderDate(res.getDate("orderDate"));
+                    list.add(temp);
+                }
             }
-        }catch(SQLException e){
-            System.out.println("getOrdersRegistered() failed:  " + e);
+        } catch (SQLException e) {
+            System.out.println("getOrdersByName() failed:  " + e);
+        } finally {
+            db.closeResSet(res);
+            db.closeStatement(line);
+            db.closeConnection();
         }
         return list;
     }
-    
 
     public List getOrders() {
-        List<Menus> list = buildOrdersList();
+        List list = buildOrdersList();
         return list; //.size()>0 ? list : null;
     }
 
@@ -156,5 +167,29 @@ public class Orders_List {
             db.getConnection();
         }
         return sum;
+    }
+
+    public List<DriverOrders> getDriverOrders() {
+        List<DriverOrders> list = new ArrayList();
+        try {
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlConstructorDriver);
+            res = line.executeQuery();
+            while (res.next()) {
+                int order_id = res.getInt("order_id");
+                String name = res.getString("name");
+                String address = res.getString("address");
+                String menuName = res.getString("MenuName");
+                DriverOrders order = new DriverOrders(order_id, name, address, menuName);
+                list.add(order);
+            }
+        } catch (SQLException e) {
+            System.out.println("Failure in getDriverOrders()" + e.getMessage());
+        } finally {
+            db.closeConnection();
+            db.closeResSet(res);
+            db.closeStatement(line);
+        }
+        return list;
     }
 }

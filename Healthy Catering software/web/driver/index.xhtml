@@ -4,13 +4,52 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      >
+      xmlns:p="http://primefaces.org/ui">
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                 <h:outputScript library="js" name="googleMap.js"/>
+                <h:outputScript library="js" name="googleMap.js"/>
                 <h:outputScript library="js" name="Map.js"/>
-                <div id="googleMap" style="width:700px;height:500px;"></div>
+                <div id="googleMap" style="width:600px;height:500px;"></div>
+                
+                <p:dataTable value="#{order.driverOrders}" var="c" style="">
+                    <f:facet name="header">
+                        Orders that are ready for delivery
+                    </f:facet>
+                    <p:column>
+                        <f:facet name="header">
+                            Order id
+                        </f:facet>
+                        #{c.order_id}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        #{c.name}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Address
+                        </f:facet>
+                        #{c.address}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Menu name
+                        </f:facet>
+                        #{c.menuName}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Action
+                        </f:facet>
+                        <h:form>
+                            <input type="hidden" value="#{c.order_id}" name="order_id"/>
+                            <p:commandButton value="Delivered" action="#{order.DeliverOrder()}" ajax="false"/>
+                        </h:form>
+                    </p:column>
+                </p:dataTable>
             </ui:define>
         </ui:composition> 
     </h:body>

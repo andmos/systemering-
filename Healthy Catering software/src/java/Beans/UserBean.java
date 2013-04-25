@@ -1,8 +1,11 @@
 package Beans;
 
+import Lists.Orders_List;
 import ProblemDomain.Users;
 import Lists.Users_List;
+import ProblemDomain.Orders;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
@@ -31,15 +34,17 @@ public class UserBean implements Serializable {
     private String newPasswordConfirmed;
     private String address;
     private boolean editable;
-    /*This variables is used to error management, 5 = Undifiend value*/
+    /*This variables is used to error management*/
     private int error = 5;
     private boolean errorPanelGroup;
     private boolean resetPassword;
     private boolean changedInformation;
     private boolean adminLogin = false;
+    private boolean getOrdersRegUsers;
     private int passwordStatus;
     private Users user = new Users();
     private Users_List userlist = new Users_List();
+    private Orders_List orderlist = new Orders_List();
     private boolean isCompany;
     //New user from management view variables
     private String newName;
@@ -49,6 +54,13 @@ public class UserBean implements Serializable {
     private String text;
     private String checkName;
 
+    
+    public void reset(){
+        setAddress(null);
+        setName(null);
+        setUsername(null);
+        setNewPassword(null);
+    }
     public String getCheckName() {
         return checkName;
     }
@@ -56,41 +68,70 @@ public class UserBean implements Serializable {
     public void setCheckName(String checkName) {
         this.checkName = checkName;
     }
+    public boolean getOrdersRegUsers(){
+        return getOrdersRegUsers;
+    }
 
     /**
-     * 
-     * @return username from the Users- class.
+     *
+     * @return
+     * username
+     * from
+     * the
+     * Users-
+     * class.
      */
-    
     public String getUsername() {
         this.username = user.getUsername();
         return user.getUsername();
     }
+
     /**
-     * 
-     * @param newName gets new name from the site and sends it to Users - class
+     *
+     * @param
+     * newName
+     * gets
+     * new
+     * name
+     * from
+     * the
+     * site
+     * and
+     * sends
+     * it
+     * to
+     * Users
+     * -
+     * class
      */
     public void setUsername(String newName) {
         user.setUsername(newName);
         this.username = newName;
     }
+
     /**
-     * 
-     * @return returns password from Users - class 
+     *
+     * @return
+     * returns
+     * password
+     * from
+     * Users
+     * -
+     * class
      */
     public String getPassword() {
         this.password = user.getPassword();
         return user.getPassword();
     }
-    public boolean getIsCompany(){
+
+    public boolean getIsCompany() {
         return isCompany;
     }
 
     public void setIsCompany(boolean isCompany) {
         this.isCompany = isCompany;
     }
-    
-    
+
     public String getNewPassword() {
         return newPassword;
     }
@@ -106,61 +147,129 @@ public class UserBean implements Serializable {
     public void setNewPasswordConfirmed(String newPasswordConfirmed) {
         this.newPasswordConfirmed = newPasswordConfirmed;
     }
-    
-    
+
     /**
-     * 
-     * @param newPassword gets new password from the site and sends it to Users - class 
+     *
+     * @param
+     * newPassword
+     * gets
+     * new
+     * password
+     * from
+     * the
+     * site
+     * and
+     * sends
+     * it
+     * to
+     * Users
+     * -
+     * class
      */
     public void setPassword(String newPassword) {
         this.password = newPassword;
     }
-    
+
     /**
-     * 
-     * @return gets address from the Users - class 
-     */ 
+     *
+     * @return
+     * gets
+     * address
+     * from
+     * the
+     * Users
+     * -
+     * class
+     */
     public String getAddress() {
         this.address = user.getAddress();
         return user.getAddress();
     }
-    /** 
-     * 
-     * @param newAddress gets new address from the site and sends it to Users - class 
+
+    /**
+     *
+     * @param
+     * newAddress
+     * gets
+     * new
+     * address
+     * from
+     * the
+     * site
+     * and
+     * sends
+     * it
+     * to
+     * Users
+     * -
+     * class
      */
     public void setAddress(String newAddress) {
         user.setAddress(newAddress);
         this.address = newAddress;
     }
+
     /**
-     * 
-     * @return returns name from the Users - class 
+     *
+     * @return
+     * returns
+     * name
+     * from
+     * the
+     * Users
+     * -
+     * class
      */
     public String getName() {
         return user.getName();
     }
+
     /**
-     * 
-     * @param name gets new name from the site and sends it to Users - class 
+     *
+     * @param
+     * name
+     * gets
+     * new
+     * name
+     * from
+     * the
+     * site
+     * and
+     * sends
+     * it
+     * to
+     * Users
+     * -
+     * class
      */
     public void setName(String name) {
         user.setName(name);
         this.name = name;
     }
+
     /**
-     * 
-     * @return returns error message to the site if registration goes bad. 
+     *
+     * @return
+     * returns
+     * error
+     * message
+     * to
+     * the
+     * site
+     * if
+     * registration
+     * goes
+     * bad.
      */
     public int getError() {
         return error;
     }
-    
-    
+
     public boolean getErrorPanelGroup() {
         return errorPanelGroup;
     }
-    
-    public boolean getAdminLogin(){
+
+    public boolean getAdminLogin() {
         return adminLogin;
     }
 
@@ -199,19 +308,39 @@ public class UserBean implements Serializable {
     public void setNewUsername(String newUsername) {
         this.newUsername = newUsername;
     }
-    
-    
-    
-    /** 
-     * Register a new user and set error = true/false depending on outcome,
-     * Also sets the the errorPanelGroup = true so we can view errors.
+
+    /**
+     * Register
+     * a
+     * new
+     * user
+     * and
+     * set
+     * error
+     * =
+     * true/false
+     * depending
+     * on
+     * outcome,
+     * Also
+     * sets
+     * the
+     * the
+     * errorPanelGroup
+     * =
+     * true
+     * so
+     * we
+     * can
+     * view
+     * errors.
      */
     public void newUser() {
-        if(!FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")){
-        errorPanelGroup = true;
-        user.setPassword(password, newPasswordConfirmed);
-           error = user.newUser(isCompany);
-        }else{ //Logged in as management
+        if (!FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")) {
+            errorPanelGroup = true;
+            user.setPassword(password, newPasswordConfirmed);
+            error = user.newUser(isCompany);
+        } else { //Logged in as management
             user.newUser(newName, newUsername, newAddress, newRole);
             setNewName(null);
             setNewUsername(null);
@@ -221,28 +350,68 @@ public class UserBean implements Serializable {
     }
 
     /**
-     *Log out method, returns navigation case for the JSF - site.
-     * We want to log you out when you first enter the site, this was mainly because of some navigation errors,
-     * if you left the site logged in.
-     
+     * Log
+     * out
+     * method,
+     * returns
+     * navigation
+     * case
+     * for
+     * the
+     * JSF
+     * -
+     * site.
+     * We
+     * want
+     * to
+     * log
+     * you
+     * out
+     * when
+     * you
+     * first
+     * enter
+     * the
+     * site,
+     * this
+     * was
+     * mainly
+     * because
+     * of
+     * some
+     * navigation
+     * errors,
+     * if
+     * you
+     * left
+     * the
+     * site
+     * logged
+     * in.
+     *
      */
     public String doLogout() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
-        
+
         HttpServletRequest request = (HttpServletRequest) ec.getRequest();
         try {
-        request.logout();
-        }catch(ServletException e){
-            System.out.println("feil i doLogout"+e.getMessage());
+            request.logout();
+        } catch (ServletException e) {
+            System.out.println("feil i doLogout" + e.getMessage());
         }
         return "Logout";
     }
-    
+
     /**
-     * Changes the password for a user
+     * Changes
+     * the
+     * password
+     * for
+     * a
+     * user
      */
-    public void changePassword(){
+    public void changePassword() {
         error = passwordStatus = user.setnewPassword(newPassword, newPasswordConfirmed);
     }
 
@@ -253,13 +422,32 @@ public class UserBean implements Serializable {
     public void setUsernameChange(String usernameChange) {
         this.usernameChange = usernameChange;
     }
-    
-    
+
     /**
-     * Changes user information
-     * Stores the username you click on in a variable to be able to view the content of the user.
+     * Changes
+     * user
+     * information
+     * Stores
+     * the
+     * username
+     * you
+     * click
+     * on
+     * in
+     * a
+     * variable
+     * to
+     * be
+     * able
+     * to
+     * view
+     * the
+     * content
+     * of
+     * the
+     * user.
      */
-    public String changeUser(){
+    public String changeUser() {
         String name = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
         String address = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("address");
         String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
@@ -268,94 +456,132 @@ public class UserBean implements Serializable {
         changedInformation = true;
         return "ManageUsers";
         /*
-        if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")){
-            user.changeUser();
-        }else{
-           user.setName(this.name);
-            user.setAddress(this.address);
-        }*/
+         if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")){
+         user.changeUser();
+         }else{
+         user.setName(this.name);
+         user.setAddress(this.address);
+         }*/
     }
-    
-     public void changeYourUser(){
+
+    public void changeYourUser() {
         String name = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
         String address = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("address");
         String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
         user.changeUser(name, address, username);
         setUsernameChange(username);
     }
-    
-    public String chooseUser(){
+
+    public String chooseUser() {
         String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
-        if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")){
+        if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")) {
             setUsernameChange(username);
             return "changeUser";
-    }else{
+        } else {
             return null;
         }
     }
-    
+
     /*
      *Changes a variable if a user wants to log in as a admin.
      * This is used to change the content on the login site so its more reliable for a admin
      */
-    
-    public void loginAdmin(){
+    public void loginAdmin() {
         adminLogin = true;
     }
-    
-    public void notLoginAdmin(){
+
+    public void notLoginAdmin() {
         adminLogin = false;
     }
-    
-    public List getNormalUsers(){
+
+    public List getNormalUsers() {
         String role = "userNormal";
         return userlist.getUsers(role);
-        
+
     }
-    
-    public List getManagementUsers(){
+
+    public List getManagementUsers() {
         String role = "management";
         return userlist.getUsers(role);
     }
-    
-    public List getCompanyUsers(){
+
+    public List getCompanyUsers() {
         String role = "userCompany";
         return userlist.getUsers(role);
     }
-    
-    public List getUser(){
+
+    public List getUser() {
         return userlist.getUser(usernameChange);
     }
-    
-    public String resetPassword(){
+
+    public String resetPassword() {
         String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
         user.resetPassword(username);
         setUsernameChange(username);
         resetPassword = true;
         return "ManageUsers";
-    }
-    
-    public boolean getResetPassword(){
+    } 
+
+    public boolean getResetPassword() {
         return resetPassword;
     }
-    
-    public boolean getChangedInformation(){
+
+    public boolean getChangedInformation() {
         return changedInformation;
     }
-    public String getText() {  
-        return text;  
-    }  
+
+    public String getText() {
+        return text;
+    }
 
     public void setText(String text) {
         this.text = text;
     }
-    
-    
-  
+
     public void logInMessage(ActionEvent actionEvent) {
         setText(getNewUsername());
-        FacesContext context = FacesContext.getCurrentInstance();  
-        context.addMessage(null, new FacesMessage("the login was successful","Welcome " + text));  
-          
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("the login was successful", "Welcome " + text));
+
+    }
+
+    public List<String> complete(String query) {
+        List<String> results = new ArrayList<String>();
+        for (String var : userlist.getNamesRegistered()) {
+            if (var.toUpperCase().startsWith(query.toUpperCase())) {
+                checkName = var;
+                results.add(var);
+            }
+        }                                
+                        
+        return results;
+    }
+    
+    public String showOrderTable(){
+        String retur = "";
+        if(checkName!=null){
+            getOrdersRegUsers = true;
+            retur = "ManageUserOrder";
+        }
+        return retur;
+    }
+    public List<Orders> getOrdersByName(){
+        return orderlist.getOrdersByName(checkName);
+    }
+
+    public List getNamesUnregistered() {
+        return userlist.getNamesUnregistered();
+    }
+    
+    public void lol(){
+        System.out.println("lol");
+    }
+    
+    public List getTestList(){
+        List list = new ArrayList();
+        list.add(new String("yeah"));
+        list.add(new String("yeah2"));
+        list.add(new String("yeah3"));
+        return list;
     }
 }

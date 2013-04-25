@@ -24,9 +24,10 @@
                         <f:facet name="header">
                             Status:
                         </f:facet>
-                        <h:outputText value="Cooking" style="color:red" rendered="#{c.status lt 0}"/>
-                        <h:outputText value="Ready for deliver" style="color:orange" rendered="#{c.status == 0}"/>
-                        <h:outputText value="Delivered" style="color:green" rendered="#{c.status gt 0 }"/>
+                        <h:outputText value="Pending" style="color:red" rendered="#{c.status==-2}"/>
+                        <h:outputText value="Cooking" style="color:red" rendered="#{c.status==-1}"/>
+                        <h:outputText value="Ready for delivery" style="color:orange" rendered="#{c.status == 0}"/>
+                        <h:outputText value="Delivered" style="color:green" rendered="#{c.status == 1 }"/>
                     </p:column>
 
                     <p:column>

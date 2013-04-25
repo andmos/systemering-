@@ -107,6 +107,7 @@
             <form-error-page>/Error.xhtml</form-error-page>
         </form-login-config>
     </login-config>
+    
     <security-role>
         <description/>
         <role-name>userNormal</role-name>

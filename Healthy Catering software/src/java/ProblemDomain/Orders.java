@@ -17,7 +17,8 @@ public class Orders {
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     private PreparedStatement line = null;
     private ResultSet res = null;
-    String sqlPlaceOrder = "insert into orders(status,username,menu_id,order_nr,orderDate,price) values(-1,?,?,?,now(),?)";
+    private String sqlPlaceOrder = "insert into orders(status,username,menu_id,order_nr,orderDate,price) values(-2,?,?,?,now(),?)";
+    private String sqlDeliverOrder = "update orders set status=1 where order_id=?";
     public int order_id;
     public int status;
     public int menu_id;
@@ -69,7 +70,6 @@ public class Orders {
     public int getOrder_nr() {
         return order_nr;
     }
-
     public int getMenuCount() {
         return menuCount;
     }
@@ -151,4 +151,23 @@ public class Orders {
         }
         return check;
     }
+     
+     public void DeliverOrder(int order_id){
+         try{
+             
+             db.openConnection();
+             line = db.getConnection().prepareStatement(sqlDeliverOrder);
+             System.out.println("her");
+             line.setInt(1,order_id);
+             System.out.println("her2");
+             System.out.println(
+             line.executeUpdate());
+         }catch(SQLException e){
+             System.out.println("Failure in DeliverOrder()"+e.getMessage());
+         }finally{
+             db.closeConnection();
+             db.closeResSet(res);
+             db.closeStatement(line);
+         }
+     }
 }

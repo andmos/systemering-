@@ -9,16 +9,12 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:form id="form1">
-                    <p:autoComplete value="#{user.checkName}" 
-                                    completeMethod="#{user.complete}"
-                                    forceSelection="true"
-                                    required="true"
-                                    requiredMessage="You must choose a name"/>
-                    <input type="hidden" value="#{user.checkName}" name="name"/>
-                    <p:commandButton action="#{user.showOrderTable()}" value="submit" ajax="false"/>
-                </h:form>
+                <f:event listener="#{user.doLogout()}" type="preRenderView"/>
+                <!--Write content of webpage-->
+                
+                <h1>You are not authorized to enter this site</h1>
             </ui:define>
+
         </ui:composition> 
     </h:body>
 </html>

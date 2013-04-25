@@ -68,6 +68,7 @@ public class OrderBean implements Serializable {
     }
 
     public String choosenOrder() {
+        System.out.println("inne");
         String value = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("order_nr");
         order_nr = Integer.parseInt(value);
@@ -78,7 +79,7 @@ public class OrderBean implements Serializable {
      *Get your orders
      */
 
-    public List getOrders() {
+    public List<Orders> getOrders() {
         orderlist = new Orders_List();
         return orderlist.getOrders();
     }
@@ -89,8 +90,8 @@ public class OrderBean implements Serializable {
     public List getOrder() {
         orderlist = new Orders_List(order_nr);
         return orderlist.getOrders();
+       
     }
-
     /*
      *Get total bought
      */
@@ -142,6 +143,18 @@ public class OrderBean implements Serializable {
     public ArrayList<Orders> getShoppingcart() {
         return shoppingcart;
     }
+        
+    public void DeliverOrder(){
+        String value = FacesContext.getCurrentInstance().
+                getExternalContext().getRequestParameterMap().get("order_id");
+        int order_id = Integer.parseInt(value);
+        order.DeliverOrder(order_id);
+    }
+    public List<DriverOrders> getDriverOrders(){
+        orderlist = new Orders_List();
+        return orderlist.getDriverOrders();
+    }
+    
     public String getText() {  
         return text;  
     }  

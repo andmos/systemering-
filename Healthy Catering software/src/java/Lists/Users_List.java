@@ -71,7 +71,7 @@ public class Users_List {
         }
         return list;
     }
-    public List getNamesRegistered(){
+    public List<String> getNamesRegistered(){
         List<String> list = new ArrayList();
         try{
             db.openConnection();
