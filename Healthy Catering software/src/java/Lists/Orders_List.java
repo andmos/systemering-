@@ -36,6 +36,7 @@ public class Orders_List {
     private String sqlConstructor4 = "select price from orders,menus where orders.menu_id=? and username=?";
     private String sqlConstructorCheff = "SELECT distinct status,order_nr,orderDate FROM orders where status < 0";
     private String sqlGetSum2 = "select price from orders where order_nr=? and username=?";
+    private String sqlConstructor5 = "SELECT distinct status,order_nr,orderDate FROM orders where name=?";
     private int order_nr = 0;
 
     public Orders_List() {
@@ -108,6 +109,27 @@ public class Orders_List {
             return list2;
         }
     }
+    public List<Orders> getOrdersByName(String name){
+        List<Orders> list = new ArrayList();
+        //sqlConstructor5 = "SELECT distinct status,order_nr,orderDate FROM orders where name=?";
+        try{
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlConstructor5);
+            line.setString(1, name);
+            res = line.executeQuery();
+            while(res.next()){
+                Orders temp = new Orders();
+                temp.setStatus(res.getInt("status"));
+                temp.setOrder_nr(res.getInt("order_nr"));
+                temp.setOrderDate(res.getDate("orderDate"));
+                list.add(temp);
+            }
+        }catch(SQLException e){
+            System.out.println("getOrdersRegistered() failed:  " + e);
+        }
+        return list;
+    }
+    
 
     public List getOrders() {
         List<Menus> list = buildOrdersList();
