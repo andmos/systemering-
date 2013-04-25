@@ -18,8 +18,7 @@ import java.util.Date.*;
 
 /**
  *
- * @author
- * espen
+ * @author espen
  */
 public class Orders_List {
 
@@ -34,6 +33,7 @@ public class Orders_List {
     private ResultSet res = null;
     private ResultSet res2 = null;
     private String sqlConstructorDriver = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
+    private String sqlConstructorDriver2 = "select orders.order_id, tempUser.name, tempUser.address, menus.name as MenuName, orders.status from orders, tempUser, menus where orders.username=tempUser.name and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
     private String sqlConstructorChef = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
     private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
     private String sqlConstructor2 = "SELECT menu_id FROM orders where username=? and order_nr=?";
@@ -172,6 +172,33 @@ public class Orders_List {
         return sum;
     }
 
+    private String splitString(String s) {
+        String username = "";
+        String[] parts = username.split("!");
+        if (parts[0].equals("temp")) {
+            for (int i = 1; i < parts.length; i++) {
+                username = parts[i] + " ";
+            }
+        } else {
+            try {
+                db.openConnection();
+                line2 = db.getConnection().prepareStatement(sqlNameAtUsername);
+                line2.setString(1, username);
+                res2 = line2.executeQuery();
+                res2.next();
+                username = res2.getString("name");
+            } catch (SQLException e) {
+                System.out.println("splitString()    " + e);
+            } finally {
+                db.closeResSet(res2);
+                db.closeStatement(line2);
+                db.closeConnection();
+            }
+        }
+        return username;
+
+    }
+
     public List<DriverOrders> getDriverOrders() {
         List<DriverOrders> list = new ArrayList();
         try {
@@ -180,24 +207,24 @@ public class Orders_List {
             res = line.executeQuery();
             while (res.next()) {
                 int order_id = res.getInt("order_id");
-                String username = res.getString("name");
-                String[] parts = username.split("!");
-                if(parts[0].equals("temp")){
-                    username="";
-                    for(int i =1;i<parts.length;i++){
-                        username=parts[i]+" ";
-                    }
-                }else{
-                    line2=db.getConnection().prepareStatement(sqlNameAtUsername);
-                    line2.setString(1, username);
-                    res2=line2.executeQuery();
-                    res2.next();
-                    username = res2.getString("name");
-                }
+                String username = splitString(res.getString("name"));    
                 String address = res.getString("address");
                 String menuName = res.getString("MenuName");
                 int status = res.getInt("status");
-                DriverOrders order = new DriverOrders(order_id, username, address, menuName,status);
+                DriverOrders order = new DriverOrders(order_id, username, address, menuName, status);
+                list.add(order);
+            }
+            db.closeResSet(res);
+            db.closeStatement(line);
+            line = db.getConnection().prepareStatement(sqlConstructorDriver);
+            res = line.executeQuery();
+            while (res.next()) {
+                int order_id = res.getInt("order_id");
+                String username = splitString(res.getString("name"));
+                String address = res.getString("address");
+                String menuName = res.getString("MenuName");
+                int status = res.getInt("status");
+                DriverOrders order = new DriverOrders(order_id, username, address, menuName, status);
                 list.add(order);
             }
         } catch (SQLException e) {
@@ -209,7 +236,7 @@ public class Orders_List {
         }
         return list;
     }
-    
+
     /*
      *DriverOrders, could have renamed it to a better name, because both driver and chef uses it
      */
@@ -221,24 +248,11 @@ public class Orders_List {
             res = line.executeQuery();
             while (res.next()) {
                 int order_id = res.getInt("order_id");
-                String username = res.getString("name");
-                String[] parts = username.split("!");
-                if(parts[0].equals("temp")){
-                    username="";
-                    for(int i =1;i<parts.length;i++){
-                        username=parts[i]+" ";
-                    }
-                }else{
-                    line2=db.getConnection().prepareStatement(sqlNameAtUsername);
-                    line2.setString(1, username);
-                    res2=line2.executeQuery();
-                    res2.next();
-                    username = res2.getString("name");
-                }
+                String username = splitString(res.getString("name"));
                 String address = res.getString("address");
                 String menuName = res.getString("MenuName");
                 int status = res.getInt("status");
-                DriverOrders order = new DriverOrders(order_id, username, address, menuName,status);
+                DriverOrders order = new DriverOrders(order_id, username, address, menuName, status);
                 list.add(order);
             }
         } catch (SQLException e) {
@@ -250,5 +264,4 @@ public class Orders_List {
         }
         return list;
     }
-    
 }
