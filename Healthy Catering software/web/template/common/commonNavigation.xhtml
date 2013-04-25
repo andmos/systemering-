@@ -23,7 +23,6 @@
                         <h:commandLink id="reg" value="Register" action="Register"/>
                         <p:tooltip for="logIn" value="Log in" showEffect="fade" hideEffect="fade" />
                         <p:tooltip for="reg" value="Register as new user" showEffect="fade" hideEffect="fade" />
-
                     </h:form>
                 </h:panelGroup>
             </span>
@@ -67,9 +66,9 @@
                         <h:form>
                             <h:commandLink id="username" value="#{user.name}" action="UserProfile"/>
                             <p:tooltip for="username" value="Your userprofile" showEffect="fade" hideEffect="fade" /> 
-                            
                             <h:commandLink id="logOut" value="Log out" action="#{user.doLogout}"/>
                             <p:tooltip for="logOut" value="Log out!" showEffect="fade" hideEffect="fade" /> 
+                            
                             <h:panelGroup rendered="#{facesContext.externalContext.isUserInRole('userNormal')}">
                                 <h:commandLink id="cartNormal" value="Shopping cart" action="ShoppingCart"/>
                                 <p:tooltip for="cartNormal" value="View shoppingcart" showEffect="fade" hideEffect="fade" /> 

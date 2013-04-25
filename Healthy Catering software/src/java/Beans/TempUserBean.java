@@ -1,9 +1,9 @@
 package Beans;
 
 import ProblemDomain.Menus;
-import ProblemDomain.Menus_List;
+import Lists.Menus_List;
 import ProblemDomain.Orders;
-import ProblemDomain.Orders_List;
+import Lists.Orders_List;
 import ProblemDomain.tempUser;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -26,6 +26,8 @@ public class TempUserBean implements Serializable {
     private Menus_List menuslist = new Menus_List();
     private ArrayList<Orders> tempOrder = new ArrayList();
     private List<Menus> menulists = new ArrayList();
+    //Check if we can continue
+    private boolean CustomerOK;
 
     public void cleanUp() {
         setAddress(null);
@@ -61,34 +63,35 @@ public class TempUserBean implements Serializable {
     public void setOrder_id(int order_id) {
         tempUser.setOrder_id(order_id);
     }
+    public boolean getCustomerOK(){
+        return CustomerOK;
+    }
 
     //Vurder boolean metoder nedenfor for feilhåndtering
-    public String addNewTempUser() {
+    public void addNewTempUser() {
         tempUser.addNewTempUser();
-        return "NextOrder";
+        CustomerOK = true;
     }
 
     public void removeTempUser() {
         tempUser.removeTempUser();
     }
 
-    public String updateTempUser() {
-        tempUser.updateTempUser();
-        return "FinishOrder";
+    public void updateTempUser(int order_id) {
+        tempUser.updateTempUser(order_id);
     }
 
     public List<Menus> getMenus() {
         return menuslist.buildMenuList();
     }
 
-    public String saveMenu() {
+    public void saveMenu() {
         String value = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("menu_id");
         int menu_id = Integer.parseInt(value);
         Orders order = new Orders();
         order.setMenu_id(menu_id);
         tempOrder.add(order);
-        return "NextOrder";
     }
 
     public List<Menus> getSavedOrder() {
@@ -101,14 +104,12 @@ public class TempUserBean implements Serializable {
     }
 
     public void deleteMenu() {
-        String retur = "";
         String value = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("menu_id");
         int menu_id = Integer.parseInt(value);
         for (int i = 0; i <= menulists.size(); i++) {
             if (menulists.get(i).menu_id == menu_id) {
                 menulists.remove(i);
-                retur = "FinishOrder";
             }
         }
     }
@@ -121,7 +122,12 @@ public class TempUserBean implements Serializable {
                 Menus menu = (Menus) menulists.get(i);
                 order.placeOrder(menu, tempUser.name);
             }
-            menulists = null;
+            System.out.println(order.menu_id);
+            updateTempUser(order.menu_id);
+            menulists = new ArrayList();
+            setName(null);
+            setAddress(null);
+            CustomerOK = false;
         }
     }
 }

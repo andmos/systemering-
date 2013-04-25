@@ -76,11 +76,11 @@ public class tempUser {
             db.closeStatement(line);
         }
     }
-    public void updateTempUser(){
+    public void updateTempUser(int order_id){
         try{
              db.openConnection();
             line = db.getConnection().prepareStatement(sqlUpdateTempUser);
-            line.setInt(1,this.order_id);
+            line.setInt(1,order_id);
             line.setString(2,this.name);
             line.executeUpdate();
         }catch(SQLException e){
