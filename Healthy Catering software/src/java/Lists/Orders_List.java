@@ -30,7 +30,9 @@ public class Orders_List {
     private boolean isAdmin = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("admin");
     private boolean isUser = FacesContext.getCurrentInstance().getExternalContext().isUserInRole("user");
     private PreparedStatement line = null;
+    private PreparedStatement line2 = null;
     private ResultSet res = null;
+    private ResultSet res2 = null;
     private String sqlConstructorDriver = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
     private String sqlConstructorChef = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
     private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
@@ -40,6 +42,7 @@ public class Orders_List {
     private String sqlGetSum2 = "select price from orders where order_nr=? and username=?";
     private String sqlConstructor5 = "SELECT distinct status,order_nr,orderDate FROM orders where username=?";
     private String sqlGetUsername = "select username from users where name=?";
+    private String sqlNameAtUsername = "select name from users where username=?";
     private int order_nr = 0;
 
     public Orders_List() {
@@ -177,11 +180,24 @@ public class Orders_List {
             res = line.executeQuery();
             while (res.next()) {
                 int order_id = res.getInt("order_id");
-                String name = res.getString("name");
+                String username = res.getString("name");
+                String[] parts = username.split("!");
+                if(parts[0].equals("temp")){
+                    username="";
+                    for(int i =1;i<parts.length;i++){
+                        username=parts[i]+" ";
+                    }
+                }else{
+                    line2=db.getConnection().prepareStatement(sqlNameAtUsername);
+                    line2.setString(1, username);
+                    res2=line2.executeQuery();
+                    res2.next();
+                    username = res2.getString("name");
+                }
                 String address = res.getString("address");
                 String menuName = res.getString("MenuName");
                 int status = res.getInt("status");
-                DriverOrders order = new DriverOrders(order_id, name, address, menuName,status);
+                DriverOrders order = new DriverOrders(order_id, username, address, menuName,status);
                 list.add(order);
             }
         } catch (SQLException e) {
@@ -205,11 +221,24 @@ public class Orders_List {
             res = line.executeQuery();
             while (res.next()) {
                 int order_id = res.getInt("order_id");
-                String name = res.getString("name");
+                String username = res.getString("name");
+                String[] parts = username.split("!");
+                if(parts[0].equals("temp")){
+                    username="";
+                    for(int i =1;i<parts.length;i++){
+                        username=parts[i]+" ";
+                    }
+                }else{
+                    line2=db.getConnection().prepareStatement(sqlNameAtUsername);
+                    line2.setString(1, username);
+                    res2=line2.executeQuery();
+                    res2.next();
+                    username = res2.getString("name");
+                }
                 String address = res.getString("address");
                 String menuName = res.getString("MenuName");
                 int status = res.getInt("status");
-                DriverOrders order = new DriverOrders(order_id, name, address, menuName,status);
+                DriverOrders order = new DriverOrders(order_id, username, address, menuName,status);
                 list.add(order);
             }
         } catch (SQLException e) {
