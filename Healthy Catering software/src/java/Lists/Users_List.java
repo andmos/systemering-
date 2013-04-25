@@ -22,6 +22,8 @@ public class Users_List {
     private ResultSet res = null;
     public String sqlUsers = "select name,address,users.username from users,roles where users.username=roles.username and roles.role=?";
     public String sqluser = "select name,address from users where username=?";
+    public String sqlGetNamesRegistered = "select name from users;";
+    public String sqlGetNamesUnregistered = "select name from tempUsers;";
 
     public List getUsers(String role) {
         List list = new ArrayList();
@@ -69,4 +71,41 @@ public class Users_List {
         }
         return list;
     }
+    public List getNamesRegistered(){
+        List<String> list = new ArrayList();
+        try{
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlGetNamesRegistered);
+            res = line.executeQuery();
+            while(res.next()){
+                list.add(res.getString("name"));
+            }
+        }catch(SQLException e){
+            System.out.println("getNamesRegistered() failed:"+e.getMessage());
+        } finally{
+            db.closeResSet(res);
+            db.closeStatement(line);
+            db.closeConnection();
+        }
+        return list;
+    }
+    public List getNamesUnregistered(){
+        List<String> list = new ArrayList();
+        try{
+            db.openConnection();
+            line = db.getConnection().prepareStatement(sqlGetNamesUnregistered);
+            res = line.executeQuery();
+            while(res.next()){
+                list.add(res.getString("name"));
+            }
+        }catch(SQLException e){
+            System.out.println("getNamesRegistered() failed:"+e.getMessage());
+        } finally{
+            db.closeResSet(res);
+            db.closeStatement(line);
+            db.closeConnection();
+        }
+        return list;
+    }
+    
 }
