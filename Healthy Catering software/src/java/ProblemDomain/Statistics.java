@@ -28,9 +28,12 @@ public class Statistics {
     private String sqlNumberOfManagement = "select count(username)as count from roles where role = 'management';";
     private String sqlNumberOfChefs = "select count(username) as count from roles where role = 'chef';";
     private String sqlActiveCustomers = "select username from orders where orderDate >  date_sub(curdate(), interval 1 month) group by username;";
+    private String sqlNameAtUsername = "select name from users where username=?";
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon();
     private PreparedStatement line = null;
+    private PreparedStatement line2 = null;
     private ResultSet res = null;
+    private ResultSet res2 = null;
 
     public List getMostPopularMenu() {
         List<Statistics_id_count> list = new ArrayList();
@@ -71,6 +74,19 @@ public class Statistics {
             res = line.executeQuery();
             while (res.next()) {
                 String username = res.getString("username");
+                String[] parts = username.split("!");
+                if(parts[0].equals("temp")){
+                    username="";
+                    for(int i =1;i<parts.length;i++){
+                        username=parts[i]+" ";
+                    }
+                }else{
+                    line2=db.getConnection().prepareStatement(sqlNameAtUsername);
+                    line2.setString(1, username);
+                    res2=line2.executeQuery();
+                    res2.next();
+                    username = res2.getString("name");
+                }
                 double priceSum = res.getDouble("priceSum");
                 Statistics_username_priceSum obj = new Statistics_username_priceSum(username, priceSum);
                 list.add(obj);
@@ -80,6 +96,8 @@ public class Statistics {
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
+            db.closeResSet(res2);
+            db.closeStatement(line2);
             db.closeConnection();
         }
         return list;
