@@ -28,16 +28,24 @@ public class TempUserBean implements Serializable {
     private List<Menus> menulists = new ArrayList();
     //Check if we can continue
     private boolean CustomerOK;
+    private int order_nr;
 
     public void cleanUp() {
         setAddress(null);
         setName(null);
-        setOrder_id(0);
         menuslist = new Menus_List();
         for (int i = 0; i < menulists.size(); i++) {
             menulists.remove(i);
 
         }
+    }
+
+    public void setOrder_nr(int order_nr) {
+        this.order_nr = order_nr;
+    }
+
+    public int getOrder_nr() {
+        return order_nr;
     }
 
     public String getAddress() {
@@ -48,10 +56,6 @@ public class TempUserBean implements Serializable {
         return tempUser.getName();
     }
 
-    public int getOrder_id() {
-        return tempUser.getOrder_id();
-    }
-
     public void setAddress(String address) {
         tempUser.setAddress(address);
     }
@@ -60,9 +64,7 @@ public class TempUserBean implements Serializable {
         tempUser.setName(name);
     }
 
-    public void setOrder_id(int order_id) {
-        tempUser.setOrder_id(order_id);
-    }
+
     public boolean getCustomerOK(){
         return CustomerOK;
     }
@@ -88,7 +90,7 @@ public class TempUserBean implements Serializable {
     public void saveMenu() {
         String value = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("menu_id");
-        int menu_id = Integer.parseInt(value);
+         int menu_id = Integer.parseInt(value);
         Orders order = new Orders();
         order.setMenu_id(menu_id);
         tempOrder.add(order);
@@ -110,6 +112,7 @@ public class TempUserBean implements Serializable {
         for (int i = 0; i <= menulists.size(); i++) {
             if (menulists.get(i).menu_id == menu_id) {
                 menulists.remove(i);
+                break;
             }
         }
     }
@@ -117,13 +120,14 @@ public class TempUserBean implements Serializable {
     public void placeOrders() {
         Orders order = new Orders();
         order.setNewOrderNr();
+        int order_id = order.getOrder_nr();
         if (menulists.size() > 0) {
             for (int i = 0; i < menulists.size(); i++) {
                 Menus menu = (Menus) menulists.get(i);
                 order.placeOrder(menu, tempUser.name);
+                
             }
-            System.out.println(order.menu_id);
-            updateTempUser(order.menu_id);
+            updateTempUser(order_id);
             menulists = new ArrayList();
             setName(null);
             setAddress(null);

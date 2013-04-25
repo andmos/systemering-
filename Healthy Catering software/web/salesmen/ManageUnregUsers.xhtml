@@ -4,19 +4,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
+           
             <ui:define name="content">
-                <div id="choose">
-                <table>
-                        <tr><td><h:link value="Registered customer" outcome="ManageRegUsers"/></td>
-                        <td><h:link value="Unregistered customer" outcome="ManageUnregUsers"/></td></tr>
-                    </table>
-                </div>
             </ui:define>
-
         </ui:composition> 
     </h:body>
 </html>

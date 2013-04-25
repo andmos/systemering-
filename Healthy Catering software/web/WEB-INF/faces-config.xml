@@ -95,7 +95,7 @@
         </navigation-case>
     </navigation-rule>
     
-     <navigation-rule>
+    <navigation-rule>
         <redirect/>
         <!-- After you are logged in as a Chef-->
         <from-view-id>/chef/*</from-view-id>
@@ -110,7 +110,7 @@
         </navigation-case>
         <navigation-case>
             <from-outcome>ManageOrders</from-outcome>
-            <to-view-id>salesmen/ManagOrders.xhtml</to-view-id>
+            <to-view-id>salesmen/ManageOrders.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>RegisterCustomer</from-outcome>
@@ -127,6 +127,14 @@
         <navigation-case>
             <from-outcome>FinishOrder</from-outcome>
             <to-view-id>salesmen/FinishOrder.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ManageRegUsers</from-outcome>
+            <to-view-id>salesmen/ManageRegUsers.xhtml</to-view-id>
+        </navigation-case>
+         <navigation-case>
+            <from-outcome>ManageUnregUsers</from-outcome>
+            <to-view-id>salesmen/ManageUnregUsers.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     

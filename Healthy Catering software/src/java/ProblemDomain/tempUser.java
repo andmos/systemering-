@@ -19,8 +19,8 @@ public class tempUser {
     public String address;
     public int order_id;
     public String sqlAddNewTempUser = "insert into tempUser(name,address) values(?,?)";
-    public String sqlremoveTempUser = "delete from tempUser where order_id=?";
-    public String sqlUpdateTempUser = "update tempUser set order_id=? where name=?";
+    public String sqlremoveTempUser = "delete from tempUser where order_nr=?";
+    public String sqlUpdateTempUser = "update tempUser set order_nr=? where name=?";
 
     public String getAddress() {
         return address;
@@ -45,12 +45,15 @@ public class tempUser {
     public void setOrder_id(int order_id) {
         this.order_id = order_id;
     }
-    
+    /*
+     *Reason for using temp! in front of the name is to be able to distinguish a active and unactive user in orders table
+     */
     public void addNewTempUser(){
         try{
             db.openConnection();
+            name = "temp!"+name;
             line = db.getConnection().prepareStatement(sqlAddNewTempUser);
-            line.setString(1,this.name);
+            line.setString(1,name);
             line.setString(2, this.address);
             line.executeUpdate();
         }catch(SQLException e){
@@ -76,9 +79,10 @@ public class tempUser {
             db.closeStatement(line);
         }
     }
+    
     public void updateTempUser(int order_id){
         try{
-             db.openConnection();
+            db.openConnection();
             line = db.getConnection().prepareStatement(sqlUpdateTempUser);
             line.setInt(1,order_id);
             line.setString(2,this.name);

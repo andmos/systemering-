@@ -47,6 +47,15 @@ public class UserBean implements Serializable {
     private String newAddress;
     private String newRole;
     private String text;
+    private String checkName;
+
+    public String getCheckName() {
+        return checkName;
+    }
+
+    public void setCheckName(String checkName) {
+        this.checkName = checkName;
+    }
 
     /**
      * 
