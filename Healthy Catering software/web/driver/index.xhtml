@@ -8,6 +8,9 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
+                 <h:outputScript library="js" name="googleMap.js"/>
+                <h:outputScript library="js" name="Map.js"/>
+                <div id="googleMap" style="width:700px;height:500px;"></div>
             </ui:define>
         </ui:composition> 
     </h:body>
