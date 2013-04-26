@@ -15,6 +15,7 @@ import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import HelpClasses.Mailing;
 
 @RequestScoped
 @Named("user")
@@ -50,6 +51,7 @@ public class UserBean implements Serializable {
     private String newAddress;
     private String newRole;
     private String text;
+    private String email;
     
 /**
  * Metho to reset the variables to be able to use them later.
@@ -59,6 +61,7 @@ public class UserBean implements Serializable {
         setName(null);
         setUsername(null);
         setNewPassword(null);
+        setNewEmail(null);
     }
     
     /**
@@ -166,6 +169,26 @@ public class UserBean implements Serializable {
         user.setAddress(newAddress);
         this.address = newAddress;
     }
+    /**
+     * 
+     * @return email
+     */
+
+    public String getNewEmail() {
+        return email;
+    }
+    /**
+     * sets the email
+     * @param email 
+     * 
+     */
+
+    public void setNewEmail(String email) {
+        this.email = email;
+    }
+    
+    
+    
 
     /**
      * 
@@ -285,6 +308,11 @@ public class UserBean implements Serializable {
             setNewUsername(null);
             setNewAddress(null);
             setNewRole(null);
+            // Sends a email to the new user with the password
+            Mailing mail = new Mailing();
+            String recipients[] = {getNewEmail()};
+            String bccRecipients[] = {getNewEmail() };
+            mail.sendMail(recipients, bccRecipients, "Password for HealtyCatering", "Your password are: password1 \n You should change your password later");
         }
     }
 
@@ -454,5 +482,7 @@ public class UserBean implements Serializable {
      */
     public boolean getChangedInformation() {
         return changedInformation;
-    }   
+    }  
+    
+    
 }
