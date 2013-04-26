@@ -96,62 +96,62 @@ public class UserBean implements Serializable {
         return user.getPassword();
     }
 
+    /**
+     * 
+     * @return If a user is in a company or not.
+     */
     public boolean getIsCompany() {
         return isCompany;
     }
-
+    /**
+     * 
+     * @param isCompany Sets if the user is in a company or not.
+     */
     public void setIsCompany(boolean isCompany) {
         this.isCompany = isCompany;
     }
-
+    /**
+     * 
+     * @return The new password you set in the view.
+     */
     public String getNewPassword() {
         return newPassword;
     }
-
+    /**
+     * 
+     * @return The new password confirm you set in the view.
+     */
     public String getNewPasswordConfirmed() {
         return newPasswordConfirmed;
     }
-
+    /**
+     * 
+     * @param newPassword Sets the new password from the view.
+     */
     public void setNewPassword(String newPassword) {
         this.newPassword = newPassword;
     }
-
+    
+    /**
+     * 
+     * @param newPasswordConfirmed Sets the new password confirm from the view.
+     */
     public void setNewPasswordConfirmed(String newPasswordConfirmed) {
         this.newPasswordConfirmed = newPasswordConfirmed;
     }
 
-    /**
-     *
-     * @param
-     * newPassword
-     * gets
-     * new
-     * password
-     * from
-     * the
-     * site
-     * and
-     * sends
-     * it
-     * to
-     * Users
-     * -
-     * class
-     */
+    
+     /**
+      * 
+      * @param newPassword Sets the new password from the view.
+      */
     public void setPassword(String newPassword) {
         this.password = newPassword;
     }
 
     /**
-     *
-     * @return
-     * gets
-     * address
-     * from
-     * the
-     * Users
-     * -
-     * class
+     * 
+     * @return The address from the database.
      */
     public String getAddress() {
         this.address = user.getAddress();
@@ -159,22 +159,8 @@ public class UserBean implements Serializable {
     }
 
     /**
-     *
-     * @param
-     * newAddress
-     * gets
-     * new
-     * address
-     * from
-     * the
-     * site
-     * and
-     * sends
-     * it
-     * to
-     * Users
-     * -
-     * class
+     * 
+     * @param newAddress Sets the new address from the view.
      */
     public void setAddress(String newAddress) {
         user.setAddress(newAddress);
@@ -182,37 +168,16 @@ public class UserBean implements Serializable {
     }
 
     /**
-     *
-     * @return
-     * returns
-     * name
-     * from
-     * the
-     * Users
-     * -
-     * class
+     * 
+     * @return The name from the database.
      */
     public String getName() {
         return user.getName();
     }
 
     /**
-     *
-     * @param
-     * name
-     * gets
-     * new
-     * name
-     * from
-     * the
-     * site
-     * and
-     * sends
-     * it
-     * to
-     * Users
-     * -
-     * class
+     * 
+     * @param name Sets the name from the view.
      */
     public void setName(String name) {
         user.setName(name);
@@ -220,93 +185,95 @@ public class UserBean implements Serializable {
     }
 
     /**
-     *
-     * @return
-     * returns
-     * error
-     * message
-     * to
-     * the
-     * site
-     * if
-     * registration
-     * goes
-     * bad.
+     * 
+     * @return Error variable.
      */
     public int getError() {
         return error;
     }
-
+    /**
+     * 
+     * @return Error variable.
+     */
     public boolean getErrorPanelGroup() {
         return errorPanelGroup;
     }
-
+/**
+ * 
+ * @return Error variable.
+ */
     public boolean getAdminLogin() {
         return adminLogin;
     }
-
+    
+    /**
+     * 
+     * @return The status of the password changing.
+     */
     public int getPasswordStatus() {
         return passwordStatus;
     }
-
+    /**
+     * 
+     * @return The new address from the view.
+     */
     public String getNewAddress() {
         return newAddress;
     }
-
+    /**
+     * 
+     * @return The new name from the view.
+     */
     public String getNewName() {
         return newName;
     }
-
+    /**
+     * 
+     * @return The new role from the view.
+     */
     public String getNewRole() {
         return newRole;
     }
-
+    /**
+     * 
+     * @return The new username from the view.
+     */
     public String getNewUsername() {
         return newUsername;
     }
-
+    /**
+     * 
+     * @param newAddress Sets the new address from the view.
+     */
     public void setNewAddress(String newAddress) {
         this.newAddress = newAddress;
     }
-
+    /**
+     * 
+     * @param newName Sets the new name from the view.
+     */
     public void setNewName(String newName) {
         this.newName = newName;
     }
-
+    /**
+     * 
+     * @param newRole Sets the new role from the view.
+     */
     public void setNewRole(String newRole) {
         this.newRole = newRole;
     }
-
+    /**
+     * 
+     * @param newUsername Sets the new username from the view.
+     */
     public void setNewUsername(String newUsername) {
         this.newUsername = newUsername;
     }
 
-    /**
-     * Register
-     * a
-     * new
-     * user
-     * and
-     * set
-     * error
-     * =
-     * true/false
-     * depending
-     * on
-     * outcome,
-     * Also
-     * sets
-     * the
-     * the
-     * errorPanelGroup
-     * =
-     * true
-     * so
-     * we
-     * can
-     * view
-     * errors.
-     */
+   /**
+    * Register a new user.
+    * Also sets error variables to use in the view.
+    */
     public void newUser() {
         if (!FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")) {
             errorPanelGroup = true;
@@ -322,50 +289,12 @@ public class UserBean implements Serializable {
     }
 
     /**
-     * Log
-     * out
-     * method,
-     * returns
-     * navigation
-     * case
-     * for
-     * the
-     * JSF
-     * -
-     * site.
-     * We
-     * want
-     * to
-     * log
-     * you
-     * out
-     * when
-     * you
-     * first
-     * enter
-     * the
-     * site,
-     * this
-     * was
-     * mainly
-     * because
-     * of
-     * some
-     * navigation
-     * errors,
-     * if
-     * you
-     * left
-     * the
-     * site
-     * logged
-     * in.
-     *
+     * Method to log out a user.
+     * @return Navigation case.
      */
     public String doLogout() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext ec = context.getExternalContext();
-
         HttpServletRequest request = (HttpServletRequest) ec.getRequest();
         try {
             request.logout();
@@ -376,48 +305,33 @@ public class UserBean implements Serializable {
     }
 
     /**
-     * Changes
-     * the
-     * password
-     * for
-     * a
-     * user
+     * Change the password of a user.
+     * Also sets a error variable to use in the view.
      */
     public void changePassword() {
         error = passwordStatus = user.setnewPassword(newPassword, newPasswordConfirmed);
     }
-
+    /**
+    * 
+    * @return The changed username from the view.
+    * Used in chooseUser.
+    */
     public String getUsernameChange() {
         return usernameChange;
     }
-
+    /**
+     * 
+     * @param usernameChange Sets the changed username from the view.
+     * Used in chooseUser.
+     */
     public void setUsernameChange(String usernameChange) {
         this.usernameChange = usernameChange;
     }
 
     /**
-     * Changes
-     * user
-     * information
-     * Stores
-     * the
-     * username
-     * you
-     * click
-     * on
-     * in
-     * a
-     * variable
-     * to
-     * be
-     * able
-     * to
-     * view
-     * the
-     * content
-     * of
-     * the
-     * user.
+     * Changes a users information.
+     * @return Navigation case.
+     * Also handle error variable to use in the view.
      */
     public String changeUser() {
         String name = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
@@ -427,15 +341,10 @@ public class UserBean implements Serializable {
         setUsernameChange(username);
         changedInformation = true;
         return "ManageUsers";
-        /*
-         if(FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")){
-         user.changeUser();
-         }else{
-         user.setName(this.name);
-         user.setAddress(this.address);
-         }*/
     }
-
+    /**
+     * Method to change your own user.
+     */
     public void changeYourUser() {
         String name = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("name");
         String address = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("address");
@@ -443,7 +352,10 @@ public class UserBean implements Serializable {
         user.changeUser(name, address, username);
         setUsernameChange(username);
     }
-
+    /**
+     * Sets The variable so you know what username(user) you want to change.
+     * @return Navigation case.
+     */
     public String chooseUser() {
         String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
         if (FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")) {
@@ -454,18 +366,22 @@ public class UserBean implements Serializable {
         }
     }
 
-    /*
-     *Changes a variable if a user wants to log in as a admin.
-     * This is used to change the content on the login site so its more reliable for a admin
+    /**
+     * Error variable.
      */
     public void loginAdmin() {
         adminLogin = true;
     }
-
+    /**
+     * Error variable.
+     */
     public void notLoginAdmin() {
         adminLogin = false;
     }
-
+    /**
+     * 
+     * @return A complete list of all customers.
+     */
     public List getNormalUsers() {
         List list = userlist.getUsers("userNormal");
         List list2 = userlist.getUsers("userCompany");
@@ -475,31 +391,49 @@ public class UserBean implements Serializable {
 
         return list;
     }
-
+    /**
+     * 
+     * @return A complete list of all management users.
+     */
     public List getManagementUsers() {
         String role = "management";
         return userlist.getUsers(role);
     }
-
+    /**
+     * 
+     * @return A complete list of all driver users.
+     */
     public List getDriverUsers() {
         String role = "driver";
         return userlist.getUsers(role);
     }
-
+    /**
+     * 
+     * @return A complete list of all chef users.
+     */
     public List getChefUsers() {
         String role = "chef";
         return userlist.getUsers(role);
     }
-    
+    /**
+     * 
+     * @return A complete list of all  salesmen users.
+     */
     public List getSalesmen(){
         String role = "salesmen";
         return userlist.getUsers(role);
     }
-
+    /**
+     * 
+     * @return A complete of a specific user.
+     */
     public List getUser() {
         return userlist.getUser(usernameChange);
     }
-
+    /**
+     * Reset the password for a specific user.
+     * @return Navigation case.
+     */
     public String resetPassword() {
         String username = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("username");
         user.resetPassword(username);
@@ -507,35 +441,18 @@ public class UserBean implements Serializable {
         resetPassword = true;
         return "ManageUsers";
     }
-
+    /**
+     * 
+     * @return Error variable.
+     */
     public boolean getResetPassword() {
         return resetPassword;
     }
-
+    /**
+     * 
+     * @return Error variable.
+     */
     public boolean getChangedInformation() {
         return changedInformation;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void logInMessage(ActionEvent actionEvent) {
-        setText(getNewUsername());
-        FacesContext context = FacesContext.getCurrentInstance();
-        context.addMessage(null, new FacesMessage("the login was successful", "Welcome " + text));
-
-    }
-
-   
-
-
-   
-   
-
-    
+    }   
 }
