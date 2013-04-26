@@ -1,30 +1,26 @@
 package Beans;
 
-import HelpClasses.OrderOnName;
+
 import Lists.Orders_List;
 import ProblemDomain.Users;
 import Lists.Users_List;
 import ProblemDomain.Orders;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PostConstruct;
-import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
-import javax.faces.application.ConfigurableNavigationHandler;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 @RequestScoped
 @Named("user")
+/**
+ * User bean handles request from a user.
+ */
 public class UserBean implements Serializable {
 
     private String usernameChange;
@@ -55,26 +51,27 @@ public class UserBean implements Serializable {
     private String newRole;
     private String text;
     
-
+/**
+ * Metho to reset the variables to be able to use them later.
+ */
     public void reset() {
         setAddress(null);
         setName(null);
         setUsername(null);
         setNewPassword(null);
     }
-
+    
+    /**
+     * 
+     * @return Error variable.
+     */
     public boolean getOrdersRegUsers() {
         return getOrdersRegUsers;
     }
 
     /**
-     *
-     * @return
-     * username
-     * from
-     * the
-     * Users-
-     * class.
+     * 
+     * @return Return the username from the database.
      */
     public String getUsername() {
         this.username = user.getUsername();
@@ -82,22 +79,8 @@ public class UserBean implements Serializable {
     }
 
     /**
-     *
-     * @param
-     * newName
-     * gets
-     * new
-     * name
-     * from
-     * the
-     * site
-     * and
-     * sends
-     * it
-     * to
-     * Users
-     * -
-     * class
+     * 
+     * @param newName Sets the username from the view.
      */
     public void setUsername(String newName) {
         user.setUsername(newName);
@@ -105,14 +88,8 @@ public class UserBean implements Serializable {
     }
 
     /**
-     *
-     * @return
-     * returns
-     * password
-     * from
-     * Users
-     * -
-     * class
+     * 
+     * @return the password from the database.
      */
     public String getPassword() {
         this.password = user.getPassword();
@@ -511,6 +488,11 @@ public class UserBean implements Serializable {
 
     public List getChefUsers() {
         String role = "chef";
+        return userlist.getUsers(role);
+    }
+    
+    public List getSalesmen(){
+        String role = "salesmen";
         return userlist.getUsers(role);
     }
 

@@ -7,6 +7,7 @@ package Beans;
 /**
  *
  * @author marius
+ * A bean to handle the gallery at the welcome view.
  */
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,9 @@ public class GalleriaBean {
 
     private ArrayList<Element> element;
 
+    /**
+     * Constructor
+     */
     public GalleriaBean() {
         this.element = element;
         element = new ArrayList<Element>();
@@ -28,7 +32,10 @@ public class GalleriaBean {
         element.add(new Element("Rice and goodies", "350,-", "RisNStuff.jpg"));
 
     }
-
+/**
+ * 
+ * @return A list of the chosen images.
+ */
 public ArrayList<Element> getElement() {
         return element;
     }

@@ -104,4 +104,9 @@ public class DatabaseCon {
             System.out.println("Cant set AutoCommit "+ e.getMessage());
         }
     }
+    
+     public static void WriteMessage(Exception e, String message) {
+        System.err.println("*** Feil oppstått: " + message + ". ***");
+        e.printStackTrace(System.err);
+    }
 }

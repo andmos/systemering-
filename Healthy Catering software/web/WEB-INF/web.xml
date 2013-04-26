@@ -89,7 +89,7 @@
     
     <security-constraint>
         <web-resource-collection>
-            <web-resource-name>Driver Pages</web-resource-name>
+            <web-resource-name>Salesmen</web-resource-name>
             <description/>
             <url-pattern>/faces/salesmen/*</url-pattern>
             <url-pattern>/salesmen/*</url-pattern>
