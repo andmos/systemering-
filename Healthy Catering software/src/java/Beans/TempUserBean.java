@@ -7,6 +7,7 @@ import Lists.Orders_List;
 import ProblemDomain.tempUser;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
@@ -29,6 +30,7 @@ public class TempUserBean implements Serializable {
     //Check if we can continue
     private boolean CustomerOK;
     private int order_nr;
+    private Date deliverDate;
 
     public void cleanUp() {
         setAddress(null);
@@ -64,8 +66,7 @@ public class TempUserBean implements Serializable {
         tempUser.setName(name);
     }
 
-
-    public boolean getCustomerOK(){
+    public boolean getCustomerOK() {
         return CustomerOK;
     }
 
@@ -90,7 +91,7 @@ public class TempUserBean implements Serializable {
     public void saveMenu() {
         String value = FacesContext.getCurrentInstance().
                 getExternalContext().getRequestParameterMap().get("menu_id");
-         int menu_id = Integer.parseInt(value);
+        int menu_id = Integer.parseInt(value);
         Orders order = new Orders();
         order.setMenu_id(menu_id);
         tempOrder.add(order);
@@ -100,8 +101,8 @@ public class TempUserBean implements Serializable {
         for (int i = 0; i < tempOrder.size(); i++) {
             int menu_id = tempOrder.get(i).menu_id;
             menulists.add(new Lists.Menus_List(menu_id).getMenus());
-            tempOrder.remove(i);
         }
+        tempOrder.removeAll(tempOrder);
         return menulists;
     }
 
@@ -117,6 +118,17 @@ public class TempUserBean implements Serializable {
         }
     }
 
+    public Date getDeliverDate() {
+        return deliverDate;
+
+    }
+
+    public void setDeliverDate(Date deliverDate) {
+        this.deliverDate = deliverDate;
+    }
+    
+    
+
     public void placeOrders() {
         Orders order = new Orders();
         order.setNewOrderNr();
@@ -124,8 +136,8 @@ public class TempUserBean implements Serializable {
         if (menulists.size() > 0) {
             for (int i = 0; i < menulists.size(); i++) {
                 Menus menu = (Menus) menulists.get(i);
-                order.placeOrder(menu, tempUser.name);
-                
+                order.placeOrder(menu, tempUser.name,deliverDate);
+
             }
             updateTempUser(order_id);
             menulists = new ArrayList();

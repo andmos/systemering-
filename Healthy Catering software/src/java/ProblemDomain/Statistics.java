@@ -4,6 +4,8 @@
  */
 package ProblemDomain;
 
+import HelpClasses.Statistics_username_priceSum;
+import HelpClasses.Statistics_id_count;
 import HelpClasses.DatabaseCon;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

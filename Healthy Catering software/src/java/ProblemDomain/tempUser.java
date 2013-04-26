@@ -27,6 +27,10 @@ public class tempUser {
     }
 
     public String getName() {
+        if (name != null) {
+            String[] st = name.split("!");
+            return st[1];
+        }
         return name;
     }
 
@@ -48,48 +52,49 @@ public class tempUser {
     /*
      *Reason for using temp! in front of the name is to be able to distinguish a active and unactive user in orders table
      */
-    public void addNewTempUser(){
-        try{
+
+    public void addNewTempUser() {
+        try {
             db.openConnection();
-            name = "temp!"+name;
+            name = "temp!" + name;
             line = db.getConnection().prepareStatement(sqlAddNewTempUser);
-            line.setString(1,name);
+            line.setString(1, name);
             line.setString(2, this.address);
             line.executeUpdate();
-        }catch(SQLException e){
-            System.out.println("Failure in addNewTempUser():"+e.getMessage());
-        }finally{
+        } catch (SQLException e) {
+            System.out.println("Failure in addNewTempUser():" + e.getMessage());
+        } finally {
             db.closeConnection();
             db.closeResSet(res);
             db.closeStatement(line);
         }
     }
-    
-    public void removeTempUser(){
-        try{
-             db.openConnection();
+
+    public void removeTempUser() {
+        try {
+            db.openConnection();
             line = db.getConnection().prepareStatement(sqlremoveTempUser);
-            line.setInt(1,this.order_id);
+            line.setInt(1, this.order_id);
             line.executeUpdate();
-        }catch(SQLException e){
-            System.out.println("Failure in addNewTempUser():"+e.getMessage());
-        }finally{
+        } catch (SQLException e) {
+            System.out.println("Failure in addNewTempUser():" + e.getMessage());
+        } finally {
             db.closeConnection();
             db.closeResSet(res);
             db.closeStatement(line);
         }
     }
-    
-    public void updateTempUser(int order_id){
-        try{
+
+    public void updateTempUser(int order_id) {
+        try {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlUpdateTempUser);
-            line.setInt(1,order_id);
-            line.setString(2,this.name);
+            line.setInt(1, order_id);
+            line.setString(2, this.name);
             line.executeUpdate();
-        }catch(SQLException e){
-            System.out.println("Failure in addNewTempUser():"+e.getMessage());
-        }finally{
+        } catch (SQLException e) {
+            System.out.println("Failure in addNewTempUser():" + e.getMessage());
+        } finally {
             db.closeConnection();
             db.closeResSet(res);
             db.closeStatement(line);

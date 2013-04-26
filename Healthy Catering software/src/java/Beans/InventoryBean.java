@@ -109,4 +109,17 @@ public class InventoryBean implements Serializable {
         return list;
     }
     
+    /**
+     * If Healthy Catering wants to expand their inventories,
+     * software engineers need to expand their methods here
+     * @return 
+     */
+    public List<Ingredient> getDryIngredients(){
+        return ingredientlist.getIngredients(1);
+    }
+    
+    public List<Ingredient> getColdIngredients(){
+        return ingredientlist.getIngredients(2);
+    }
+    
 }

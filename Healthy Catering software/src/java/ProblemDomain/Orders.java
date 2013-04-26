@@ -17,8 +17,11 @@ public class Orders {
     public HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
     private PreparedStatement line = null;
     private ResultSet res = null;
-    private String sqlPlaceOrder = "insert into orders(status,username,menu_id,order_nr,orderDate,price) values(-2,?,?,?,now(),?)";
+    private String sqlPlaceOrder = "insert into orders(status,username,menu_id,order_nr,orderDate,price,deliverDate) values(-2,?,?,?,now(),?,?)";
     private String sqlDeliverOrder = "update orders set status=1 where order_id=?";
+    private String sqlStartCooking = "update orders set status=-1 where order_id=?";
+    private String sqlDoneCooking = "update orders set status=0 where order_id=?";
+    private String sqlDeleteOrder = "delete from orders where order_id=?";
     public int order_id;
     public int status;
     public int menu_id;
@@ -26,7 +29,16 @@ public class Orders {
     public Date orderDate;
     public int menuCount;
     public double price;
+    public Date deliverDate;
     public String username = FacesContext.getCurrentInstance().getExternalContext().getRemoteUser();
+
+    public void setDeliverDate(Date deliverDate) {
+        this.deliverDate = deliverDate;
+    }
+
+    public Date getDeliverDate() {
+        return deliverDate;
+    }
 
     public Orders() {
     }
@@ -112,6 +124,8 @@ public class Orders {
                     }else{
                         line.setDouble(4, menu.sum*1.25);
                     }
+            java.sql.Date sqlDate = new java.sql.Date(deliverDate.getTime());
+            line.setDate(5,sqlDate);
             line.executeUpdate();
             check = true;
 
@@ -124,7 +138,7 @@ public class Orders {
         }
         return check;
     }
-     public boolean placeOrder(Menus menu,String name) {
+     public boolean placeOrder(Menus menu,String name,Date deliverDate) {
         boolean check = false;
         try {
             db.openConnection();
@@ -139,6 +153,8 @@ public class Orders {
                     }else{
                         line.setDouble(4, menu.sum*1.25);
                     }
+            java.sql.Date sqlDate = new java.sql.Date(deliverDate.getTime());
+            line.setDate(5,sqlDate);
             line.executeUpdate();
             check = true;
 
@@ -154,16 +170,57 @@ public class Orders {
      
      public void DeliverOrder(int order_id){
          try{
-             
              db.openConnection();
              line = db.getConnection().prepareStatement(sqlDeliverOrder);
-             System.out.println("her");
              line.setInt(1,order_id);
-             System.out.println("her2");
-             System.out.println(
-             line.executeUpdate());
+             line.executeUpdate();
          }catch(SQLException e){
              System.out.println("Failure in DeliverOrder()"+e.getMessage());
+         }finally{
+             db.closeConnection();
+             db.closeResSet(res);
+             db.closeStatement(line);
+         }
+     }
+     
+     public void StartCooking(int order_id){
+         try{
+             db.openConnection();
+             line = db.getConnection().prepareStatement(sqlStartCooking);
+             line.setInt(1,order_id);
+             line.executeUpdate();
+         }catch(SQLException e){
+             System.out.println("Failure in DeliverOrder()"+e.getMessage());
+         }finally{
+             db.closeConnection();
+             db.closeResSet(res);
+             db.closeStatement(line);
+         }
+     }
+     
+     public void DoneCooking(int order_id){
+         try{
+             db.openConnection();
+             line = db.getConnection().prepareStatement(sqlDoneCooking);
+             line.setInt(1,order_id);
+             line.executeUpdate();
+         }catch(SQLException e){
+             System.out.println("Failure in DeliverOrder()"+e.getMessage());
+         }finally{
+             db.closeConnection();
+             db.closeResSet(res);
+             db.closeStatement(line);
+         }
+     }
+     
+     public void deleteOrder(int order_id){
+         try{
+             db.openConnection();
+             line = db.getConnection().prepareStatement(sqlDeleteOrder);
+             line.setInt(1,order_id);
+             line.executeUpdate();
+         }catch(SQLException e){
+             System.out.println("Failure in DeleteOrder()"+e.getMessage());
          }finally{
              db.closeConnection();
              db.closeResSet(res);

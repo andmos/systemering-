@@ -46,42 +46,6 @@
                     </p:column>
                 </p:dataTable>
                 <br></br>
-                <br></br>
-                <!--Company users-->
-                <p:dataTable value="#{user.getCompanyUsers()}" var="c" >
-                    <f:facet name="header">
-                        Company users
-                    </f:facet>
-                    <p:column> 
-                        <f:facet name="header">
-                            Username
-                        </f:facet>
-                        <h:outputText value="#{c.username}"/>
-                    </p:column>
-                    <p:column> 
-                        <f:facet name="header">
-                            Name
-                        </f:facet>
-                        <h:outputText value="#{c.name}"/>
-                        <!--<input type="text" value="#{c.name}" name="name"/>-->
-                    </p:column>
-
-                    <p:column> 
-                        <f:facet name="header">
-                            Address
-                        </f:facet>
-                        <h:outputText value="#{c.address}"/>
-                        <!--<input type="text" value="#{c.address}" name="address"/>-->
-                    </p:column>
-                    <p:column>
-                        <h:form>
-                            <input type="hidden" value="#{c.username}" name="username"/>
-                            <p:commandButton value="Edit" action="#{user.chooseUser()}" ajax="false"/>
-                        </h:form>
-                    </p:column>
-                </p:dataTable>
-                <br></br>
-                <br></br>
                 <!-- Management users-->
                 <p:dataTable value="#{user.getManagementUsers()}" var="c" >
                     <f:facet name="header">
@@ -98,7 +62,6 @@
                             Name
                         </f:facet>
                         <h:outputText value="#{c.name}"/>
-                        <!--<input type="text" value="#{c.name}" name="name"/>-->
                     </p:column>
 
                     <p:column> 
@@ -106,7 +69,6 @@
                             Address
                         </f:facet>
                         <h:outputText value="#{c.address}"/>
-                        <!--<input type="text" value="#{c.address}" name="address"/>-->
                     </p:column>
                     <p:column>
                         <f:facet name="header">
@@ -119,6 +81,75 @@
                     </p:column>
                 </p:dataTable>
                 <br></br>
+                <!--Driver users -->
+                <p:dataTable value="#{user.driverUsers}" var="c" >
+                    <f:facet name="header">
+                        Driver users
+                    </f:facet>
+                    <p:column> 
+                        <f:facet name="header">
+                            Username
+                        </f:facet>
+                        <h:outputText value="#{c.username}"/>
+                    </p:column>
+                    <p:column> 
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        <h:outputText value="#{c.name}"/>
+                    </p:column>
+                    <p:column> 
+                        <f:facet name="header">
+                            Address
+                        </f:facet>
+                        <h:outputText value="#{c.address}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Action
+                        </f:facet>
+                        <h:form>
+                            <input type="hidden" value="#{c.username}" name="username"/>
+                            <p:commandButton value="Edit" action="#{user.chooseUser()}" ajax="false"/>
+                        </h:form>
+                    </p:column>
+                </p:dataTable>
+                <br></br>
+                <!--Chef users -->
+                <p:dataTable value="#{user.chefUsers}" var="c" >
+                    <f:facet name="header">
+                        Chef users
+                    </f:facet>
+                    <p:column> 
+                        <f:facet name="header">
+                            Username
+                        </f:facet>
+                        <h:outputText value="#{c.username}"/>
+                    </p:column>
+                    <p:column> 
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        <h:outputText value="#{c.name}"/>
+                    </p:column>
+                    <p:column> 
+                        <f:facet name="header">
+                            Address
+                        </f:facet>
+                        <h:outputText value="#{c.address}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Action
+                        </f:facet>
+                        <h:form>
+                            <input type="hidden" value="#{c.username}" name="username"/>
+                            <p:commandButton value="Edit" action="#{user.chooseUser()}" ajax="false"/>
+                        </h:form>
+                    </p:column>
+                </p:dataTable>
+                <br></br>
+                <!-- Create new user -->
                 <h:form>
                     <table>
                         <tr>

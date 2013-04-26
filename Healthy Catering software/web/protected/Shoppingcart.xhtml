@@ -10,7 +10,7 @@
         <ui:composition template="/template/template.xhtml">
 
             <ui:define name="content">
-                    <p:dataTable value="#{order.getMenus()}" var="c">
+                <p:dataTable value="#{order.getMenus()}" var="c">
                     <p:column>
                         <f:facet name="header">
                             Name
@@ -33,9 +33,34 @@
                         </f:facet>
                         #{c.type}
                     </p:column>
+                    <p:column>
+                        <h:form>
+
+
+                            <p:growl id="growl" showDetail="true" sticky="true"/> 
+                            <input type="hidden" value="#{c.menu_id}" name="menu_id"/>
+                            <input type="hidden" value="#{c.name}" name="name"/>
+                            <p:commandButton value="delete" action="#{order.deleteShoppingCartItem()}" ajax="false" actionListener="#{feedback.removedFromCart}" update="growl" />
+                        </h:form>
+                    </p:column>
                 </p:dataTable>
                 <h:form>
-                    <p:commandButton value="Place Order" action="#{order.placeOrders()}" ajax="false">
+                    <table>
+                        <tr><td>Deliver date</td>
+                            <td><p:calendar value="#{order.deliverDate}" id="popupCal" /> 
+                                <p:dialog header="Selected Dates" widgetVar="dialog"   
+                                          showEffect="fade" hideEffect="fade">  
+
+                                    <h:panelGrid id="display" columns="2" cellpadding="5">  
+                                        <h:outputText value="Popup Date:" />  
+                                        <h:outputText value="#{order.deliverDate}" id="popupDate">  
+                                            <f:convertDateTime pattern="d/M/yyyy"/>  
+                                        </h:outputText>   
+                                    </h:panelGrid>  
+                                </p:dialog> </td> </tr>
+                    </table>
+                    <p:growl id="growl" showDetail="true" sticky="true"/> 
+                    <p:commandButton value="Place Order" action="#{order.placeOrders()}" ajax="false" actionListener="#{feedback.placedOrder}" update="growl">
                     </p:commandButton>
                 </h:form>
             </ui:define>

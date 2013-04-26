@@ -4,13 +4,23 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
       >
     <h:body>
         <ui:composition template="/template/template.xhtml">
-           
             <ui:define name="content">
+                <div align="center">
+                    <h:form id="form1">
+                        <p:autoComplete value="#{order.checkName}" 
+                                        completeMethod="#{order.completeUnreg}"
+                                        forceSelection="true"
+                                        required="true"
+                                        requiredMessage="You must choose a name"/>
+                        <input type="hidden" value="#{order.checkName}" name="name"/>
+                        <p:commandButton action="#{order.showOrderTable()}" value="submit" ajax="false"/>
+                    </h:form>
+                </div>
             </ui:define>
         </ui:composition> 
     </h:body>
 </html>
-

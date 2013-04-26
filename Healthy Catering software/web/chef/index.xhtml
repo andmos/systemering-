@@ -31,6 +31,12 @@
                     </p:column>
                     <p:column>
                         <f:facet name="header">
+                            Deliver date
+                        </f:facet>
+                        #{c.deliverDate}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
                             Address
                         </f:facet>
                         #{c.address}
@@ -47,8 +53,8 @@
                         </f:facet>
                         <h:form>
                             <input type="hidden" value="#{c.order_id}" name="order_id"/>
-                            <p:commandButton value="Start cooking" action="#{order.DeliverOrder()}" ajax="false" rendered="#{c.status==-2}"/>
-                            <p:commandButton value="Done" action="#{order.DeliverOrder()}" ajax="false" rendered="#{c.status==-1}"/>
+                            <p:commandButton value="Start cooking" action="#{order.StartCooking()}" ajax="false" rendered="#{c.status==-2}"/>
+                            <p:commandButton value="Done" action="#{order.DoneCooking()}" ajax="false" rendered="#{c.status==-1}"/>
                         </h:form>
                     </p:column>
                 </p:dataTable>

@@ -9,24 +9,69 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <p:dataTable  value="#{order.order}" var="c">
-
+         <p:dataTable  value="#{order.ordersByName}" var="c">
+                    <f:facet name="header">
+                        Order on #{name}
+                    </f:facet>
+                    <p:column>
+                        <f:facet name="header">
+                            Order nr
+                        </f:facet>
+                        #{c.order_nr}
+                    </p:column>
                     <p:column>
                         <f:facet name="header">
                             Name
                         </f:facet>
                         #{c.name}
                     </p:column>
-
                     <p:column>
                         <f:facet name="header">
-                            Price:
+                            Order id
                         </f:facet>
-                        #{c.sum} kr
-                        
-                        <f:facet name="footer">
-                            Total price: #{order.sum} kr
+                        #{c.order_id}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Order date
                         </f:facet>
+                        #{c.orderDate}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Deliver date
+                        </f:facet>
+                        #{c.deliverDate}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Status
+                        </f:facet>
+                        <h:outputText value="Pending" style="color:blue" rendered="#{c.status==-2}"/>
+                        <h:outputText value="Cooking" style="color:red" rendered="#{c.status==-1}"/>
+                        <h:outputText value="Ready for delivery" style="color:orange" rendered="#{c.status == 0}"/>
+                        <h:outputText value="Delivered" style="color:green" rendered="#{c.status == 1 }"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Price
+                        </f:facet>
+                        #{c.price}
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Action
+                        </f:facet> 
+                        <h:form>
+                            <p:growl id="growl" showDetail="true" sticky="true" /> 
+                            <input type="hidden" value="#{c.order_id}" name="order_id"/>
+                            <input type="hidden" value="#{c.order_nr}" name="order_nr"/>
+                            <input type="hidden" value="#{c.name}" name="name"/>
+                            <p:commandButton value="Delete order" action="#{order.deleteOrder()}" ajax="false" rendered="#{c.status==-2}" id="Delete" actionListener="#{feedback.removedFromOrder}" update="growl"/>
+                            <p:commandButton value="Delete order" rendered="#{c.status!=-2}" id="NotDelete" style="color:gainsboro"/>
+                            <p:tooltip for="Delete" value="Delete pending order" showEffect="fade" hideEffect="fade"/>
+                            <p:tooltip for="NotDelete" value="You cannot delete orders that have been started" showEffect="fade" hideEffect="fade"/>
+                        </h:form>
                     </p:column>
                 </p:dataTable>
             </ui:define>

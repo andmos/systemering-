@@ -48,7 +48,7 @@
                             <input type="hidden" name="menu_id" value="#{c.menu_id}"/>
                             <input type="hidden"  name="menu_name" value="#{c.name}"/>
                             <h:outputLink id="addToCart" value="#" style="text-decoration: none;">
-                                <p:commandButton value="Add to cart"  action="#{order.placeOrder()}" actionListener="#{order.addedToCart}" update="growl"/> 
+                                <p:commandButton value="Add to cart"  action="#{order.placeOrder()}" actionListener="#{feedback.addedToCart}" update="growl"/> 
                             </h:outputLink>
                             <p:tooltip for="addToCart" value="Add menu to shoppingcart" showEffect="fade" hideEffect="fade" />
                         </h:form>

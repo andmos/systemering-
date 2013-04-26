@@ -9,8 +9,8 @@ package Beans;
  * @author espen
  */
 import ProblemDomain.Statistics;
-import ProblemDomain.Statistics_id_count;
-import ProblemDomain.Statistics_username_priceSum;
+import HelpClasses.Statistics_id_count;
+import HelpClasses.Statistics_username_priceSum;
 import java.io.Serializable;
 import java.util.*;
 import javax.enterprise.context.SessionScoped;

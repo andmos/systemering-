@@ -4,7 +4,9 @@
  */
 package Lists;
 
-import ProblemDomain.DriverOrders;
+import HelpClasses.ChefOrders;
+import HelpClasses.DriverOrders;
+import HelpClasses.OrderOnName;
 import ProblemDomain.Menus;
 import ProblemDomain.Orders;
 import java.sql.PreparedStatement;
@@ -18,7 +20,8 @@ import java.util.Date.*;
 
 /**
  *
- * @author espen
+ * @author
+ * espen
  */
 public class Orders_List {
 
@@ -33,25 +36,27 @@ public class Orders_List {
     private ResultSet res = null;
     private ResultSet res2 = null;
     private String sqlConstructorDriver = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
-    private String sqlConstructorChef = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
-    private String sqlConstructorDriver2 = "select orders.order_id, tempUser.name, tempUser.address, menus.name as MenuName, orders.status from orders, tempUser, menus where orders.username=tempUser.name and orders.menu_id=menus.menu_id and orders.status=0 order by order_id asc";
-    private String sqlConstructorChef2 = "select orders.order_id, tempUser.name, tempUser.address, menus.name as MenuName, orders.status from orders, tempUser, menus where orders.username=tempUser.name and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
-    //private String sqlConstructorChef = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status<0 order by order_id asc";
+    private String sqlConstructorChef = "select orders.order_id,users.name,users.address,menus.name as MenuName,orders.status,orders.deliverDate from orders,users,menus where orders.username=users.username and orders.menu_id=menus.menu_id and orders.status<0 order by deliverDate asc";
     private String sqlConstructor = "SELECT distinct status,order_nr,orderDate FROM orders where username=?"; //Order date? Pass på distinct, disse skal jo være lik når du legger til uansett
     private String sqlConstructor2 = "SELECT menu_id FROM orders where username=? and order_nr=?";
     private String sqlConstructor3 = "select menu_id,name,total_price  from menus where menu_id=?";
     private String sqlConstructor4 = "select price from orders,menus where orders.menu_id=? and username=?";
     private String sqlGetSum2 = "select price from orders where order_nr=? and username=?";
-    private String sqlConstructor5 = "SELECT distinct status,order_nr,orderDate FROM orders where username=?";
+    private String sqlConstructor5 = "select orders.order_nr,orders.order_id,orders.orderDate,orders.status,menus.name,orders.price,orders.deliverDate from orders,menus where menus.menu_id=orders.menu_id and username=? order by order_id";
     private String sqlGetUsername = "select username from users where name=?";
     private String sqlNameAtUsername = "select name from users where username=?";
     private int order_nr = 0;
+    public List<Integer> orderIDs = new ArrayList<Integer>();
 
     public Orders_List() {
     }
 
     public Orders_List(int order_nr) {
         this.order_nr = order_nr;
+    }
+
+    public List<Integer> getorderIDs() {
+        return orderIDs;
     }
 
     public List buildOrdersList() {
@@ -113,35 +118,52 @@ public class Orders_List {
             return list2;
         }
     }
+    /*
+     * var = (true)logged in as normal user, (false) salesmen
+     * var2 = (true)registeredUser , (false)unRegisteredUser
+     */
 
-    public List<Orders> getOrdersByName(String name) {
-        List<Orders> list = new ArrayList();
+    public List<OrderOnName> getOrdersByName(String name, boolean var, boolean var2) {
+        List<OrderOnName> list = new ArrayList();
         try {
             if (name != null) {
+                orderIDs.removeAll(orderIDs);
                 db.openConnection();
-                line = db.getConnection().prepareStatement(sqlGetUsername);
-                line.setString(1, name);
-                res = line.executeQuery();
-                res.next();
-                String username = res.getString("username");
-                db.closeStatement(line);
-                db.closeResSet(res);
-                line = db.getConnection().prepareStatement(sqlConstructor5);
-                line.setString(1, username);
-                res = line.executeQuery();
-                while (res.next()) {
-                    Orders temp = new Orders();
-                    temp.setStatus(res.getInt("status"));
-                    temp.setOrder_nr(res.getInt("order_nr"));
-                    temp.setOrderDate(res.getDate("orderDate"));
+                String username = name;
+                if (!var && var2) {
+                    System.out.println("inne");
+                    line = db.getConnection().prepareStatement(sqlGetUsername);
+                    line.setString(1, name);
+                    res = line.executeQuery();
+                    res.next();
+                    username = res.getString("username");
+                    db.closeStatement(line);
+                    db.closeResSet(res);
+                }
+                line2 = db.getConnection().prepareStatement(sqlConstructor5);
+                line2.setString(1, username);
+                res2 = line2.executeQuery();
+                while (res2.next()) {
+                    //public OrderOnName(int order_id, Date orderDate, int status, String name, double price,int order_nr,Date deliverDate) {
+                    int order_id = res2.getInt("order_id");
+                    Date orderDate = res2.getDate("orderDate");
+                    int status = res2.getInt("status");
+                    String nameFromDB = res2.getString("name");
+                    double price = res2.getDouble("price");
+                    int order_nr = res2.getInt("order_nr");
+                    Date deliverDate = res2.getDate("deliverDate");
+                    OrderOnName temp = new OrderOnName(order_id, orderDate, status, nameFromDB, price, order_nr, deliverDate);
                     list.add(temp);
+                    if (status == -2) {
+                        orderIDs.add(order_id);
+                    }
                 }
             }
         } catch (SQLException e) {
             System.out.println("getOrdersByName() failed:  " + e);
         } finally {
-            db.closeResSet(res);
-            db.closeStatement(line);
+            db.closeResSet(res2);
+            db.closeStatement(line2);
             db.closeConnection();
         }
         return list;
@@ -175,8 +197,10 @@ public class Orders_List {
     }
 
     private String splitString(String s) {
-        String[] parts = s.split("!");
-        return parts[0].equals("temp")? parts[1]: s;
+        String username = "";
+        String[] parts = username.split("!");
+        return parts[0].equals("temp") ? parts[1] : s;
+
     }
 
     public List<DriverOrders> getDriverOrders() {
@@ -194,20 +218,6 @@ public class Orders_List {
                 DriverOrders order = new DriverOrders(order_id, username, address, menuName, status);
                 list.add(order);
             }
-            db.closeResSet(res);
-            db.closeStatement(line);
-            line = db.getConnection().prepareStatement(sqlConstructorDriver2);
-            res = line.executeQuery();
-            while (res.next()) {
-                int order_id = res.getInt("order_id");
-                String username = splitString(res.getString("name"));
-                System.out.println(username);
-                String address = res.getString("address");
-                String menuName = res.getString("MenuName");
-                int status = res.getInt("status");
-                DriverOrders order = new DriverOrders(order_id, username, address, menuName, status);
-                list.add(order);
-            }
         } catch (SQLException e) {
             System.out.println("Failure in getDriverOrders()" + e.getMessage());
         } finally {
@@ -218,11 +228,8 @@ public class Orders_List {
         return list;
     }
 
-    /*
-     *DriverOrders, could have renamed it to a better name, because both driver and chef uses it
-     */
-    public List<DriverOrders> getChefOrders() {
-        List<DriverOrders> list = new ArrayList();
+    public List getChefOrders() {
+        List<ChefOrders> list = new ArrayList();
         try {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlConstructorChef);
@@ -233,21 +240,8 @@ public class Orders_List {
                 String address = res.getString("address");
                 String menuName = res.getString("MenuName");
                 int status = res.getInt("status");
-                DriverOrders order = new DriverOrders(order_id, username, address, menuName, status);
-                list.add(order);
-            }
-            db.closeResSet(res);
-            db.closeStatement(line);
-            line = db.getConnection().prepareStatement(sqlConstructorChef2);
-            res = line.executeQuery();
-            while (res.next()) {
-                int order_id = res.getInt("order_id");
-                String username = splitString(res.getString("name"));
-                System.out.println(username);
-                String address = res.getString("address");
-                String menuName = res.getString("MenuName");
-                int status = res.getInt("status");
-                DriverOrders order = new DriverOrders(order_id, username, address, menuName, status);
+                Date deliverDate = res.getDate("deliverDate");
+                ChefOrders order = new ChefOrders(order_id, username, address, menuName, status, deliverDate);
                 list.add(order);
             }
         } catch (SQLException e) {
@@ -258,50 +252,5 @@ public class Orders_List {
             db.closeStatement(line);
         }
         return list;
-    }
-}
-
-
-class test{
-    public static HelpClasses.DatabaseCon db = new HelpClasses.DatabaseCon(); //makes object of DatabaseCon class
-    private static PreparedStatement line2 = null;
-    private static ResultSet res2 = null;
-    private static String sqlNameAtUsername = "select name from users where username=?";
-    
-    public static String splitString(String s) {
-        String username = "";
-        String[] parts = s.split("!");
-        if (parts[0].equals("temp")) {
-            username = parts[1];
-        } else {
-            try {
-                System.out.println("0");
-                db.openConnection();
-                System.out.println("1");
-                //line2 = db.getConnection().prepareStatement(sqlNameAtUsername);
-                System.out.println("2");
-                //line2.setString(1, s);
-                System.out.println("3");
-                res2 = line2.executeQuery("select * from users where username='andreas'");
-                System.out.println("4");
-                while (res2.next()) {
-                    username = res2.getString("name");
-                }
-            } catch (SQLException e) {
-                System.out.println("splitString()    " + e);
-            } finally {
-                db.closeResSet(res2);
-                db.closeStatement(line2);
-                db.closeConnection();
-            }
-        }
-        return username;
-
-    }
-    public static void main(String[] args) {
-        System.out.println(splitString("temp!Espen Halstensen"));
-        System.out.println(splitString("andreas"));
-        
-        
     }
 }

@@ -23,7 +23,7 @@ public class Users_List {
     public String sqlUsers = "select name,address,users.username from users,roles where users.username=roles.username and roles.role=?";
     public String sqluser = "select name,address from users where username=?";
     public String sqlGetNamesRegistered = "select name from users;";
-    public String sqlGetNamesUnregistered = "select name from tempUsers;";
+    public String sqlGetNamesUnregistered = "select name from tempUser;";
 
     public List getUsers(String role) {
         List list = new ArrayList();
@@ -89,7 +89,7 @@ public class Users_List {
         }
         return list;
     }
-    public List getNamesUnregistered(){
+    public List<String> getNamesUnregistered(){
         List<String> list = new ArrayList();
         try{
             db.openConnection();

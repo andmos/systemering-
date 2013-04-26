@@ -9,15 +9,17 @@
     <h:body>
         <ui:composition template="/template/template.xhtml">
             <ui:define name="content">
-                <h:form id="form1">
-                    <p:autoComplete value="#{user.checkName}" 
-                                    completeMethod="#{user.complete}"
-                                    forceSelection="true"
-                                    required="true"
-                                    requiredMessage="You must choose a name"/>
-                    <input type="hidden" value="#{user.checkName}" name="name"/>
-                    <p:commandButton action="#{user.showOrderTable()}" value="submit" ajax="false"/>
-                </h:form>
+                <div align="center">
+                    <h:form id="form1">
+                        <p:autoComplete value="#{order.checkName}" 
+                                        completeMethod="#{order.completeReg}"
+                                        forceSelection="true"
+                                        required="true"
+                                        requiredMessage="You must choose a name"/>
+                        <input type="hidden" value="#{order.checkName}" name="name"/>
+                        <p:commandButton action="#{order.showOrderTable()}" value="submit" ajax="false"/>
+                    </h:form>
+                </div>
             </ui:define>
         </ui:composition> 
     </h:body>

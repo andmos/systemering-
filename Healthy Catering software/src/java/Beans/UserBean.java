@@ -1,5 +1,6 @@
 package Beans;
 
+import HelpClasses.OrderOnName;
 import Lists.Orders_List;
 import ProblemDomain.Users;
 import Lists.Users_List;
@@ -45,6 +46,7 @@ public class UserBean implements Serializable {
     private Users user = new Users();
     private Users_List userlist = new Users_List();
     private Orders_List orderlist = new Orders_List();
+    private Orders order = new Orders();
     private boolean isCompany;
     //New user from management view variables
     private String newName;
@@ -52,23 +54,16 @@ public class UserBean implements Serializable {
     private String newAddress;
     private String newRole;
     private String text;
-    private String checkName;
-
     
-    public void reset(){
+
+    public void reset() {
         setAddress(null);
         setName(null);
         setUsername(null);
         setNewPassword(null);
     }
-    public String getCheckName() {
-        return checkName;
-    }
 
-    public void setCheckName(String checkName) {
-        this.checkName = checkName;
-    }
-    public boolean getOrdersRegUsers(){
+    public boolean getOrdersRegUsers() {
         return getOrdersRegUsers;
     }
 
@@ -495,9 +490,13 @@ public class UserBean implements Serializable {
     }
 
     public List getNormalUsers() {
-        String role = "userNormal";
-        return userlist.getUsers(role);
+        List list = userlist.getUsers("userNormal");
+        List list2 = userlist.getUsers("userCompany");
+        for (int i = 0; i < list2.size(); i++) {
+            list.add(list2.get(i));
+        }
 
+        return list;
     }
 
     public List getManagementUsers() {
@@ -505,8 +504,13 @@ public class UserBean implements Serializable {
         return userlist.getUsers(role);
     }
 
-    public List getCompanyUsers() {
-        String role = "userCompany";
+    public List getDriverUsers() {
+        String role = "driver";
+        return userlist.getUsers(role);
+    }
+
+    public List getChefUsers() {
+        String role = "chef";
         return userlist.getUsers(role);
     }
 
@@ -520,7 +524,7 @@ public class UserBean implements Serializable {
         setUsernameChange(username);
         resetPassword = true;
         return "ManageUsers";
-    } 
+    }
 
     public boolean getResetPassword() {
         return resetPassword;
@@ -545,43 +549,11 @@ public class UserBean implements Serializable {
 
     }
 
-    public List<String> complete(String query) {
-        List<String> results = new ArrayList<String>();
-        for (String var : userlist.getNamesRegistered()) {
-            if (var.toUpperCase().startsWith(query.toUpperCase())) {
-                checkName = var;
-                results.add(var);
-            }
-        }                                
-                        
-        return results;
-    }
-    
-    public String showOrderTable(){
-        String retur = "";
-        if(checkName!=null){
-            getOrdersRegUsers = true;
-            retur = "ManageUserOrder";
-        }
-        return retur;
-    }
-    public List<Orders> getOrdersByName(){
-        return orderlist.getOrdersByName(checkName);
-    }
+   
 
-    public List getNamesUnregistered() {
-        return userlist.getNamesUnregistered();
-    }
+
+   
+   
+
     
-    public void lol(){
-        System.out.println("lol");
-    }
-    
-    public List getTestList(){
-        List list = new ArrayList();
-        list.add(new String("yeah"));
-        list.add(new String("yeah2"));
-        list.add(new String("yeah3"));
-        return list;
-    }
 }
