@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import HelpClasses.Mailing;
 
 /**
  *
@@ -21,7 +22,25 @@ public class NewUserBean implements Serializable {
     private String newUsername;
     private Users user = new Users();
     private boolean isCompany;
+    private String email;
 
+    /**
+     * get email
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+/**
+ * set email
+ * @param email 
+ * 
+ */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    
     /**
      * 
      * @return Address from form in view.
@@ -82,6 +101,7 @@ public class NewUserBean implements Serializable {
 /**
  * Method to create a new user.
  * Resets all variables so the view is corrected.
+ * sends a email to the new user with the account's password
  */
     public void newUser() {
         String role;
@@ -95,5 +115,10 @@ public class NewUserBean implements Serializable {
         setNewAddress(null);
         setNewName(null);
         setNewUsername(null);
+        // Sends a email to the new user with the password
+            Mailing mail = new Mailing();
+            String recipients[] = {getEmail()};
+            String bccRecipients[] = {getEmail() };
+            mail.sendMail(recipients, bccRecipients, "Password for HealtyCatering", "Your password are: password1 \n You should change your password later");
     }
 }

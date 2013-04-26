@@ -295,7 +295,7 @@ public class UserBean implements Serializable {
 
    /**
     * Register a new user.
-    * Also sets error variables to use in the view.
+    * sets error variables to use in the view and sends a mail to the new user with the password.
     */
     public void newUser() {
         if (!FacesContext.getCurrentInstance().getExternalContext().isUserInRole("management")) {
