@@ -69,7 +69,13 @@ public class Menus {
     public void setSum(Double sum) {
         this.sum = sum;
     }
-
+    
+    /**
+     * Change a specific menu
+     * @param name New name
+     * @param type New type
+     * @param menu_id Specific menu_id
+     */
     public void changeMenu(String name, String type, int menu_id) {
         this.name = name;
         try {
@@ -81,14 +87,19 @@ public class Menus {
             line.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Could not get name from DB " + e.getMessage());
+            db.WriteMessage(e, "changeMenu()");
 
         } finally {
             db.closeStatement(line);
             db.closeConnection();
         }
     }
-
+    
+    /**
+     * R
+     * @param type type of a menu
+     * @return The correct id for a type
+     */
     private int chooseTypeID(String type) {
         if (type.equals("Breakfast")) {
             return 0;
@@ -102,10 +113,9 @@ public class Menus {
         return -1;
     }
 
-    /*
-     *CreateMenu:
-     *Increments the menu_id and checks if the name is avaible
-     *
+    /**
+     * Create a new menu
+     * @return Error variable.
      */
     public boolean createMenu() {
         try {
@@ -134,7 +144,7 @@ public class Menus {
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("Could not get name from DB " + e.getMessage());
+            db.WriteMessage(e, "createMenu()");
             return false;
         } finally {
             db.closeResSet(res);
@@ -143,6 +153,10 @@ public class Menus {
         }
     }
 
+    /**
+     * Delete a specific menu
+     * @return Error variable.
+     */
     public boolean deleteMenu() {
         try {
             db.openConnection();
@@ -155,7 +169,7 @@ public class Menus {
             line.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Could not get name from DB " + e.getMessage());
+            db.WriteMessage(e, "deleteMenu()");
             return false;
         } finally {
             db.closeResSet(res);
@@ -164,6 +178,10 @@ public class Menus {
         }
     }
 
+    /**
+     * Update a specific menu
+     * @return Error variable
+     */
     public boolean updateMenu() {
         try {
             db.openConnection();
@@ -185,7 +203,7 @@ public class Menus {
                 return true;
             }
         } catch (SQLException e) {
-            System.out.println("Could not get name from DB " + e.getMessage());
+            db.WriteMessage(e, "updateMenu()");
             return false;
         } finally {
             db.closeResSet(res);

@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
  *
  * @author
  * havardb
+ * A help-class to handle the SQL queries to print out ingredients from the database.
  */
 public class Ingredient_List {
 
@@ -20,6 +21,11 @@ public class Ingredient_List {
     private ResultSet res = null;
     public String sqlGetIngredients = "select * from ingredient where inventory_id=?";
     
+    /**
+     * 
+     * @param inventory_id Sets inventory ID to print out the correct ingredients.
+     * @return Return a list of ingredients from a inventory.
+     */
     public List getIngredients(int inventory_id){
         List<Ingredient> list = new ArrayList<Ingredient>();
         try{
@@ -36,7 +42,7 @@ public class Ingredient_List {
                 list.add(ingredient);
             }
         }catch(SQLException e){
-            System.out.println("Failure in getIngredients()"+e.getMessage());
+            db.WriteMessage(e, "getIngredients()");
         }finally{
             db.closeConnection();
             db.closeResSet(res);

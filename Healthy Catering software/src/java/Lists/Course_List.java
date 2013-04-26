@@ -17,6 +17,7 @@ import javax.faces.context.FacesContext;
  *
  * @author
  * espen
+ * A List class to print out data from the database.
  */
 public class Course_List {
 
@@ -26,39 +27,18 @@ public class Course_List {
     private ResultSet res = null;
     private String sqlConstructor = "SELECT * FROM course where menu_id = ?";
     private int menu_id;
-
+/**
+ * 
+ * @param menu_id Sets the menu ID variable.
+ */
     public Course_List(int menu_id) {
         this.menu_id = menu_id;
     }
-
     /**
-     * Menu_id
-     * =
-     * 0
-     * ,If
-     * you
-     * have
-     * not
-     * choosen
-     * a
-     * menu
-     * from
-     * your
-     * order
-     * history.
-     * Menu_id
-     * !=
-     * 0
-     * ,If
-     * you
-     * have
-     * choosen
-     * a
-     * menu
-     * from
-     * your
-     * order
-      * history.
+     * This method will print out courses from the database.
+     * It also varies if a user it a normal user, company user or a employee.
+     * If it is a company user it removes VAT from the courses.
+     * @return A complete list of courses.
      */
     public List buildCourseList() {
         List<Course> list = new ArrayList<Course>();
@@ -86,7 +66,7 @@ public class Course_List {
                 list.add(course);
             }
         } catch (SQLException e) {
-            System.out.println("Could not get name from DB " + e.getMessage());
+            db.WriteMessage(e, "buildCourseList()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -95,6 +75,10 @@ public class Course_List {
         return list;
     }
 
+    /**
+     * 
+     * @return A complete list of courses.
+     */
     public List getCourses() {
         List<Menus> list = buildCourseList();
         return list; //.size()>0 ? list : null;

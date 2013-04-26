@@ -37,9 +37,12 @@ public class Statistics {
     private ResultSet res = null;
     private ResultSet res2 = null;
 
+    /**
+     * 
+     * @return A complete list of the most popular menus.
+     */
     public List getMostPopularMenu() {
         List<Statistics_id_count> list = new ArrayList();
-
         try {
             db.openConnection();
             line = db.getConnection().prepareStatement(dropViewIfExists);
@@ -57,19 +60,21 @@ public class Statistics {
                 list.add(obj);
             }
         } catch (SQLException e) {
-            System.out.println("getMostPopularMenu() " + e.getMessage());
+            db.WriteMessage(e, "getMostPopularMenu()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
             db.closeConnection();
         }
-        System.out.println("test");
         return list;
     }
-
+    
+    /**
+     * 
+     * @return A complete list of the most profitable customers.
+     */
     public List getMostProfitableCustomers() {
         ArrayList<Statistics_username_priceSum> list = new ArrayList();
-
         try {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlMostProfitableCustomers);
@@ -94,7 +99,7 @@ public class Statistics {
                 list.add(obj);
             }
         } catch (SQLException e) {
-            System.out.println("getMostProfitableCustomers() " + e.getMessage());
+            db.WriteMessage(e, "getMostProfitableCustomers()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -105,8 +110,11 @@ public class Statistics {
         return list;
     }
 
+    /**
+     * 
+     * @return A number of customers
+     */
     public int getNumberOfCustomers() {
-        //  sqlNumberOfCustomers
         int customers = -1; // default error number
         try {
             db.openConnection();
@@ -116,7 +124,7 @@ public class Statistics {
             customers = res.getInt("count");
 
         } catch (SQLException e) {
-            System.out.println("getNumberOfCustomers() " + e.getMessage());
+            db.WriteMessage(e, "getNumberofCustomers()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -124,6 +132,10 @@ public class Statistics {
         }
         return customers;
     }
+    /**
+     * 
+     * @return A number of management users.
+     */
     public int getNumberOfManagement() {
         //  sqlNumberOfCustomers
         int management = -1; // default error number
@@ -135,7 +147,7 @@ public class Statistics {
             management = res.getInt("count");
 
         } catch (SQLException e) {
-            System.out.println("getNumberOfManagement() " + e.getMessage());
+            db.WriteMessage(e, "getNumberOfManagement()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -143,6 +155,10 @@ public class Statistics {
         }
         return management;
     }
+    /**
+     * 
+     * @return A number of chef users.
+     */
     public int getNumberOfChefs() {
         //  sqlNumberOfCustomers
         int chefs = -1; // default error number
@@ -154,7 +170,7 @@ public class Statistics {
             chefs = res.getInt("count");
 
         } catch (SQLException e) {
-            System.out.println("getNumberOfChefs() " + e.getMessage());
+            db.WriteMessage(e, "getNumberOfChefs()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -162,9 +178,12 @@ public class Statistics {
         }
         return chefs;
     }
+    /**
+     * 
+     * @return A complete list of active customers(registered)
+     */
     public List getActiveCustomers(){
       ArrayList<String> list = new ArrayList();
-
         try {
             db.openConnection();
             line = db.getConnection().prepareStatement(sqlActiveCustomers);
@@ -174,7 +193,7 @@ public class Statistics {
                 list.add(username);
             }
         } catch (SQLException e) {
-            System.out.println("getActiveCustomers() " + e.getMessage());
+            db.WriteMessage(e, "getActiveCustomers()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);

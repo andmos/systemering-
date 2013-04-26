@@ -49,10 +49,10 @@ public class tempUser {
     public void setOrder_id(int order_id) {
         this.order_id = order_id;
     }
-    /*
-     *Reason for using temp! in front of the name is to be able to distinguish a active and unactive user in orders table
-     */
-
+   /**
+    * Add a new temp user to tempUser table.
+    * Reason for using temp! is to see a difference between users and tempusers in orders.
+    */
     public void addNewTempUser() {
         try {
             db.openConnection();
@@ -62,14 +62,16 @@ public class tempUser {
             line.setString(2, this.address);
             line.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Failure in addNewTempUser():" + e.getMessage());
+            db.WriteMessage(e, "addNewTemmpUser()");
         } finally {
             db.closeConnection();
             db.closeResSet(res);
             db.closeStatement(line);
         }
     }
-
+/**
+ * Remove a temporary user
+ */
     public void removeTempUser() {
         try {
             db.openConnection();
@@ -77,14 +79,17 @@ public class tempUser {
             line.setInt(1, this.order_id);
             line.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Failure in addNewTempUser():" + e.getMessage());
+            db.WriteMessage(e, "removeTempUser()");
         } finally {
             db.closeConnection();
             db.closeResSet(res);
             db.closeStatement(line);
         }
     }
-
+/**
+ * Update a temporary user on a specific order id, uses this to "set a order" to a tempuser
+ * @param order_id Specific order id
+ */
     public void updateTempUser(int order_id) {
         try {
             db.openConnection();
@@ -93,7 +98,7 @@ public class tempUser {
             line.setString(2, this.name);
             line.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Failure in addNewTempUser():" + e.getMessage());
+            db.WriteMessage(e, "updateTempUser");
         } finally {
             db.closeConnection();
             db.closeResSet(res);

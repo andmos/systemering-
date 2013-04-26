@@ -22,6 +22,7 @@ import java.util.Date.*;
  *
  * @author
  * espen
+ * Help-class to help with printing orders from the database.
  */
 public class Orders_List {
 
@@ -58,7 +59,10 @@ public class Orders_List {
     public List<Integer> getorderIDs() {
         return orderIDs;
     }
-
+/**
+ * The queries here are a little weak, we could have made better queries. :(
+ * @return A complete list of orders.
+ */
     public List buildOrdersList() {
         List<Orders> list = new ArrayList<Orders>();
         List<Menus> list2 = new ArrayList<>();
@@ -102,7 +106,7 @@ public class Orders_List {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("Feil i buildOrdersList() " + e.getMessage());
+            db.WriteMessage(e, "buildOrdersList()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -118,11 +122,12 @@ public class Orders_List {
             return list2;
         }
     }
-    /*
-     * var = (true)logged in as normal user, (false) salesmen
-     * var2 = (true)registeredUser , (false)unRegisteredUser
-     */
-
+   /**
+    * @param name username from a logged in user or a user that are chosen.
+    * @param var (true)logged in as normal user, (false) salesmen
+    * @param var2 (true)registeredUser , (false)unRegisteredUser.
+    * @return A complete list of a order on a specific name.
+    */
     public List<OrderOnName> getOrdersByName(String name, boolean var, boolean var2) {
         List<OrderOnName> list = new ArrayList();
         try {
@@ -131,7 +136,6 @@ public class Orders_List {
                 db.openConnection();
                 String username = name;
                 if (!var && var2) {
-                    System.out.println("inne");
                     line = db.getConnection().prepareStatement(sqlGetUsername);
                     line.setString(1, name);
                     res = line.executeQuery();
@@ -160,7 +164,7 @@ public class Orders_List {
                 }
             }
         } catch (SQLException e) {
-            System.out.println("getOrdersByName() failed:  " + e);
+            db.WriteMessage(e, "getOrdersByName");
         } finally {
             db.closeResSet(res2);
             db.closeStatement(line2);
@@ -168,12 +172,19 @@ public class Orders_List {
         }
         return list;
     }
-
+/**
+ * 
+ * @return A complete list of all orders.
+ */
     public List getOrders() {
         List list = buildOrdersList();
         return list; //.size()>0 ? list : null;
     }
-
+    /**
+     * 
+     * @param order_nr Specific order.
+     * @return Sum of a orders prices.
+     */
     public double getSum(int order_nr) {
         double sum = 0;
         try {
@@ -187,7 +198,7 @@ public class Orders_List {
             }
             //}
         } catch (SQLException e) {
-            System.out.println("Feil i getSum " + e.getMessage());
+            db.WriteMessage(e, "getSum()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -195,14 +206,22 @@ public class Orders_List {
         }
         return sum;
     }
-
+    
+    /**
+     * Help method to split a string on temp!, witch is a unregistered user.
+     * @param s raw name
+     * @return  actual name
+     */
     private String splitString(String s) {
         String username = "";
         String[] parts = username.split("!");
         return parts[0].equals("temp") ? parts[1] : s;
 
     }
-
+    /**
+     * 
+     * @return A complete list of orders that a driver wants.
+     */
     public List<DriverOrders> getDriverOrders() {
         List<DriverOrders> list = new ArrayList();
         try {
@@ -219,7 +238,7 @@ public class Orders_List {
                 list.add(order);
             }
         } catch (SQLException e) {
-            System.out.println("Failure in getDriverOrders()" + e.getMessage());
+            db.WriteMessage(e, "GetDriversOrders()");
         } finally {
             db.closeConnection();
             db.closeResSet(res);
@@ -227,7 +246,11 @@ public class Orders_List {
         }
         return list;
     }
-
+    
+    /**
+     * 
+     * @return A complete list of orders that a chef wants.
+     */
     public List getChefOrders() {
         List<ChefOrders> list = new ArrayList();
         try {
@@ -245,7 +268,7 @@ public class Orders_List {
                 list.add(order);
             }
         } catch (SQLException e) {
-            System.out.println("Failure in getChefOrders()" + e.getMessage());
+            db.WriteMessage(e, "getChefOrders()");
         } finally {
             db.closeConnection();
             db.closeResSet(res);

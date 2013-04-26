@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  *
  * @author havardb
- * Help-class
+ * Help-class to handle the orders of a chef.
  */
 public class ChefOrders {
 public int order_id;

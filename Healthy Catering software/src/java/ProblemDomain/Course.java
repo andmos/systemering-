@@ -64,7 +64,10 @@ public class Course {
         this.description = description;
     }
 
-    
+    /**
+     * Update a course
+     * @return Error variable
+     */
     public boolean updateCourse() {
         try {
             db.openConnection();
@@ -77,7 +80,7 @@ public class Course {
             line.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Failure in updateCourse():" + e.getMessage());
+            db.WriteMessage(e, "updateCourse()");
             return false;
         } finally {
             db.closeConnection();
@@ -85,7 +88,10 @@ public class Course {
             db.closeStatement(line);
         }
     }
-    
+    /**
+     * Delete course
+     * @return Error variable
+     */
     public boolean deleteCourse(){
         try {
             db.openConnection();
@@ -95,7 +101,7 @@ public class Course {
             line.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Failure in deleteCourse():" + e.getMessage());
+            db.WriteMessage(e, "deleteCourse()");
             return false;
         } finally {
             db.closeConnection();
@@ -103,7 +109,10 @@ public class Course {
             db.closeStatement(line);
         }
     }
-    
+    /**
+     * Add a course
+     * @return 
+     */
     public boolean addCourse(){
          try {
             db.openConnection();
@@ -115,7 +124,7 @@ public class Course {
             line.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Failure in deleteCourse():" + e.getMessage());
+            db.WriteMessage(e, "addCourse()");
             return false;
         } finally {
             db.closeConnection();

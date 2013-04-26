@@ -36,7 +36,6 @@ public class Users {
      * Constructor checks if a user is logged in on the web-site, and creates an
      * object from data in the database.
      */
-    
     public Users() {
         if (user != null) {
             this.username = user;
@@ -52,7 +51,7 @@ public class Users {
 
                 }
             } catch (SQLException e) {
-                System.out.println("Could not get name from DB " + e.getMessage());
+                db.WriteMessage(e, "Users() constructor");
 
             } finally {
                 db.closeResSet(res);
@@ -120,6 +119,12 @@ public class Users {
             db.closeConnection();
         }
     }
+    /**
+     * Change user on a specific username.
+     * @param name new Name
+     * @param address new Address
+     * @param username Specific username
+     */
     public void changeUser(String name, String address, String username) {
         try {
             db.openConnection();
@@ -130,7 +135,7 @@ public class Users {
             line.executeUpdate();
 
         } catch (SQLException e) {
-            System.out.println("Could not get name from DB " + e.getMessage());
+            db.WriteMessage(e, "changeUser()");
 
         } finally {
             db.closeStatement(line);
@@ -208,6 +213,11 @@ public class Users {
         return 5;
     }
 
+    /**
+     * Set password method
+     * @param password new password
+     * @param newPasswordConfirmed confirmed password(should be the same as password)
+     */
     public void setPassword(String password, String newPasswordConfirmed) {
         int temp = verifyPassword(password, newPasswordConfirmed);
         if(temp==0){
@@ -242,7 +252,7 @@ public class Users {
                 line.setString(2, user);
                 line.executeUpdate();
             } catch (SQLException e) {
-                System.out.println("Could not get name from DB" + e.getMessage());
+                db.WriteMessage(e, "setNewPassword()");
                 return 6;
 
             } finally {
@@ -298,7 +308,7 @@ public class Users {
             line.executeUpdate();
             return 0;
         } catch (SQLException e) {
-            System.out.println("Could not create user in DB" + e.getMessage());
+            db.WriteMessage(e, "newUser()");
             return -1;
 
         } finally {
@@ -328,7 +338,7 @@ public class Users {
             line.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Could not create user in DB" + e.getMessage());
+            db.WriteMessage(e, "newUser(name,username,address...)");
             return false;
 
         } finally {
@@ -339,8 +349,9 @@ public class Users {
         }
     }
     
-    /*
-     *Method used by management to reset password for a user
+    /**
+     * Resets the password for a user
+     * @param username  Specific username
      */
     public void resetPassword(String username){
         try{
@@ -349,7 +360,6 @@ public class Users {
             line.setString(1, username);
             line.executeUpdate();
         }catch(SQLException e){
-            System.out.println("resetPassoword() failure:"+e.getMessage());
         }finally{
             
         }

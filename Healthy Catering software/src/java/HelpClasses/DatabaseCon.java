@@ -15,7 +15,6 @@ import javax.naming.InitialContext;
  * havardb
  */
 public class DatabaseCon {
-//resource injection
 
     @Resource(name = "jdbc/mysql")
     
@@ -43,7 +42,7 @@ public class DatabaseCon {
             
             con = ds.getConnection();
         } catch (Exception e) {
-            System.out.println("Error with databaseconnection " + e);
+            WriteMessage(e, "openConnection()");
         }
     }
     /**
@@ -55,7 +54,7 @@ public class DatabaseCon {
                 this.con.close();
             }
         } catch (SQLException e) {
-            System.out.println("Can't clse connection");
+            WriteMessage(e, "closeConnection()");
         }
     }
     /**
@@ -68,7 +67,7 @@ public class DatabaseCon {
                 stm.close();
             }
         } catch (SQLException e) {
-            System.out.println("Can't close statement " + e.getMessage());
+            WriteMessage(e, "closeStatement()");
         }
     }
     
@@ -82,7 +81,7 @@ public class DatabaseCon {
                 res.close();
             }
         } catch (SQLException e) {
-            System.out.println("Cant close result " + e.getMessage());
+            WriteMessage(e, "closeResSet()");
         }
     }
     /**
@@ -101,11 +100,16 @@ public class DatabaseCon {
                 this.con.setAutoCommit(true);
             }
         } catch (SQLException e) {
-            System.out.println("Cant set AutoCommit "+ e.getMessage());
+            WriteMessage(e, "setAutoCOmmit()");
         }
     }
     
-     public static void WriteMessage(Exception e, String message) {
+    /**
+     * Method to print message to the error log.
+     * @param e Exception
+     * @param message Message to print to the error log
+     */
+     public void WriteMessage(Exception e, String message) {
         System.err.println("*** Feil oppstått: " + message + ". ***");
         e.printStackTrace(System.err);
     }

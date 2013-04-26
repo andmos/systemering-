@@ -5,6 +5,7 @@ import java.util.Date;
 /**
  *
  * @author havardb
+ * Help-class to handle orders for a driver.
  */
 public class DriverOrders {
 public int order_id;

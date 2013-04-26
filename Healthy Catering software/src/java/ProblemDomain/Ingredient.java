@@ -56,6 +56,11 @@ public class Ingredient {
         return name;
     }
 
+    /**
+     * Add a given quantity to a specific ingredient in a inventory.
+     * @param inventory_id Specific inventory.
+     * @return Error variable.
+     */
     public boolean addQuantity(int inventory_id) {
         try {
             db.openConnection();
@@ -66,7 +71,7 @@ public class Ingredient {
             line.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Failure in addQuantity():" + e.getMessage());
+            db.WriteMessage(e, "addQuantity()");
             return false;
         } finally {
             db.getConnection();
@@ -75,7 +80,11 @@ public class Ingredient {
         }
 
     }
-
+    /**
+     * Remvoe a given quantity to a specific ingredient in a inventory.
+     * @param inventory_id Specific inventory.
+     * @return Error variable.
+     */
     public boolean removeQuantity(int inventory_id) {
        try {
             db.openConnection();
@@ -86,7 +95,7 @@ public class Ingredient {
             line.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Failure in addQuantity():" + e.getMessage());
+            db.WriteMessage(e, "removeQuantity()");
             return false;
         } finally {
             db.getConnection();
@@ -94,7 +103,11 @@ public class Ingredient {
             db.closeStatement(line);
         }
     }
-    
+    /**
+     * Add a new ingredient to a specific inventory.
+     * @param inventory_id Specific inventory.
+     * @return Error variable.
+     */
     public boolean addNewIngredient(int inventory_id){
         try {
             db.openConnection();
@@ -105,7 +118,7 @@ public class Ingredient {
             line.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("Failure in addQuantity():" + e.getMessage());
+            db.WriteMessage(e, "addNewIngredient()");
             return false;
         } finally {
             db.getConnection();

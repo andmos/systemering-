@@ -11,6 +11,7 @@ import java.util.List;
 /**
  *
  * @author havardb
+ * A help-class to handle the SQL queries to print out inventory from the database.
  */
 public class Inventory_List {
 
@@ -19,6 +20,10 @@ public class Inventory_List {
     private ResultSet res = null;
     public String sqlGetInventory = "select * from inventory";
     
+    /**
+     * 
+     * @return A complete list of a inventory from the database.
+     */
     public List getInventory(){
         List<Inventory> list = new ArrayList<Inventory>();
         try{
@@ -32,7 +37,7 @@ public class Inventory_List {
                 list.add(inventory);
             }
         }catch(SQLException e){
-            System.out.println("Failure in getIngredients()"+e.getMessage());
+            db.WriteMessage(e, "getInventory()");
         }finally{
             db.closeConnection();
             db.closeResSet(res);

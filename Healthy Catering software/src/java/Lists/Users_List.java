@@ -13,6 +13,7 @@ import java.util.*;
  *
  * @author
  * havardb
+ * Help-class to help with printing users from the database.
  */
 public class Users_List {
 
@@ -24,7 +25,12 @@ public class Users_List {
     public String sqluser = "select name,address from users where username=?";
     public String sqlGetNamesRegistered = "select name from users;";
     public String sqlGetNamesUnregistered = "select name from tempUser;";
-
+    
+    /**
+     * 
+     * @param role the role of the users you want.
+     * @return A complete list of all users on a specific role.
+     */
     public List getUsers(String role) {
         List list = new ArrayList();
         try {
@@ -40,7 +46,7 @@ public class Users_List {
                     list.add(user);
                 }
         } catch (SQLException e) {
-            System.out.println("getUsers() failed:"+e.getMessage());
+            db.WriteMessage(e,"getUsers()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -49,6 +55,11 @@ public class Users_List {
         return list;
     }
     
+    /**
+     * 
+     * @param username The username you want information from
+     * @return A complete list of information on a user.
+     */
     public List getUser(String username){
         List list = new ArrayList();
         try{
@@ -63,7 +74,7 @@ public class Users_List {
                 list.add(user);
             }
         }catch(SQLException e){
-            System.out.println("getUser() failed:"+e.getMessage());
+            db.WriteMessage(e, "getUser");
         } finally{
             db.closeResSet(res);
             db.closeStatement(line);
@@ -71,6 +82,10 @@ public class Users_List {
         }
         return list;
     }
+    /**
+     * 
+     * @return A complete list of names on users that are registered from the database.
+     */
     public List<String> getNamesRegistered(){
         List<String> list = new ArrayList();
         try{
@@ -81,7 +96,7 @@ public class Users_List {
                 list.add(res.getString("name"));
             }
         }catch(SQLException e){
-            System.out.println("getNamesRegistered() failed:"+e.getMessage());
+            db.WriteMessage(e, "GetNamesRegistered()");
         } finally{
             db.closeResSet(res);
             db.closeStatement(line);
@@ -89,6 +104,10 @@ public class Users_List {
         }
         return list;
     }
+    /**
+     * 
+     * @return A complete list of names on users that are not registered from the database.
+     */
     public List<String> getNamesUnregistered(){
         List<String> list = new ArrayList();
         try{
@@ -99,7 +118,7 @@ public class Users_List {
                 list.add(res.getString("name"));
             }
         }catch(SQLException e){
-            System.out.println("getNamesRegistered() failed:"+e.getMessage());
+            db.WriteMessage(e, "getNamesUnregistered()");
         } finally{
             db.closeResSet(res);
             db.closeStatement(line);

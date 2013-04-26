@@ -7,6 +7,7 @@ package HelpClasses;
 /**
  *
  * @author espen
+  * Help-class to handle statistic object for arraylist.
  */
 public class Statistics_username_priceSum {
     private String username;

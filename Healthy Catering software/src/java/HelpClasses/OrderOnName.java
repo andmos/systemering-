@@ -5,6 +5,7 @@ import java.util.Date;
 /**
  *
  * @author havardb
+ * Help-class to handle orders on a specific name.
  */
 public class OrderOnName {
 public int order_id;

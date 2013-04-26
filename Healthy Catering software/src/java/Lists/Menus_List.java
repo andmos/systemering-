@@ -10,6 +10,7 @@ import java.util.*;
 /**
  *
  * @author espen
+ * A help-class to handle the SQL queries to print out menus from the database.
  */
 public class Menus_List {
 
@@ -28,10 +29,10 @@ public class Menus_List {
     public Menus_List() {
     }
 
-    ;
-    /** 
+    /**
      * Menu_id = 0 ,If you have not chosen a menu from your order history.
-     * Menu_id != 0 ,If you have chosen a menu from your order history. 
+     * Menu_id != 0 ,If you have chosen a menu from your order history.  
+     * @return A complete list of a menu from the database.
      */
     public List buildMenuList() {
         List<Menus> list = new ArrayList<Menus>();
@@ -65,7 +66,7 @@ public class Menus_List {
                 list.add(menu);
             }
         } catch (SQLException e) {
-            System.out.println("Feil i buildMenuList() " + e.getMessage());
+            db.WriteMessage(e, "BuildMenuList()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -76,13 +77,17 @@ public class Menus_List {
 
     /**
      *
-     * @return returns the meny list.
+     * @return A complete list of menus from the database.
      */
     public List getMenu() {
         List<Menus> list = buildMenuList();
         return list; //.size()>0 ? list : null;
     }
-
+    
+    /**
+     * 
+     * @return A menu object from a specific menu.
+     */
     public Menus getMenus() {
         Menus temp = new Menus();
         try {
@@ -109,7 +114,7 @@ public class Menus_List {
                 temp.sum = sum;
             }
         } catch (SQLException e) {
-            System.out.println("Feil i buildMenuList() " + e.getMessage());
+            db.WriteMessage(e, "getMenus()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);

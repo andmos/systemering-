@@ -89,7 +89,10 @@ public class Orders {
     public void setMenuCount(int menuCount) {
         this.menuCount = menuCount;
     }
-
+    
+    /**
+     * Increment a new order number, we had to do this manually because we did not add auto_increment in the database.
+     */
     public void setNewOrderNr() {
         try{
         PreparedStatement line2 = null;
@@ -101,14 +104,18 @@ public class Orders {
             this.order_nr = res2.getInt("max") + 1;
         }
          } catch (SQLException e) {
-            System.out.println("Feil i setNewOrderNr()" + e.getMessage());
+            db.WriteMessage(e, "setNewOrderNr()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
             db.closeConnection();
         }
     }
-
+    /**
+     * Place a new order on a user that are registered.
+     * @param menu New menu to the order.
+     * @return Error variable.
+     */
     public boolean placeOrder(Menus menu) {
         boolean check = false;
         try {
@@ -130,7 +137,7 @@ public class Orders {
             check = true;
 
         } catch (SQLException e) {
-            System.out.println("Feil i placeOrder()" + e.getMessage());
+          db.WriteMessage(e, "placeOrder()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -138,6 +145,13 @@ public class Orders {
         }
         return check;
     }
+    /**
+     * Place a order on a user that are not registered.
+     * @param menu new Menu
+     * @param name new Name
+     * @param deliverDate new Deliver date
+     * @return Error variable.
+     */
      public boolean placeOrder(Menus menu,String name,Date deliverDate) {
         boolean check = false;
         try {
@@ -159,7 +173,7 @@ public class Orders {
             check = true;
 
         } catch (SQLException e) {
-            System.out.println("Feil i placeOrder()" + e.getMessage());
+            db.WriteMessage(e, "placeOrder()");
         } finally {
             db.closeResSet(res);
             db.closeStatement(line);
@@ -168,6 +182,10 @@ public class Orders {
         return check;
     }
      
+     /**
+      * Deliver a specific order
+      * @param order_id Specific order
+      */
      public void DeliverOrder(int order_id){
          try{
              db.openConnection();
@@ -175,7 +193,7 @@ public class Orders {
              line.setInt(1,order_id);
              line.executeUpdate();
          }catch(SQLException e){
-             System.out.println("Failure in DeliverOrder()"+e.getMessage());
+             db.WriteMessage(e, "DeliverOrder()");
          }finally{
              db.closeConnection();
              db.closeResSet(res);
@@ -183,6 +201,10 @@ public class Orders {
          }
      }
      
+     /**
+      * Start cooking a specific order
+      * @param order_id Specific order.
+      */
      public void StartCooking(int order_id){
          try{
              db.openConnection();
@@ -190,14 +212,17 @@ public class Orders {
              line.setInt(1,order_id);
              line.executeUpdate();
          }catch(SQLException e){
-             System.out.println("Failure in DeliverOrder()"+e.getMessage());
+             db.WriteMessage(e, "StartCooking");
          }finally{
              db.closeConnection();
              db.closeResSet(res);
              db.closeStatement(line);
          }
      }
-     
+     /**
+      * Set a order to done.
+      * @param order_id Specific order.
+      */
      public void DoneCooking(int order_id){
          try{
              db.openConnection();
@@ -205,14 +230,17 @@ public class Orders {
              line.setInt(1,order_id);
              line.executeUpdate();
          }catch(SQLException e){
-             System.out.println("Failure in DeliverOrder()"+e.getMessage());
+             db.WriteMessage(e, "DoneCooking()");
          }finally{
              db.closeConnection();
              db.closeResSet(res);
              db.closeStatement(line);
          }
      }
-     
+     /**
+      * Delete a specific order
+      * @param order_id Specific order
+      */
      public void deleteOrder(int order_id){
          try{
              db.openConnection();
@@ -220,7 +248,7 @@ public class Orders {
              line.setInt(1,order_id);
              line.executeUpdate();
          }catch(SQLException e){
-             System.out.println("Failure in DeleteOrder()"+e.getMessage());
+             db.WriteMessage(e, "deleteOrder()");
          }finally{
              db.closeConnection();
              db.closeResSet(res);
