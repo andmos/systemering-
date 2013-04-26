@@ -75,7 +75,7 @@ Navigation
 #choose a:hover{
     cursor: pointer;
     text-decoration: underline;
-    
+
 }
 #navigation #first{
     position:absolute;
@@ -118,8 +118,8 @@ Content
     position: relative;
     margin: 0 auto;
     width: 700px;
-    }
-    
+}
+
 #pie{
     border-radius: 10px 10px 10px 10px;
     display: inline-block;
@@ -206,7 +206,7 @@ Footer
     margin: 0 auto;
     min-height: 50px;
     background-color: #cfcaaa;
-/*    background-color: #eee;*/
+    /*    background-color: #eee;*/
 }
 #footer > #powered{
     margin-top: 15px; 
@@ -240,7 +240,7 @@ Footer
     filter:alpha(opacity=100); /* For IE8 and earlier */
 }
 #content #add{
-    
+
     display: inline-block;
     position: relative;
     font-size: 40px;
@@ -256,23 +256,37 @@ Footer
     position: relative;
     width: 125px;
 }
- #add .quantityAdd{
+#add .quantityAdd{
     font-size: 20px;
-    
+
     color: green;
-    
+
 }
- #remove .quantityRemove{
+#remove .quantityRemove{
     font-size: 20px;
     color: red;
-        
+
 }
 .quantityAdd:hover{
     cursor: pointer;
     color: green;
-    
+
 }
 .quantityRemove:hover{
     cursor: pointer;
     color: red;
+}
+.calcRoute{
+    width: 600px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#directionsPanel{
+    margin-top: 10px;
+    background-color: #cfcaaa;
+    border-radius: 10px 10px 10px 10px;
+    padding: 5px 5px 5px 5px;
+    color: #4B4B4B;
+    font-family: 'MEgalopolisExtraRegular';
+
 }

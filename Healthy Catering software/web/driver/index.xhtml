@@ -11,10 +11,9 @@
             <ui:define name="content">
                 <h:outputScript library="js" name="googleMap.js"/>
                 <h:outputScript library="js" name="Map.js"/>
-                <p:commandButton action="calcRoute()" value="Calculate Route"/>
-                <!--<input type="button" onclick="calcRoute()" value="" class="buttons"/>-->
+
                 <div id="map_canvas" style="width:600px;height:500px;"></div>
-                
+                <p:commandButton onclick="calcRoute()" value="Calculate Route" styleClass="calcRoute"/>
                 <p:dataTable value="#{order.driverOrders}" var="c" style="">
                     <f:facet name="header">
                         Orders that are ready for delivery
@@ -55,9 +54,8 @@
                     </p:column>
                 </p:dataTable>
                 <div id="directionsPanel"></div>
-                
             </ui:define>
-            
+
         </ui:composition> 
     </h:body>
 </html>
