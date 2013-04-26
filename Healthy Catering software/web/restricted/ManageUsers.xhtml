@@ -148,6 +148,39 @@
                         </h:form>
                     </p:column>
                 </p:dataTable>
+                <!--Salesmen users -->
+                <p:dataTable value="#{user.salesmen}" var="c" >
+                    <f:facet name="header">
+                        Salesmen user
+                    </f:facet>
+                    <p:column> 
+                        <f:facet name="header">
+                            Username
+                        </f:facet>
+                        <h:outputText value="#{c.username}"/>
+                    </p:column>
+                    <p:column> 
+                        <f:facet name="header">
+                            Name
+                        </f:facet>
+                        <h:outputText value="#{c.name}"/>
+                    </p:column>
+                    <p:column> 
+                        <f:facet name="header">
+                            Address
+                        </f:facet>
+                        <h:outputText value="#{c.address}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            Action
+                        </f:facet>
+                        <h:form>
+                            <input type="hidden" value="#{c.username}" name="username"/>
+                            <p:commandButton value="Edit" action="#{user.chooseUser()}" ajax="false"/>
+                        </h:form>
+                    </p:column>
+                </p:dataTable>
                 <br></br>
                 <!-- Create new user -->
                 <h:form>
